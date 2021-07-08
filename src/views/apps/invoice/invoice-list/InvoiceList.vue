@@ -7,6 +7,7 @@
 
 
     <b-table
+    v-if='AllInvoices'
       ref="refInvoiceListTable"
       :items="AllInvoices"
       responsive
@@ -164,6 +165,7 @@
       </template>
 
     </b-table>
+    <loader v-else />
     <div class="mx-2 mb-2">
       <b-row>
 
@@ -225,10 +227,12 @@ import store from '@/store'
 import useInvoicesList from './useInvoiceList'
 import axios from 'axios'
 import invoiceStoreModule from '../invoiceStoreModule'
+import loader from '../../../../components/CssPreloader.vue'
 
 export default {
   components: {
     BCard,
+    loader,
     BRow,
     BCol,
     BFormInput,
@@ -247,7 +251,7 @@ export default {
   },
   data(){
     return{
-      AllInvoices: [],
+      AllInvoices: null,
     }
   },
   created(){

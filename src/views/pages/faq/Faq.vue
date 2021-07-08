@@ -14,7 +14,7 @@
         </b-input-group>
       </b-form-group>
     </div>
-    <div
+    <div v-if='categories'
       id="icons-container"
       class="d-flex flex-wrap"
     >
@@ -24,10 +24,12 @@
         <CatCard :icon='icon' />
       </router-link>
     </div>
+    <loader v-else />
   </section>
 </template>
 
 <script>
+import loader from '../../../components/CssPreloader.vue'
 import {
   BFormGroup, BInputGroup, BInputGroupPrepend, BFormInput, BCard, BCardText, VBTooltip,
 } from 'bootstrap-vue'
@@ -45,6 +47,7 @@ export default {
     BCardText,
     BInputGroupPrepend,
     CatCard,
+    loader,
     // eslint-disable-next-line vue/no-unused-components
     ToastificationContent,
   },
@@ -54,7 +57,7 @@ export default {
   data() {
     return {
       seachQuery: '',
-      categories: [],
+      categories: null,
     }
   },
   created(){
