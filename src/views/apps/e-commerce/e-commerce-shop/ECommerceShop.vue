@@ -95,7 +95,7 @@
         <div class="item-img text-center" style='display: flex; align-items: center; justify-content: center;'>
           <b-link :to="{ name: 'apps-e-commerce-product-details', params: { slug: product.offerData.kaspi_id } }">
             <b-img
-              :alt="`${product.offerData.kaspi_name}-${product.offerData.kaspi_id}`"
+              :alt="`${product.offerData.name}-${product.offerData.kaspi_id}`"
               fluid
               class="card-img-top MyImg"
               :src="product.offerData.images[0]"
@@ -133,7 +133,7 @@
               class="text-body"
               :to="{ name: 'apps-e-commerce-product-details', params: { slug: product.offerData.kaspi_id } }"
             >
-              {{ product.offerData.kaspi_name }}
+              {{ product.offerData.name }}
             </b-link>
             <b-card-text class="item-company">
               By <b-link class="ml-25">
@@ -141,9 +141,9 @@
               </b-link>
             </b-card-text>
           </h6>
-          <b-card-text class="item-description">
+          <!-- <b-card-text class="item-description">
             {{ product.description }}
-          </b-card-text>
+          </b-card-text> -->
         </b-card-body>
 
         <!-- Product Actions -->
@@ -352,7 +352,7 @@ export default {
   computed: {
     AllProductsPage(){
       if(this.$store.state.AllProducts){
-        var QueryFilter = this.$store.state.AllProducts.filter(product => product.offerData.kaspi_name.toLowerCase().includes(this.InputValue.toLowerCase()))
+        var QueryFilter = this.$store.state.AllProducts.filter(product => product.offerData.name.toLowerCase().includes(this.InputValue.toLowerCase()))
         return QueryFilter.slice((this.filters.page - 1) * 50, this.filters.page * 50)
       } else {
         return []
