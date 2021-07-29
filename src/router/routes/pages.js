@@ -307,4 +307,24 @@ export default [
       ],
     },
   },
+  {
+    path: '/pages/promocode',
+    name: 'NewPromocode',
+    component: () => import('@/views/pages/blog/Promocode.vue'),
+    meta: {
+      pageTitle: 'New promo',
+      breadcrumb: [
+        {
+          text: 'Pages',
+        },
+        {
+          text: 'Promo',
+        },
+        {
+          text: 'Promocode page',
+          active: true,
+        },
+      ],
+    },
+  },
 ]

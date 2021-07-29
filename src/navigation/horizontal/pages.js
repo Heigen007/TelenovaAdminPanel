@@ -8,8 +8,12 @@ export default [
         route: { name: 'AllPromo`s', params: { id: 1 } },
       },
       {
-        title: 'Create new',
+        title: 'Create new promo',
         route: { name: 'NewPromo', params: { id: 1 } },
+      },
+      {
+        title: 'Promocode page',
+        route: { name: 'NewPromocode'},
       },
     ],
   },

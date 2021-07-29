@@ -78,6 +78,10 @@ export default [
         title: 'Create new',
         route: { name: 'NewPromo', params: { id: 1 } },
       },
+      {
+        title: 'Promocode page',
+        route: { name: 'NewPromocode'},
+      },
     ],
   },
 ]

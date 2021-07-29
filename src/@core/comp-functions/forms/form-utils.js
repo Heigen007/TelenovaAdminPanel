@@ -108,10 +108,15 @@ export const useInputImageRenderer = (inputEl, callback) => {
       callback(values)
     });
   }
+  const inputImageRenderer4 = inputImageRenderer3
+  const inputImageRenderer5 = inputImageRenderer3
   return {
     inputImageRenderer,
     inputImageRenderer2,
     inputImageRenderer3,
+    inputImageRenderer4,
+    inputImageRenderer5
+
   }
 }
 
