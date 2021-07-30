@@ -264,8 +264,6 @@ export default {
       WsConnection: null
     }
   },
-  watch: {
-  },
   setup() {
     const {
       filters, filterOptions, sortBy, sortByOptions,
@@ -335,12 +333,12 @@ export default {
         SortedArray.sort(function(a, b) {
             return a.offerData.price - b.offerData.price;
         });
-        this.$store.commit('ChProductsCopy', SortedArray)
+        this.$store.commit('ChProductsCopy', SortedArray.reverse())
       } else if (text=='Highest') {
         SortedArray.sort(function(a, b) {
             return a.offerData.price - b.offerData.price;
         });
-        this.$store.commit('ChProductsCopy', SortedArray.reverse())
+        this.$store.commit('ChProductsCopy', SortedArray)
       } else if (text=='Featured') {
         SortedArray.sort(function(a, b) {
             return a.offerData.kaspi_rating - b.offerData.kaspi_rating;

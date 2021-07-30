@@ -728,32 +728,31 @@ export default {
     },
     createFirstPromo() {
       var date = this.Promo1.dateDefault.split('-')
-      var formData = new FormData()
+      const formData = new FormData()
       date = new Date(Number(date[0]),Number(date[1]),Number(date[2])).toISOString()
-      this.blogFile.slice(0,3).forEach(file => formData.append('files', file))
-      var obj = {
-        typeOfPromo: 1,
-        productKaspiId: this.Promo1.Id,
-        timeOfPromoEnding: date,
-        files: formData
-      }
-      this.createFinalPromo(obj)
+      this.blogFile.slice(0,3).forEach(file => {
+        formData.append('files', file)
+      })
+      formData.append('typeOfPromo', 1)
+      formData.append('productKaspiId', this.Promo1.Id)
+      formData.append('timeOfPromoEnding', date)
+      formData.append('sale', 0)
+      this.createFinalPromo(formData)
     },
     createSecondPromo() {
       var date = this.Promo2.dateDefault.split('-')
       var formData = new FormData()
       date = new Date(Number(date[0]),Number(date[1]),Number(date[2])).toISOString()
-      this.blogFile2.slice(0,3).forEach(file => formData.append('files', file))
-      var obj = {
-        typeOfPromo: 2,
-        sale: this.Promo2.Discount,
-        bigPromoText: this.Promo2.BoldText,
-        smallPromoText: this.Promo2.LightText,
-        productKaspiId: this.Promo2.Id,
-        timeOfPromoEnding: date,
-        files: formData
-      }
-      this.createFinalPromo(obj)
+      this.blogFile2.slice(0,3).forEach(file => {
+        formData.append('files', file)
+      })
+      formData.append('smallPromoText', this.Promo2.LightText)
+      formData.append('bigPromoText', this.Promo2.BoldText)
+      formData.append('typeOfPromo', 2)
+      formData.append('productKaspiId', this.Promo2.Id)
+      formData.append('timeOfPromoEnding', date)
+      formData.append('sale', this.Promo2.Discount)
+      this.createFinalPromo(formData)
     },
     createThirdPromo() {
       var date = this.Promo3.dateDefault.split('-')
@@ -761,33 +760,33 @@ export default {
       date = new Date(Number(date[0]),Number(date[1]),Number(date[2])).toISOString()
       formData.append('files', this.blogFile3)
       formData.append('files', this.blogFile4)
-      var obj = {
-        typeOfPromo: 3,
-        sale: this.Promo3.Discount,
-        bigPromoText: this.Promo3.BoldText,
-        smallPromoText: this.Promo3.SmallText,
-        productKaspiId: this.Promo3.Id,
-        timeOfPromoEnding: date,
-        files: formData
-      }
-      this.createFinalPromo(obj)
+      formData.append('smallPromoText', this.Promo3.SmallText)
+      formData.append('bigPromoText', this.Promo3.BoldText)
+      formData.append('typeOfPromo', 3)
+      formData.append('productKaspiId', this.Promo3.Id)
+      formData.append('timeOfPromoEnding', date)
+      formData.append('sale', this.Promo3.Discount)
+      this.createFinalPromo(formData)
     },
     createFourthPromo() {
       var date = this.Promo4.dateDefault.split('-')
       var formData = new FormData()
       date = new Date(Number(date[0]),Number(date[1]),Number(date[2])).toISOString()
-      this.blogFile5.slice(0,3).forEach(file => formData.append('files', file))
-      var obj = {
-        typeOfPromo: 4,
-        sale: this.Promo4.Discount,
-        bigPromoText: this.Promo4.BoldText,
-        categoryName: this.Promo4.CategoryName,
-        timeOfPromoEnding: date,
-        files: formData
-      }
-      this.createFinalPromo(obj)
+      this.blogFile5.slice(0,3).forEach(file => {
+        formData.append('files', file)
+      })
+      formData.append('bigPromoText', this.Promo4.BoldText)
+      formData.append('typeOfPromo', 4)
+      formData.append('categoryName', this.Promo4.CategoryName)
+      formData.append('timeOfPromoEnding', date)
+      formData.append('sale', this.Promo4.Discount)
+      this.createFinalPromo(formData)
     },
     createFinalPromo(obj) {
+      console.log(obj);
+      for (var pair of obj.entries()) {
+        console.log(pair[0]+ ', ' + pair[1]);
+      }
       axios.post('https://textforeva.ru/promoAction/', obj)
       .then( res => {
         console.log(res);

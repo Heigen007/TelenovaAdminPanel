@@ -193,10 +193,6 @@
             class="mx-1"
             @click="deletePromo(data.item._id)"
           />
-          <b-tooltip
-            title="Delete promocode"
-            :target="`invoice-row-${data.item._id}-preview-icon`"
-          />
 
           <!-- Dropdown -->
           <!-- <b-dropdown
@@ -321,7 +317,7 @@ export default {
       })
     },
     deletePromo(id) {
-      axios.delete('https://textforeva.ru/promoCode/', {id: id})
+      axios.delete('https://textforeva.ru/promoCode/', { data: { id: id } })
       .then(res => {
         console.log({id: id},res);
         Swal.fire(
@@ -329,7 +325,7 @@ export default {
           'Promocode has been deleted!',
           'success'
         )
-        setTimeout(() => location.reload(), 400);
+        // setTimeout(() => location.reload(), 400);
       })
       .catch(err => {
         Swal.fire(

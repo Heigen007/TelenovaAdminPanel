@@ -109,6 +109,7 @@ export default new Vuex.Store({
       dispatch('connect')
       axios.get(`https://textforeva.ru/storage`)
       .then(response => {
+        console.log(response);
         commit('SetProducts', response.data)
         commit('SetLoaderTrue')
       })
