@@ -187,15 +187,15 @@
           /> -->
 
           <feather-icon
-            :id="`invoice-row-${data.item.id}-preview-icon`"
-            icon="EyeIcon"
+            :id="`invoice-row-${data.item._id}-preview-icon`"
+            icon="DeleteIcon"
             size="16"
             class="mx-1"
-            @click="$router.push({ name: 'apps-invoice-preview', params: { id: data.item.id }})"
+            @click="deletePromo(data.item._id)"
           />
           <b-tooltip
-            title="Preview Invoice"
-            :target="`invoice-row-${data.item.id}-preview-icon`"
+            title="Delete promocode"
+            :target="`invoice-row-${data.item._id}-preview-icon`"
           />
 
           <!-- Dropdown -->
@@ -306,17 +306,36 @@ export default {
       axios.post('https://textforeva.ru/promoCode/',obj)
       .then(res => {
         Swal.fire(
-            'Success!',
-            'Promocode has been created!',
-            'success'
+          'Success!',
+          'Promocode has been created!',
+          'success'
         )
         setTimeout(() => location.reload(), 400);
       })
       .catch(err => {
         Swal.fire(
-            'Error!',
-            'Some error occurred',
-            'error'
+          'Error!',
+          'Some error occurred',
+          'error'
+        )
+      })
+    },
+    deletePromo(id) {
+      axios.delete('https://textforeva.ru/promoCode/', {id: id})
+      .then(res => {
+        console.log({id: id},res);
+        Swal.fire(
+          'Success!',
+          'Promocode has been deleted!',
+          'success'
+        )
+        setTimeout(() => location.reload(), 400);
+      })
+      .catch(err => {
+        Swal.fire(
+          'Error!',
+          'Some error occurred',
+          'error'
         )
       })
     }
@@ -325,6 +344,7 @@ export default {
     var self = this
     axios.get('https://textforeva.ru/promoCode/')
     .then(response => {
+      console.log(response);
       var filteredData = JSON.parse(JSON.stringify(response.data))
       self.AllInvoices = filteredData
     })

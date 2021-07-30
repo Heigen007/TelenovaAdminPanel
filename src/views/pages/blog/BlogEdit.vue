@@ -75,6 +75,15 @@
                     placeholder="Product Id"
                   />
                 </b-form-group>
+                <b-form-group>
+                  <h5 class="font-weight-bold">
+                    Time of Promo Ending
+                  </h5>
+                  <flat-pickr
+                    v-model="Promo1.dateDefault"
+                    class="form-control"
+                  />
+                </b-form-group>
                 <b-col
                   cols="12"
                   class="mt-50"
@@ -91,6 +100,7 @@
                     v-ripple.400="'rgba(255, 255, 255, 0.15)'"
                     variant="primary"
                     class="ml-1"
+                    @click="createFirstPromo"
                   >
                     Create
                   </b-button>
@@ -184,7 +194,7 @@
                     placeholder="Enter Text"
                   />
                 </b-form-group>
-                <b-form-group
+                <!-- <b-form-group
                   label="Price Input(number only)"
                   label-for="basicInput3"
                   class='my-2'
@@ -194,6 +204,16 @@
                     v-model='Promo2.PriceFrom'
                     id="basicInput3"
                     placeholder="Enter Price"
+                  />
+                </b-form-group> -->
+                <b-form-group
+                  label="Promo discount(%)"
+                  class='my-2'
+                >
+                  <b-form-input
+                    type='number'
+                    v-model='Promo2.Discount'
+                    placeholder="Enter Discount"
                   />
                 </b-form-group>
                 <b-form-group
@@ -205,6 +225,15 @@
                     v-model='Promo2.Id'
                     id="basicInput"
                     placeholder="Product Id"
+                  />
+                </b-form-group>
+                <b-form-group>
+                  <h5 class="font-weight-bold">
+                    Time of Promo Ending
+                  </h5>
+                  <flat-pickr
+                    v-model="Promo2.dateDefault"
+                    class="form-control"
                   />
                 </b-form-group>
                 <b-col
@@ -223,6 +252,7 @@
                     v-ripple.400="'rgba(255, 255, 255, 0.15)'"
                     variant="primary"
                     class="ml-1"
+                    @click="createSecondPromo"
                   >
                     Create
                   </b-button>
@@ -330,6 +360,16 @@
                   />
                 </b-form-group>
                 <b-form-group
+                  label="Promo discount(%)"
+                  class='my-2'
+                >
+                  <b-form-input
+                    type='number'
+                    v-model='Promo3.Discount'
+                    placeholder="Enter Discount"
+                  />
+                </b-form-group>
+                <!-- <b-form-group
                   label="New Price of Product(Number)"
                   label-for="basicInput4"
                   class='my-2'
@@ -350,8 +390,8 @@
                     v-model='Promo3.OldPrice'
                     placeholder="Enter Price"
                   />
-                </b-form-group>
-                <b-form-group
+                </b-form-group> -->
+                <!-- <b-form-group
                   label="Available number of products(Number)"
                   class='my-2'
                 >
@@ -370,7 +410,7 @@
                     v-model='Promo3.AlrNum'
                     placeholder="Enter Number"
                   />
-                </b-form-group>
+                </b-form-group> -->
                 <b-form-group>
                   <h5 class="font-weight-bold">
                     Time of Promo Ending
@@ -396,6 +436,7 @@
                     v-ripple.400="'rgba(255, 255, 255, 0.15)'"
                     variant="primary"
                     class="ml-1"
+                    @click="createThirdPromo"
                   >
                     Create
                   </b-button>
@@ -478,7 +519,7 @@
                     placeholder="Enter Text"
                   />
                 </b-form-group>
-                <b-form-group
+                <!-- <b-form-group
                   label="Price Input(number only)"
                   label-for="basicInput3"
                   class='my-2'
@@ -489,6 +530,16 @@
                     id="basicInput3"
                     placeholder="Enter Price"
                   />
+                </b-form-group> -->
+                <b-form-group
+                  label="Promo discount(%)"
+                  class='my-2'
+                >
+                  <b-form-input
+                    type='number'
+                    v-model='Promo4.Discount'
+                    placeholder="Enter Discount"
+                  />
                 </b-form-group>
                 <b-form-group
                   label="Second-tier Category Name"
@@ -497,6 +548,15 @@
                   <b-form-input
                     v-model='Promo4.CategoryName'
                     placeholder="Category Name"
+                  />
+                </b-form-group>
+                <b-form-group>
+                  <h5 class="font-weight-bold">
+                    Time of Promo Ending
+                  </h5>
+                  <flat-pickr
+                    v-model="Promo4.dateDefault"
+                    class="form-control"
                   />
                 </b-form-group>
                 <b-col
@@ -515,6 +575,7 @@
                     v-ripple.400="'rgba(255, 255, 255, 0.15)'"
                     variant="primary"
                     class="ml-1"
+                    @click="createFourthPromo"
                   >
                     Create
                   </b-button>
@@ -537,6 +598,8 @@ import {
 import Ripple from 'vue-ripple-directive'
 import { useInputImageRenderer } from '@core/comp-functions/forms/form-utils'
 import { ref } from '@vue/composition-api'
+import Swal from 'sweetalert2'
+import axios from 'axios'
 
 export default {
   components: {
@@ -663,6 +726,87 @@ export default {
         this.$refs["refPreviewEl11"].src = this.blogEdit.featuredImage
       });
     },
+    createFirstPromo() {
+      var date = this.Promo1.dateDefault.split('-')
+      var formData = new FormData()
+      date = new Date(Number(date[0]),Number(date[1]),Number(date[2])).toISOString()
+      this.blogFile.slice(0,3).forEach(file => formData.append('files', file))
+      var obj = {
+        typeOfPromo: 1,
+        productKaspiId: this.Promo1.Id,
+        timeOfPromoEnding: date,
+        files: formData
+      }
+      this.createFinalPromo(obj)
+    },
+    createSecondPromo() {
+      var date = this.Promo2.dateDefault.split('-')
+      var formData = new FormData()
+      date = new Date(Number(date[0]),Number(date[1]),Number(date[2])).toISOString()
+      this.blogFile2.slice(0,3).forEach(file => formData.append('files', file))
+      var obj = {
+        typeOfPromo: 2,
+        sale: this.Promo2.Discount,
+        bigPromoText: this.Promo2.BoldText,
+        smallPromoText: this.Promo2.LightText,
+        productKaspiId: this.Promo2.Id,
+        timeOfPromoEnding: date,
+        files: formData
+      }
+      this.createFinalPromo(obj)
+    },
+    createThirdPromo() {
+      var date = this.Promo3.dateDefault.split('-')
+      var formData = new FormData()
+      date = new Date(Number(date[0]),Number(date[1]),Number(date[2])).toISOString()
+      formData.append('files', this.blogFile3)
+      formData.append('files', this.blogFile4)
+      var obj = {
+        typeOfPromo: 3,
+        sale: this.Promo3.Discount,
+        bigPromoText: this.Promo3.BoldText,
+        smallPromoText: this.Promo3.SmallText,
+        productKaspiId: this.Promo3.Id,
+        timeOfPromoEnding: date,
+        files: formData
+      }
+      this.createFinalPromo(obj)
+    },
+    createFourthPromo() {
+      var date = this.Promo4.dateDefault.split('-')
+      var formData = new FormData()
+      date = new Date(Number(date[0]),Number(date[1]),Number(date[2])).toISOString()
+      this.blogFile5.slice(0,3).forEach(file => formData.append('files', file))
+      var obj = {
+        typeOfPromo: 4,
+        sale: this.Promo4.Discount,
+        bigPromoText: this.Promo4.BoldText,
+        categoryName: this.Promo4.CategoryName,
+        timeOfPromoEnding: date,
+        files: formData
+      }
+      this.createFinalPromo(obj)
+    },
+    createFinalPromo(obj) {
+      axios.post('https://textforeva.ru/promoAction/', obj)
+      .then( res => {
+        console.log(res);
+        Swal.fire(
+          'Success!',
+          'Promo has been created!',
+          'success'
+        )
+        // setTimeout(() => location.reload(), 400);
+      })
+      .catch( err => {
+        console.log(err);
+        Swal.fire(
+          'Error!',
+          'Some error occurred',
+          'error'
+        )
+      })
+    }
   }
 }
 </script>
