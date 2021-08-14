@@ -23,6 +23,24 @@ export default [
     },
   },
   {
+    path: '/apps/e-commerce/update',
+    name: 'apps-e-commerce-update',
+    component: () => import('@/views/apps/e-commerce/e-commerce-shop/ECommerceUpdate.vue'),
+    meta: {
+      contentClass: 'ecommerce-application',
+      pageTitle: 'Update',
+      breadcrumb: [
+        {
+          text: 'ECommerce',
+        },
+        {
+          text: 'Update',
+          active: true,
+        },
+      ],
+    },
+  },
+  {
     path: '/apps/e-commerce/:slug',
     name: 'apps-e-commerce-product-details',
     component: () => import('@/views/apps/e-commerce/e-commerce-product-details/ECommerceProductDetails.vue'),
@@ -59,5 +77,10 @@ export default [
     path: '/apps/invoice/edit/:id',
     name: 'apps-invoice-edit',
     component: () => import('@/views/apps/invoice/invoice-edit/InvoiceEdit.vue'),
+  },
+  {
+    path: '/apps/XlsxLinks',
+    name: 'apps-xlsx',
+    component: () => import('@/views/apps/xlsx/xlsxLinks.vue'),
   },
 ]
