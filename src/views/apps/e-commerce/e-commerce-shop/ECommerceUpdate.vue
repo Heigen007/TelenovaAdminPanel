@@ -4,14 +4,6 @@
   <b-card
     no-body
   >
-
-      <b-button
-        v-ripple.400="'rgba(113, 102, 240, 0.15)'"
-        v-b-modal.modal-select2
-        variant="outline-primary"
-      >
-        Select2 With Modal
-      </b-button>
     <b-modal
       id="modal-select2"
       centered
@@ -174,6 +166,7 @@
             icon="EyeIcon"
             size="16"
             class="mx-1"
+            v-b-modal.modal-select2
           />
 
           <!-- Dropdown -->
@@ -403,7 +396,7 @@ export default {
   },
   methods: {
     handleOk(){
-        alert(1)
+      alert(1)
     }
   }
 }

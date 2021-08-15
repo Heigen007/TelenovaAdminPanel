@@ -306,7 +306,7 @@ export default {
           'Promocode has been created!',
           'success'
         )
-        setTimeout(() => location.reload(), 400);
+        setTimeout(() => location.reload(), 1000);
       })
       .catch(err => {
         Swal.fire(
@@ -325,7 +325,7 @@ export default {
           'Promocode has been deleted!',
           'success'
         )
-        // setTimeout(() => location.reload(), 400);
+        setTimeout(() => location.reload(), 1000);
       })
       .catch(err => {
         Swal.fire(

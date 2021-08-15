@@ -217,7 +217,7 @@
             responsive
             striped hover
             :items="invInfo.goods"
-            :fields="['Name', 'count', 'price', 'total']"
+            :fields="['Name', 'Seller', 'count', 'price', 'total']"
           >
             <template #cell(Name)="data">
               <b-card-text class="font-weight-bold mb-25">
@@ -424,39 +424,57 @@ export default {
     var self = this
     axios.get('https://textforeva.ru/order')
     .then(response => {
+      console.log(response);
       var filteredData = JSON.parse(JSON.stringify(response.data))
-      for(var i = 0; i < response.data.length; i++){
-        var UpdatedGoods = filteredData[i].goods
+      filteredData = filteredData.find(el => el._id == this.$route.params.id)
+      console.log(filteredData);
+        var UpdatedGoods = filteredData.goods
         for(var y = 0; y < UpdatedGoods.length; y++){
+          if(UpdatedGoods[y].product.offerData.seller) {
           UpdatedGoods[y] = {
             Name: UpdatedGoods[y].product.offerData.kaspi_name,
+            Seller: UpdatedGoods[y].product.offerData.seller,
             price: UpdatedGoods[y].price/UpdatedGoods[y].count + ' тг.',
             count: UpdatedGoods[y].count,
             total: Number(UpdatedGoods[y].price)+ ' тг.'
           }
+          } else if(UpdatedGoods[y].product.offerData.sellers){
+            UpdatedGoods[y] = {
+              Name: UpdatedGoods[y].product.offerData.kaspi_name,
+              Seller: Object.keys(UpdatedGoods[y].product.offerData.sellers)[0],
+              price: UpdatedGoods[y].price/UpdatedGoods[y].count + ' тг.',
+              count: UpdatedGoods[y].count,
+              total: Number(UpdatedGoods[y].price)+ ' тг.'
+            }
+          } else {
+            console.log(UpdatedGoods[y]);
+            UpdatedGoods[y] = {
+              Name: UpdatedGoods[y].product.offerData.kaspi_name,
+              price: UpdatedGoods[y].price/UpdatedGoods[y].count + ' тг.',
+              count: UpdatedGoods[y].count,
+              total: Number(UpdatedGoods[y].price)+ ' тг.'
+            }
+          }
         }
-        filteredData[i] = {
-          id: filteredData[i]._id,
-          issuedDate: new Date(filteredData[i].date).toLocaleString().split(',')[0],
-          total: filteredData[i].finishPrice,
+        filteredData = {
+          id: filteredData._id,
+          issuedDate: new Date(filteredData.date).toLocaleString().split(',')[0],
+          total: filteredData.finishPrice,
           avatar: '',
-          invoiceStatus: filteredData[i].paymentStatus == 'notPaid' ? 'Not Paid' : 'Paid' ,
+          invoiceStatus: filteredData.paymentStatus == 'notPaid' ? 'Not Paid' : 'Paid' ,
           balance: 100,
-          dueDate: new Date(filteredData[i].date).toLocaleString().split(',')[0],
+          dueDate: new Date(filteredData.date).toLocaleString().split(',')[0],
           client: {
-            address: filteredData[i].address,
-            email: filteredData[i].email,
-            name: filteredData[i].name,
-            phone: filteredData[i].phoneNumber
+            address: filteredData.address,
+            email: filteredData.email,
+            name: filteredData.name,
+            phone: filteredData.phoneNumber
           },
-          paymentMethod: filteredData[i].paymentMethod,
+          paymentMethod: filteredData.paymentMethod,
           goods: UpdatedGoods,
-          orderStatus: filteredData[i].orderStatus
+          orderStatus: filteredData.orderStatus
         }
-      }
-      var find = filteredData.find(el => el.id == this.$route.params.id)
-      self.invInfo = find
-      console.log(filteredData,'LLLLLLLLLLLLLLL',find);
+      self.invInfo = filteredData
     })
     .catch(error => {
       console.log(error)

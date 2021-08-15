@@ -584,6 +584,112 @@
             </b-media>
           </div>
         </b-col>
+        <b-col
+          cols="12"
+          class="mb-2"
+        >
+          <div class="border rounded p-2">
+            <h4 class="mb-1">
+              Promo 5
+            </h4>
+            <b-media
+              no-body
+              vertical-align="center"
+              style="flex-wrap:wrap"
+            >
+              <b-media-aside
+                style="flex-wrap: wrap;"
+              >
+                <b-img
+                  ref="refPreviewEl12"
+                  :src="blogEdit.featuredImage"
+                  height="110"
+                  width="170"
+                  class="rounded mr-2 mb-1 mb-md-0"
+                />
+                <b-img
+                  ref="refPreviewEl13"
+                  :src="blogEdit.featuredImage"
+                  height="110"
+                  width="170"
+                  class="rounded mr-2 mb-1 mb-md-0"
+                />
+                <b-img
+                  ref="refPreviewEl14"
+                  :src="blogEdit.featuredImage"
+                  height="110"
+                  width="170"
+                  class="rounded mr-2 mb-1 mb-md-0"
+                />
+              </b-media-aside>
+              <b-media-body
+                style="min-width:200px"
+              >
+                <small class="text-muted">Required image resolution 330x360, image should be without text on it, write the promo text down below</small>
+                <b-card-text class="my-50">
+                  <b-link id="blog-image-text">
+                    C:\fakepath\{{ blogFile ? blogFile.name : 'banner.jpg' }}
+                  </b-link>
+                </b-card-text>
+                  <b-col
+                    md="6"
+                    xl="4"
+                    class="mb-1"
+                  >
+                  </b-col>
+                <div class="d-inline-block">
+                  <b-form-file
+                    ref="refInputEl6"
+                    v-model="blogFile6"
+                    accept=".jpg, .png, .gif"
+                    multiple
+                    placeholder="Choose file"
+                    @input="inputImageRenderer6"
+                  />
+                </div>
+                <b-form-group
+                  label="Product Id"
+                  class='my-2'
+                >
+                  <b-form-input
+                    v-model='Promo5.Id'
+                    placeholder="Id"
+                  />
+                </b-form-group>
+                <b-form-group>
+                  <h5 class="font-weight-bold">
+                    Time of Promo Ending
+                  </h5>
+                  <flat-pickr
+                    v-model="Promo5.dateDefault"
+                    class="form-control"
+                  />
+                </b-form-group>
+                <b-col
+                  cols="12"
+                  class="mt-50"
+                  style="padding-left: 0"
+                >
+                  <b-button
+                    v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+                    variant="primary"
+                    @click="FifthReset"
+                  >
+                    Clear
+                  </b-button>
+                  <b-button
+                    v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+                    variant="primary"
+                    class="ml-1"
+                    @click="createFifthPromo"
+                  >
+                    Create
+                  </b-button>
+                </b-col>
+              </b-media-body>
+            </b-media>
+          </div>
+        </b-col>
       </b-row>
     </b-form>
     <!--/ form -->
@@ -629,12 +735,14 @@ export default {
       Promo2: {},
       Promo3: {},
       Promo4: {},
+      Promo5: {},
       blogEdit: {},
       blogFile: [],
       blogFile2: [],
       blogFile3: [],
       blogFile4: [],
       blogFile5: [],
+      blogFile6: [],
       categoryOption: ['Fashion', 'Food', 'Gaming', 'Quote', 'Video'],
       statusOption: ['Published', 'Pending', 'Draft'],
       snowOption: {
@@ -651,6 +759,7 @@ export default {
     const refInputEl3 = ref(null)
     const refInputEl4 = ref(null)
     const refInputEl5 = ref(null)
+    const refInputEl6 = ref(null)
     const refPreviewEl = ref(null)
     const refPreviewEl2 = ref(null)
     const refPreviewEl3 = ref(null)
@@ -662,12 +771,16 @@ export default {
     const refPreviewEl9 = ref(null)
     const refPreviewEl10 = ref(null)
     const refPreviewEl11 = ref(null)
+    const refPreviewEl12 = ref(null)
+    const refPreviewEl13 = ref(null)
+    const refPreviewEl14 = ref(null)
 
     const { inputImageRenderer } = useInputImageRenderer(refInputEl1, base64 => { refPreviewEl.value.src = base64[0] || "/img/03.ada37056.jpg",  refPreviewEl2.value.src = base64[1] || "/img/03.ada37056.jpg", refPreviewEl3.value.src = base64[2] || "/img/03.ada37056.jpg" })
     const { inputImageRenderer2 } = useInputImageRenderer(refInputEl2, base64 => { refPreviewEl4.value.src = base64[0] || "/img/03.ada37056.jpg",  refPreviewEl5.value.src = base64[1] || "/img/03.ada37056.jpg", refPreviewEl6.value.src = base64[2] || "/img/03.ada37056.jpg" })
     const { inputImageRenderer3 } = useInputImageRenderer(refInputEl3, base64 => { refPreviewEl7.value.src = base64[0] || "/img/03.ada37056.jpg" })
     const { inputImageRenderer4 } = useInputImageRenderer(refInputEl4, base64 => { refPreviewEl8.value.src = base64[0] || "/img/03.ada37056.jpg" })
     const { inputImageRenderer5 } = useInputImageRenderer(refInputEl5, base64 => { refPreviewEl9.value.src = base64[0] || "/img/03.ada37056.jpg",  refPreviewEl10.value.src = base64[1] || "/img/03.ada37056.jpg", refPreviewEl11.value.src = base64[2] || "/img/03.ada37056.jpg" })
+    const { inputImageRenderer6 } = useInputImageRenderer(refInputEl6, base64 => { refPreviewEl12.value.src = base64[0] || "/img/03.ada37056.jpg",  refPreviewEl13.value.src = base64[1] || "/img/03.ada37056.jpg", refPreviewEl14.value.src = base64[2] || "/img/03.ada37056.jpg" })
 
 
     return {
@@ -676,6 +789,7 @@ export default {
       refInputEl3,
       refInputEl4,
       refInputEl5,
+      refInputEl6,
       refPreviewEl,
       refPreviewEl2,
       refPreviewEl3,
@@ -687,11 +801,15 @@ export default {
       refPreviewEl9,
       refPreviewEl10,
       refPreviewEl11,
+      refPreviewEl12,
+      refPreviewEl13,
+      refPreviewEl14,
       inputImageRenderer,
       inputImageRenderer2,
       inputImageRenderer3,
       inputImageRenderer4,
-      inputImageRenderer5
+      inputImageRenderer5,
+      inputImageRenderer6
     }
   },
   methods: {
@@ -724,6 +842,14 @@ export default {
         this.$refs["refPreviewEl9"].src = this.blogEdit.featuredImage
         this.$refs["refPreviewEl10"].src = this.blogEdit.featuredImage
         this.$refs["refPreviewEl11"].src = this.blogEdit.featuredImage
+      });
+    },
+    FifthReset(){
+      this.blogFile6 = {}
+      this.$nextTick(() => {
+        this.$refs["refPreviewEl12"].src = this.blogEdit.featuredImage
+        this.$refs["refPreviewEl13"].src = this.blogEdit.featuredImage
+        this.$refs["refPreviewEl14"].src = this.blogEdit.featuredImage
       });
     },
     createFirstPromo() {
@@ -780,6 +906,18 @@ export default {
       formData.append('categoryName', this.Promo4.CategoryName)
       formData.append('timeOfPromoEnding', date)
       formData.append('sale', this.Promo4.Discount)
+      this.createFinalPromo(formData)
+    },
+    createFifthPromo() {
+      var date = this.Promo5.dateDefault.split('-')
+      var formData = new FormData()
+      date = new Date(Number(date[0]),Number(date[1]),Number(date[2])).toISOString()
+      this.blogFile6.slice(0,3).forEach(file => {
+        formData.append('files', file)
+      })
+      formData.append('typeOfPromo', 5)
+      formData.append('productKaspiId', this.Promo5.id)
+      formData.append('timeOfPromoEnding', date)
       this.createFinalPromo(formData)
     },
     createFinalPromo(obj) {

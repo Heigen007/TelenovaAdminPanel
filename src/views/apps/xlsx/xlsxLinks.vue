@@ -25,12 +25,65 @@
               <b-form-input
                 id="item-name"
                 type="text"
-                placeholder="Vuexy Admin Template"
+                placeholder="Name"
+                v-model='item.supplier_name'
+              />
+            </b-form-group>
+          </b-col>
+          <b-col md="4">
+            <b-form-group
+              label="Item link"
+              label-for="item-name"
+            >
+              <b-form-input
+                id="item-name"
+                type="text"
+                placeholder="Link"
+                v-model='item.link'
+              />
+            </b-form-group>
+          </b-col>
+          <b-col md="4">
+            <b-form-group
+              label="Name column"
+              label-for="item-name"
+            >
+              <b-form-input
+                id="item-name"
+                type="text"
+                placeholder="Name"
+                v-model='item.name_col'
+              />
+            </b-form-group>
+          </b-col>
+          <b-col md="4">
+            <b-form-group
+              label="Opt price column"
+              label-for="item-name"
+            >
+              <b-form-input
+                id="item-name"
+                type="number"
+                placeholder="Price"
+                v-model='item.opt_price_col'
+              />
+            </b-form-group>
+          </b-col>
+          <b-col md="4">
+            <b-form-group
+              label="Currency column"
+              label-for="item-name"
+            >
+              <b-form-input
+                id="item-name"
+                type="text"
+                placeholder="Currency"
+                v-model='item.currency_col'
               />
             </b-form-group>
           </b-col>
           <b-col
-            lg="2"
+            md="2"
             style='align-items: center; display: flex'
             class="mb-50"
           >
@@ -38,13 +91,14 @@
               v-ripple.400="'rgba(234, 84, 85, 0.15)'"
               variant="outline-info"
               class="mt-0 mt-md-2"
+              @click='changeLink(item)'
             >
               <span>Create</span>
             </b-button>
           </b-col>
           <!-- Remove Button -->
           <b-col
-            lg="2"
+            md="2"
             style='align-items: center; display: flex'
             class="mb-50"
           >
@@ -52,7 +106,7 @@
               v-ripple.400="'rgba(234, 84, 85, 0.15)'"
               variant="outline-danger"
               class="mt-0 mt-md-2"
-              @click="removeItem(index)"
+              @click="removeItem(item,index)"
             >
               <feather-icon
                 icon="XIcon"
@@ -79,7 +133,24 @@
       />
       <span>Add New</span>
     </b-button>
-
+    <br>
+    <b-button
+      v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+      variant="info"
+      @click="kaspiXml"
+      class='mt-2'
+    >
+      <span>Export Kaspi.xml</span>
+    </b-button>
+    <br>
+    <b-button
+      v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+      variant="primary"
+      @click="addProxy"
+      class='mt-2'
+    >
+      <span>Add Proxy</span>
+    </b-button>
 
   </b-card-code>
 </template>
@@ -91,6 +162,7 @@ import {
 } from 'bootstrap-vue'
 import { heightTransition } from '@core/mixins/ui/transition'
 import Ripple from 'vue-ripple-directive'
+import axios from 'axios'
 
 export default {
   components: {
@@ -114,11 +186,19 @@ export default {
         selected1: 'designer',
         prevHeight: 0,
       }],
+      Links: [],
       nextTodoId: 2,
     }
   },
   mounted() {
     this.initTrHeight()
+    axios.get('http://192.168.219.170:5000/links')
+    .then(res => {
+      console.log(res);
+    })
+    .catch(err => {
+      console.log(err);
+    })
   },
   created() {
     window.addEventListener('resize', this.initTrHeight)
@@ -136,9 +216,12 @@ export default {
         this.trAddHeight(this.$refs.row[0].offsetHeight)
       })
     },
+    changeLink(item){
+
+    },
     removeItem(index) {
-      this.items.splice(index, 1)
-      this.trTrimHeight(this.$refs.row[0].offsetHeight)
+      // this.items.splice(index, 1)
+      // this.trTrimHeight(this.$refs.row[0].offsetHeight)
     },
     initTrHeight() {
       this.trSetHeight(null)
@@ -146,6 +229,10 @@ export default {
         this.trSetHeight(this.$refs.form.scrollHeight)
       })
     },
+    kaspiXml(){
+    },
+    addProxy(){
+    }
   },
 }
 </script>
