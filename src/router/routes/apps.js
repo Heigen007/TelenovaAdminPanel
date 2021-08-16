@@ -83,4 +83,9 @@ export default [
     name: 'apps-xlsx',
     component: () => import('@/views/apps/xlsx/xlsxLinks.vue'),
   },
+  {
+    path: '/proxy',
+    name: 'apps-proxy',
+    component: () => import('@/views/apps/proxy/proxy.vue'),
+  },
 ]

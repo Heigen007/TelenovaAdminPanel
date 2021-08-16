@@ -59,6 +59,11 @@ export default [
     icon: 'LinkIcon',
     route: 'apps-xlsx',
   },
+  {
+    title: 'Proxy',
+    icon: 'LinkIcon',
+    route: 'apps-proxy',
+  },
   // {
   //   title: 'User',
   //   icon: 'UserIcon',

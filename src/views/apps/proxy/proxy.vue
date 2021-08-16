@@ -1,5 +1,28 @@
+
 <template>
-  <b-card-code title="Xlsx links">
+  <b-card-code title="Proxy list">
+    <b-modal
+      id="modal3"
+      centered
+      title="Basic Modal"
+      ok-title="submit"
+      cancel-variant="outline-secondary"
+      @ok="addProxy"
+    >
+      <b-form-group
+        label="Enter Proxy"
+        label-for="name"
+      >
+        <b-form-textarea
+          style='margin: 5px 0 5px 0;'
+          id="name"
+          v-model='proxy'
+          placeholder="Proxy"
+          rows="3"
+          max-rows="5"
+        ></b-form-textarea>
+      </b-form-group>
+    </b-modal>
     <div>
       <b-form
         ref="form"
@@ -11,104 +34,26 @@
         <!-- Row Loop -->
         <b-row
           v-for="(item, index) in items"
-          :id="item._id"
-          :key="item._id"
+          :_id="item._id"
+          :key='"item._id"+index'
           ref="row"
         >
-
-          <!-- Item Name -->
-          <b-col md="4">
-            <b-form-group
-              label="Item Name"
-              label-for="item-name"
-            >
-              <b-form-input
-                id="item-name"
-                type="text"
-                placeholder="Name"
-                v-model='item.supplier_name'
-              />
-            </b-form-group>
-          </b-col>
           <b-col md="4">
             <b-form-group
               label="Item link"
-              label-for="item-name"
+              :label-for='"item-name"+index'
             >
               <b-form-input
-                id="item-name"
+                :id='"item-name"+index'
                 type="text"
                 placeholder="Link"
                 v-model='item._id'
               />
             </b-form-group>
           </b-col>
-          <b-col md="4">
-            <b-form-group
-              label="Name column"
-              label-for="item-name"
-            >
-              <b-form-input
-                id="item-name"
-                type="text"
-                placeholder="Name"
-                v-model='item.name_col'
-              />
-            </b-form-group>
-          </b-col>
-          <b-col md="4">
-            <b-form-group
-              label="Opt price column"
-              label-for="item-name"
-            >
-              <b-form-input
-                id="item-name"
-                type="number"
-                placeholder="Price"
-                v-model='item.opt_price_col'
-              />
-            </b-form-group>
-          </b-col>
-          <b-col md="4">
-            <b-form-group
-              label="Currency column"
-              label-for="item-name"
-            >
-              <b-form-input
-                id="item-name"
-                type="text"
-                placeholder="Currency"
-                v-model='item.currency_col'
-              />
-            </b-form-group>
-          </b-col>
-          <b-col md="4">
-            <b-form-group
-              label="Quantity column"
-              label-for="item-name"
-            >
-              <b-form-input
-                id="item-name"
-                type="text"
-                placeholder="Currency"
-                v-model='item.quantity_col'
-              />
-            </b-form-group>
-          </b-col>
-          <b-col md="4">
-            <b-form-group
-              label="Rrc price  column"
-              label-for="item-name"
-            >
-              <b-form-input
-                id="item-name"
-                type="text"
-                placeholder="Currency"
-                v-model='item.rrc_price_col'
-              />
-            </b-form-group>
-          </b-col>
+
           <b-col
+            v-if='isLink(item)'
             md="2"
             style='align-items: center; display: flex'
             class="mb-50"
@@ -117,13 +62,14 @@
               v-ripple.400="'rgba(234, 84, 85, 0.15)'"
               variant="outline-info"
               class="mt-0 mt-md-2"
-              @click='changeLink(item)'
+              @click='changeProxy(item._id)'
             >
               <span>Create</span>
             </b-button>
           </b-col>
           <!-- Remove Button -->
           <b-col
+            v-if='!isLink(item)'
             md="2"
             style='align-items: center; display: flex'
             class="mb-50"
@@ -132,7 +78,7 @@
               v-ripple.400="'rgba(234, 84, 85, 0.15)'"
               variant="outline-danger"
               class="mt-0 mt-md-2"
-              @click="removeItem(item,index)"
+              @click="removeItem(item._id,index)"
             >
               <feather-icon
                 icon="XIcon"
@@ -162,11 +108,11 @@
     <br>
     <b-button
       v-ripple.400="'rgba(255, 255, 255, 0.15)'"
-      variant="info"
-      @click="kaspiXml"
+      variant="primary"
       class='mt-2'
+      v-b-modal.modal3
     >
-      <span>Export Kaspi.xml</span>
+      <span>Rewrite all proxy</span>
     </b-button>
   </b-card-code>
 </template>
@@ -220,15 +166,18 @@ export default {
   data() {
     return {
       items: [],
-      nextTodoId: 2
+      nextTodoId: 2,
+      proxy: '',
+      itemsCopy: []
     }
   },
   mounted() {
     this.initTrHeight()
-    axios.get('http://178.250.159.216/links')
+    axios.get('http://178.250.159.216/proxy')
     .then(res => {
-      console.log(res);
+      console.log(res.data.data)
       this.items = res.data.data
+      this.itemsCopy = JSON.parse(JSON.stringify(res.data.data))
       for (let index = 0; index < this.items.length; index++) {
         setTimeout(() => {
           this.trAddHeight(this.$refs.row[0].offsetHeight)
@@ -236,7 +185,7 @@ export default {
       }
     })
     .catch(err => {
-      console.log(err);
+      console.log(err)
     })
   },
   created() {
@@ -248,27 +197,23 @@ export default {
   methods: {
     repeateAgain() {
       this.items.push({
-        id: this.nextTodoId += this.nextTodoId,
+        _id: this.nextTodoId += 1
       })
 
       this.$nextTick(() => {
         this.trAddHeight(this.$refs.row[0].offsetHeight)
       })
     },
-    changeLink(item){
+    changeProxy(item){
       var formData = new FormData()
-      if(item._id) formData.append('link', item._id)
-      if(item.name_col) formData.append('name_col', item.name_col)
-      if(item.opt_price_col) formData.append('opt_price_col', item.opt_price_col)
-      if(item.currency_col) formData.append('currency_col', item.currency_col)
-      if(item.supplier_name) formData.append('supplier_name', item.supplier_name)
-      if(item.quantity_col) formData.append('quantity_col', item.quantity_col)
-      if(item.rrc_price_col) formData.append('rrc_price_col', item.rrc_price_col)
-      axios.post('http://178.250.159.216/links', formData)
+      formData.append('proxy_link', item)
+      axios.put('http://178.250.159.216/proxy', formData)
       .then(res => {
         if(!res.data.status) this.makeToast('danger',  res.data.data, 'Error')
         else{
-          this.makeToast('success',  'Link has been updated', 'Success')
+          this.items = res.data.data
+          this.itemsCopy = JSON.parse(JSON.stringify(res.data.data))
+          this.makeToast('success',  'Proxy has been added', 'Success')
         }
       })
       .catch(err => {
@@ -279,13 +224,13 @@ export default {
     removeItem(item,index) {
     console.log(item);
       var formData = new FormData()
-      formData.append('link', item._id)
-      axios.delete('http://178.250.159.216/links', { data: formData })
+      formData.append('proxy_link', item)
+      axios.delete('http://178.250.159.216/proxy', { data: formData })
       .then(res => {
         console.log(res)
         if(!res.data.status) this.makeToast('danger',  res.data.data, 'Error')
         else{
-          this.makeToast('success',  'Link has been deleted', 'Success')
+          this.makeToast('success',  'Proxy has been deleted', 'Success')
         }
       })
       .catch(err => {
@@ -301,7 +246,22 @@ export default {
         this.trSetHeight(this.$refs.form.scrollHeight)
       })
     },
-    kaspiXml(){
+    addProxy(){
+      var formData = new FormData()
+      formData.append('proxy', this.proxy)
+      axios.post('http://178.250.159.216/proxy', formData)
+      .then(res => {
+        console.log(res)
+        if(!res.data.status) this.makeToast('danger',  res.data.data, 'Error')
+        else{
+          this.makeToast('success',  'Proxy has been created', 'Success')
+          location.reload()
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        this.makeToast('danger',  'Some network error occured', 'Error')
+      })
     },
     makeToast(variant = null, content, title) {
       this.$bvToast.toast(content, {
@@ -311,6 +271,11 @@ export default {
         content: 'asas'
       })
     },
+    isLink(id){
+      var arr = this.itemsCopy.filter(el => el._id == id._id)
+      console.log(arr);
+       return arr.length == 0
+    }
   },
 }
 </script>
