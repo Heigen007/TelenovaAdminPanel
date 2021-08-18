@@ -13,30 +13,51 @@
       @ok="handleOk"
     >
       <b-form>
+          <div class="border rounded p-2">
+            <h4 class="mb-1">
+              Photos
+            </h4>
+            <b-media
+              no-body
+              vertical-align="center"
+              style="flex-wrap:wrap"
+            >
+              <b-media-body
+                style="min-width:200px"
+              >
+                <small class="text-muted">Required image resolution 446x262, image should be with text on it</small>
+                <b-card-text class="my-50">
+                  <b-link id="blog-image-text">
+                    C:\fakepath\{{ blogFile ? blogFile.name : 'banner.jpg' }}
+                  </b-link>
+                </b-card-text>
+                <div class="d-inline-block">
+                  <b-form-file
+                    ref="refInputEl1"
+                    v-model="blogFile"
+                    accept=".jpg, .png, .gif"
+                    multiple
+                    placeholder="Choose file"
+                  />
+                </div>
+              </b-media-body>
+            </b-media>
+          </div>
         <b-form-group
-          label="Enter Name"
-          label-for="name"
+          v-for="(el, i) in arr" 
+          :key = i
+          :label='i'
+          :label-for='"name"+i'
         >
           <b-form-input
             style='margin: 5px 0 5px 0;'
-            id="name"
-            placeholder="Enter name"
-          />
-        </b-form-group>
-        <b-form-group
-          label="Zip Code"
-          label-for="zip-code"
-        >
-          <b-form-input
-            style='margin: 5px 0 5px 0;'
-            id="zip-code"
-            type="number"
-            placeholder="Zip Code"
+            :id='"name"+i'
+            :placeholder='"Enter " + i'
+            v-model='arr[i]'
           />
         </b-form-group>
 
         <b-form-group
-          label="Choose the country"
           label-for="vue-select"
         >
             <b-form-checkbox
@@ -258,7 +279,8 @@
 <script>
 import {
   BCard, BRow, BCol, BFormInput, BButton, BTable, BMedia, BAvatar, BLink, VBModal,
-  BBadge, BDropdown, BDropdownItem, BPagination, BTooltip, BFormCheckbox, BFormGroup, BForm
+  BBadge, BDropdown, BDropdownItem, BPagination, BTooltip, BFormCheckbox, BFormGroup, BForm,
+  BCardText, BFormFile, BMediaAside, BMediaBody, BImg
 } from 'bootstrap-vue'
 import { avatarText } from '@core/utils/filter'
 import vSelect from 'vue-select'
@@ -269,6 +291,8 @@ import axios from 'axios'
 import invoiceStoreModule from './invoiceStoreModule'
 import loader from '../../../../components/CssPreloader.vue'
 import Ripple from 'vue-ripple-directive'
+import { useInputImageRenderer } from '@core/comp-functions/forms/form-utils'
+import { ref } from '@vue/composition-api'
 
 export default {
   components: {
@@ -290,6 +314,7 @@ export default {
     BFormCheckbox,
     BFormGroup,
     BForm,
+    BCardText, BFormFile, BMediaAside, BMediaBody, BImg,
 
     vSelect,
   },
@@ -300,10 +325,17 @@ export default {
   data(){
     return{
       AllInvoices: null,
-      checkbox: false
+      checkbox: false,
+      arr: {
+        'name1': 'name11',
+        'name2': 'name22'
+      },
+      blogEdit: {},
+      blogFile: []
     }
   },
   created(){
+    this.$http.get('/blog/list/data/edit').then(res => { this.blogEdit = res.data; })
     var self = this
     axios.get('https://textforeva.ru/order')
     .then(response => {
@@ -330,7 +362,9 @@ export default {
       console.log(error)
     })
   },
+
   setup() {
+
     const INVOICE_APP_STORE_MODULE_NAME = 'app-invoice'
 
     // Register module
@@ -369,7 +403,6 @@ export default {
       resolveInvoiceStatusVariantAndIcon,
       resolveClientAvatarVariant,
     } = useInvoicesList()
-
     return {
       fetchInvoices,
       tableColumns,

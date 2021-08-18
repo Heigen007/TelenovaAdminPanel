@@ -48,7 +48,7 @@
               <b-media-body
                 style="min-width:200px"
               >
-                <small class="text-muted">Required image resolution 446x262, image should be with text on it</small>
+                <small class="text-muted">Required image resolution 380x220, image should be with text on it</small>
                 <b-card-text class="my-50">
                   <b-link id="blog-image-text">
                     C:\fakepath\{{ blogFile ? blogFile.name : 'banner.jpg' }}
@@ -150,7 +150,7 @@
               <b-media-body
                 style="min-width:200px"
               >
-                <small class="text-muted">Required image resolution 446x262, image should be without text on it, write the promo text down below</small>
+                <small class="text-muted">Required image resolution 380x220, image should be without text on it, write the promo text down below</small>
                 <b-card-text class="my-50">
                   <b-link id="blog-image-text">
                     C:\fakepath\{{ blogFile ? blogFile.name : 'banner.jpg' }}
@@ -295,7 +295,7 @@
               <b-media-body
                 style="min-width:200px"
               >
-                <small class="text-muted">Required image resolution 1400x200, image size 10mb.</small>
+                <small class="text-muted">Required image resolution 1200x400, image size 10mb.</small>
                 <b-card-text class="my-50">
                   <b-link id="blog-image-text">
                     C:\fakepath\{{ blogFile ? blogFile.name : 'banner.jpg' }}
@@ -486,7 +486,7 @@
               <b-media-body
                 style="min-width:200px"
               >
-                <small class="text-muted">Required image resolution 1400x200, image should be without text on it, write the promo text down below</small>
+                <small class="text-muted">Required image resolution 1200x150, image should be without text on it, write the promo text down below</small>
                 <b-card-text class="my-50">
                   <b-link id="blog-image-text">
                     C:\fakepath\{{ blogFile ? blogFile.name : 'banner.jpg' }}
@@ -690,6 +690,246 @@
             </b-media>
           </div>
         </b-col>
+        <b-col
+          cols="12"
+          class="mb-2"
+        >
+          <div class="border rounded p-2">
+            <h4 class="mb-1">
+              Promo 6
+            </h4>
+            <b-media
+              no-body
+              vertical-align="center"
+              style="flex-wrap:wrap"
+            >
+              <b-media-aside
+                style="flex-wrap: wrap;"
+              >
+                <b-img
+                  ref="refPreviewEl15"
+                  :src="blogEdit.featuredImage"
+                  height="110"
+                  width="170"
+                  class="rounded mr-2 mb-1 mb-md-0"
+                />
+                <b-img
+                  ref="refPreviewEl16"
+                  :src="blogEdit.featuredImage"
+                  height="110"
+                  width="170"
+                  class="rounded mr-2 mb-1 mb-md-0"
+                />
+                <b-img
+                  ref="refPreviewEl17"
+                  :src="blogEdit.featuredImage"
+                  height="110"
+                  width="170"
+                  class="rounded mr-2 mb-1 mb-md-0"
+                />
+              </b-media-aside>
+              <b-media-body
+                style="min-width:200px"
+              >
+                <small class="text-muted">Required image resolution 220x166, image should be without text on it, write the promo text down below</small>
+                <b-card-text class="my-50">
+                  <b-link id="blog-image-text">
+                    C:\fakepath\{{ blogFile ? blogFile.name : 'banner.jpg' }}
+                  </b-link>
+                </b-card-text>
+                  <b-col
+                    md="6"
+                    xl="4"
+                    class="mb-1"
+                  >
+                  </b-col>
+                <div class="d-inline-block">
+                  <b-form-file
+                    ref="refInputEl7"
+                    v-model="blogFile7"
+                    accept=".jpg, .png, .gif"
+                    multiple
+                    placeholder="Choose file"
+                    @input="inputImageRenderer7"
+                  />
+                </div>
+                <b-form-group
+                  label="Second-tier Category Name"
+                  class='my-2'
+                >
+                  <b-form-input
+                    v-model='Promo6.CategoryName'
+                    placeholder="Category Name"
+                  />
+                </b-form-group>
+                <b-form-group
+                  label="Bold Text"
+                  class='my-2'
+                >
+                  <b-form-input
+                    v-model='Promo6.BoldText'
+                    placeholder="Text"
+                  />
+                </b-form-group>
+                <b-form-group>
+                  <h5 class="font-weight-bold">
+                    Time of Promo Ending
+                  </h5>
+                  <flat-pickr
+                    v-model="Promo6.dateDefault"
+                    class="form-control"
+                  />
+                </b-form-group>
+                <b-col
+                  cols="12"
+                  class="mt-50"
+                  style="padding-left: 0"
+                >
+                  <b-button
+                    v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+                    variant="primary"
+                    @click="SixthReset"
+                  >
+                    Clear
+                  </b-button>
+                  <b-button
+                    v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+                    variant="primary"
+                    class="ml-1"
+                    @click="createSixthPromo"
+                  >
+                    Create
+                  </b-button>
+                </b-col>
+              </b-media-body>
+            </b-media>
+          </div>
+        </b-col>
+        <b-col
+          cols="12"
+          class="mb-2"
+        >
+          <div class="border rounded p-2">
+            <h4 class="mb-1">
+              Promo 7
+            </h4>
+            <b-media
+              no-body
+              vertical-align="center"
+              style="flex-wrap:wrap"
+            >
+              <b-media-aside
+                style="flex-wrap: wrap;"
+              >
+                <b-img
+                  ref="refPreviewEl18"
+                  :src="blogEdit.featuredImage"
+                  height="110"
+                  width="170"
+                  class="rounded mr-2 mb-1 mb-md-0"
+                />
+                <b-img
+                  ref="refPreviewEl19"
+                  :src="blogEdit.featuredImage"
+                  height="110"
+                  width="170"
+                  class="rounded mr-2 mb-1 mb-md-0"
+                />
+                <b-img
+                  ref="refPreviewEl20"
+                  :src="blogEdit.featuredImage"
+                  height="110"
+                  width="170"
+                  class="rounded mr-2 mb-1 mb-md-0"
+                />
+              </b-media-aside>
+              <b-media-body
+                style="min-width:200px"
+              >
+                <small class="text-muted">Required image resolution 220x166, image should be without text on it, write the promo text down below</small>
+                <b-card-text class="my-50">
+                  <b-link id="blog-image-text">
+                    C:\fakepath\{{ blogFile ? blogFile.name : 'banner.jpg' }}
+                  </b-link>
+                </b-card-text>
+                  <b-col
+                    md="6"
+                    xl="4"
+                    class="mb-1"
+                  >
+                  </b-col>
+                <div class="d-inline-block">
+                  <b-form-file
+                    ref="refInputEl8"
+                    v-model="blogFile8"
+                    accept=".jpg, .png, .gif"
+                    multiple
+                    placeholder="Choose file"
+                    @input="inputImageRenderer8"
+                  />
+                </div>
+                <b-form-group
+                  label="Second-tier Category Name"
+                  class='my-2'
+                >
+                  <b-form-input
+                    v-model='Promo7.CategoryName'
+                    placeholder="Category Name"
+                  />
+                </b-form-group>
+                <b-form-group
+                  label="Bold Text Input"
+                  class='my-2'
+                >
+                  <b-form-input
+                    v-model='Promo7.BoldText'
+                    placeholder="Tetx"
+                  />
+                </b-form-group>
+                <b-form-group
+                  label="Promo discount(%)"
+                  class='my-2'
+                >
+                  <b-form-input
+                    type='number'
+                    v-model='Promo7.Discount'
+                    placeholder="Enter Discount"
+                  />
+                </b-form-group>
+                <b-form-group>
+                  <h5 class="font-weight-bold">
+                    Time of Promo Ending
+                  </h5>
+                  <flat-pickr
+                    v-model="Promo7.dateDefault"
+                    class="form-control"
+                  />
+                </b-form-group>
+                <b-col
+                  cols="12"
+                  class="mt-50"
+                  style="padding-left: 0"
+                >
+                  <b-button
+                    v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+                    variant="primary"
+                    @click="SixthReset"
+                  >
+                    Clear
+                  </b-button>
+                  <b-button
+                    v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+                    variant="primary"
+                    class="ml-1"
+                    @click="createSeventhPromo"
+                  >
+                    Create
+                  </b-button>
+                </b-col>
+              </b-media-body>
+            </b-media>
+          </div>
+        </b-col>
       </b-row>
     </b-form>
     <!--/ form -->
@@ -736,6 +976,8 @@ export default {
       Promo3: {},
       Promo4: {},
       Promo5: {},
+      Promo6: {},
+      Promo7: {},
       blogEdit: {},
       blogFile: [],
       blogFile2: [],
@@ -743,6 +985,8 @@ export default {
       blogFile4: [],
       blogFile5: [],
       blogFile6: [],
+      blogFile7: [],
+      blogFile8: [],
       categoryOption: ['Fashion', 'Food', 'Gaming', 'Quote', 'Video'],
       statusOption: ['Published', 'Pending', 'Draft'],
       snowOption: {
@@ -760,6 +1004,8 @@ export default {
     const refInputEl4 = ref(null)
     const refInputEl5 = ref(null)
     const refInputEl6 = ref(null)
+    const refInputEl7 = ref(null)
+    const refInputEl8 = ref(null)
     const refPreviewEl = ref(null)
     const refPreviewEl2 = ref(null)
     const refPreviewEl3 = ref(null)
@@ -774,6 +1020,12 @@ export default {
     const refPreviewEl12 = ref(null)
     const refPreviewEl13 = ref(null)
     const refPreviewEl14 = ref(null)
+    const refPreviewEl15 = ref(null)
+    const refPreviewEl16 = ref(null)
+    const refPreviewEl17 = ref(null)
+    const refPreviewEl18 = ref(null)
+    const refPreviewEl19 = ref(null)
+    const refPreviewEl20 = ref(null)
 
     const { inputImageRenderer } = useInputImageRenderer(refInputEl1, base64 => { refPreviewEl.value.src = base64[0] || "/img/03.ada37056.jpg",  refPreviewEl2.value.src = base64[1] || "/img/03.ada37056.jpg", refPreviewEl3.value.src = base64[2] || "/img/03.ada37056.jpg" })
     const { inputImageRenderer2 } = useInputImageRenderer(refInputEl2, base64 => { refPreviewEl4.value.src = base64[0] || "/img/03.ada37056.jpg",  refPreviewEl5.value.src = base64[1] || "/img/03.ada37056.jpg", refPreviewEl6.value.src = base64[2] || "/img/03.ada37056.jpg" })
@@ -781,6 +1033,8 @@ export default {
     const { inputImageRenderer4 } = useInputImageRenderer(refInputEl4, base64 => { refPreviewEl8.value.src = base64[0] || "/img/03.ada37056.jpg" })
     const { inputImageRenderer5 } = useInputImageRenderer(refInputEl5, base64 => { refPreviewEl9.value.src = base64[0] || "/img/03.ada37056.jpg",  refPreviewEl10.value.src = base64[1] || "/img/03.ada37056.jpg", refPreviewEl11.value.src = base64[2] || "/img/03.ada37056.jpg" })
     const { inputImageRenderer6 } = useInputImageRenderer(refInputEl6, base64 => { refPreviewEl12.value.src = base64[0] || "/img/03.ada37056.jpg",  refPreviewEl13.value.src = base64[1] || "/img/03.ada37056.jpg", refPreviewEl14.value.src = base64[2] || "/img/03.ada37056.jpg" })
+    const { inputImageRenderer7 } = useInputImageRenderer(refInputEl7, base64 => { refPreviewEl15.value.src = base64[0] || "/img/03.ada37056.jpg",  refPreviewEl16.value.src = base64[1] || "/img/03.ada37056.jpg", refPreviewEl17.value.src = base64[2] || "/img/03.ada37056.jpg" })
+    const { inputImageRenderer8 } = useInputImageRenderer(refInputEl8, base64 => { refPreviewEl18.value.src = base64[0] || "/img/03.ada37056.jpg",  refPreviewEl19.value.src = base64[1] || "/img/03.ada37056.jpg", refPreviewEl20.value.src = base64[2] || "/img/03.ada37056.jpg" })
 
 
     return {
@@ -790,6 +1044,8 @@ export default {
       refInputEl4,
       refInputEl5,
       refInputEl6,
+      refInputEl7,
+      refInputEl8,
       refPreviewEl,
       refPreviewEl2,
       refPreviewEl3,
@@ -804,12 +1060,20 @@ export default {
       refPreviewEl12,
       refPreviewEl13,
       refPreviewEl14,
+      refPreviewEl15,
+      refPreviewEl16,
+      refPreviewEl17,
+      refPreviewEl18,
+      refPreviewEl19,
+      refPreviewEl20,
       inputImageRenderer,
       inputImageRenderer2,
       inputImageRenderer3,
       inputImageRenderer4,
       inputImageRenderer5,
-      inputImageRenderer6
+      inputImageRenderer6,
+      inputImageRenderer7,
+      inputImageRenderer8
     }
   },
   methods: {
@@ -851,6 +1115,22 @@ export default {
         this.$refs["refPreviewEl13"].src = this.blogEdit.featuredImage
         this.$refs["refPreviewEl14"].src = this.blogEdit.featuredImage
       });
+    },
+    SixthReset(){
+      this.blogFile7 = {}
+      this.$nextTick(() => {
+        this.$refs["refPreviewEl15"].src = this.blogEdit.featuredImage
+        this.$refs["refPreviewEl16"].src = this.blogEdit.featuredImage
+        this.$refs["refPreviewEl17"].src = this.blogEdit.featuredImage
+      });
+    },
+    SeventhReset(){
+      this.blogFile8 = {}
+      this.$nextTick(() => {
+        this.$refs["refPreviewEl18"].src = this.blogEdit.featuredImage
+        this.$refs["refPreviewEl19"].src = this.blogEdit.featuredImage
+        this.$refs["refPreviewEl20"].src = this.blogEdit.featuredImage
+      })
     },
     createFirstPromo() {
       var date = this.Promo1.dateDefault.split('-')
@@ -916,8 +1196,35 @@ export default {
         formData.append('files', file)
       })
       formData.append('typeOfPromo', 5)
-      formData.append('productKaspiId', this.Promo5.id)
+      formData.append('productKaspiId', this.Promo5.Id)
       formData.append('timeOfPromoEnding', date)
+      this.createFinalPromo(formData)
+    },
+    createSixthPromo() {
+      var date = this.Promo6.dateDefault.split('-')
+      var formData = new FormData()
+      date = new Date(Number(date[0]),Number(date[1]),Number(date[2])).toISOString()
+      this.blogFile7.slice(0,3).forEach(file => {
+        formData.append('files', file)
+      })
+      formData.append('bigPromoText', this.Promo6.BoldText)
+      formData.append('typeOfPromo', 6)
+      formData.append('categoryName', this.Promo6.CategoryName)
+      formData.append('timeOfPromoEnding', date)
+      this.createFinalPromo(formData)
+    },
+    createSeventhPromo() {
+      var date = this.Promo6.dateDefault.split('-')
+      var formData = new FormData()
+      date = new Date(Number(date[0]),Number(date[1]),Number(date[2])).toISOString()
+      this.blogFile8.slice(0,3).forEach(file => {
+        formData.append('files', file)
+      })
+      formData.append('bigPromoText', this.Promo7.BoldText)
+      formData.append('typeOfPromo', 7)
+      formData.append('categoryName', this.Promo7.CategoryName)
+      formData.append('timeOfPromoEnding', date)
+      formData.append('sale', this.Promo7.Discount)
       this.createFinalPromo(formData)
     },
     createFinalPromo(obj) {

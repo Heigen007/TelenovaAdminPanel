@@ -1,204 +1,190 @@
 <template>
-  <content-with-sidebar
-    v-if="Object.keys(blogDetail).length"
-    class="cws-container cws-sidebar-right blog-wrapper"
+<div>
+  <b-button
+    v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+    variant="primary"
+    class="ml-1 mb-2"
+    v-b-modal.modal-select2
   >
+    Delete Promo
+  </b-button>
+  <b-card-code
+    no-body
+    title="1 promo type"
+  >
+    <b-table responsive="lg" :items="FirstPromoItems"/>
+  </b-card-code>
+  <b-card-code
+    no-body
+    title="2 promo type"
+  >
+    <b-table responsive="lg" :items="SecondPromoItems"/>
+  </b-card-code>
+  <b-card-code
+    no-body
+    title="3 promo type"
+  >
+    <b-table responsive="lg" :items="ThirdPromoItems"/>
+  </b-card-code>
+  <b-card-code
+    no-body
+    title="4 promo type"
+  >
+    <b-table responsive="lg" :items="FourthPromoItems"/>
+  </b-card-code>
+    <b-modal
+      id="modal-select2"
+      centered
+      title="Basic Modal"
+      ok-title="submit"
+      cancel-variant="outline-secondary"
+      @ok="deletePromo"
+    >
+      <b-form>
+        <b-form-group
+          label-for="name"
+        >
+          <b-form-input
+            style='margin: 5px 0 5px 0;'
+            id='name'
+            placeholder='Enter promo Id'
+            v-model='delId'
+          />
+        </b-form-group>
 
-    <!-- content -->
-    <div class="blog-detail-wrapper">
-      <b-row>
-        <!-- blogs -->
-        <b-col cols="12">
-          <b-card
-            :img-src="blogDetail.blog.img"
-            img-top
-            img-alt="Blog Detail Pic"
-            :title="blogDetail.blog.title"
-          >
-            <b-media no-body>
-              <b-media-aside
-                vertical-align="center"
-                class="mr-50"
-              >
-                <b-avatar
-                  href="javascript:void(0)"
-                  size="24"
-                  :src="blogDetail.blog.avatar"
-                />
-              </b-media-aside>
-              <b-media-body>
-                <small class="text-muted mr-50">by</small>
-                <small>
-                  <b-link class="text-body">{{ blogDetail.blog.userFullName }}</b-link>
-                </small>
-                <span class="text-muted ml-75 mr-50">|</span>
-                <small class="text-muted">{{ blogDetail.blog.createdTime }}</small>
-              </b-media-body>
-            </b-media>
-            <div class="my-1 py-25">
-              <b-link
-                v-for="tag in blogDetail.blog.tags"
-                :key="tag"
-              >
-                <b-badge
-                  pill
-                  class="mr-75"
-                  :variant="tagsColor(tag)"
-                >
-                  {{ tag }}
-                </b-badge>
-              </b-link>
-            </div>
-            <!-- eslint-disable vue/no-v-html -->
-            <div
-              class="blog-content"
-              v-html="blogDetail.blog.content"
-            />
-
-            <!-- user commnets -->
-            <b-media
-              v-for="user in blogDetail.blog.UserComment"
-              :key="user.avatar"
-              no-body
-            >
-              <b-media-aside>
-                <b-avatar
-                  size="60"
-                  :src="user.avatar"
-                />
-              </b-media-aside>
-              <b-media-body>
-                <h6 class="font-weight-bolder">
-                  {{ user.fullName }}
-                </h6>
-                <b-card-text>
-                  {{ user.comment }}
-                </b-card-text>
-              </b-media-body>
-            </b-media>
-            <!-- eslint-enable -->
-            <hr class="my-2">
-
-            <div class="d-flex align-items-center justify-content-between">
-              <div class="d-flex align-items-center">
-                <div class="d-flex align-items-center mr-1">
-                  <b-link class="mr-50">
-                    <feather-icon
-                      icon="MessageSquareIcon"
-                      size="21"
-                      class="text-body"
-                    />
-                  </b-link>
-                  <b-link>
-                    <div class="text-body">
-                      {{ kFormatter(blogDetail.blog.comments) }}
-                    </div>
-                  </b-link>
-                </div>
-                <div class="d-flex align-items-center">
-                  <b-link class="mr-50">
-                    <feather-icon
-                      size="21"
-                      icon="BookmarkIcon"
-                      class="text-body"
-                    />
-                  </b-link>
-                  <b-link>
-                    <div class="text-body">
-                      {{ kFormatter(blogDetail.blog.bookmarked) }}
-                    </div>
-                  </b-link>
-                </div>
-              </div>
-
-              <!-- dropdown -->
-              <div class="blog-detail-share">
-                <b-dropdown
-                  variant="link"
-                  toggle-class="p-0"
-                  no-caret
-                  right
-                >
-                  <template #button-content>
-                    <feather-icon
-                      size="21"
-                      icon="Share2Icon"
-                      class="text-body"
-                    />
-                  </template>
-                  <b-dropdown-item
-                    v-for="icon in socialShareIcons"
-                    :key="icon"
-                    href="#"
-                  >
-                    <feather-icon
-                      :icon="icon"
-                      size="18"
-                    />
-                  </b-dropdown-item>
-                </b-dropdown>
-              </div>
-              <!--/ dropdown -->
-            </div>
-          </b-card>
-        </b-col>
-        <!--/ blogs -->
-      </b-row>
-      <!--/ blogs -->
-    </div>
-    <!--/ content -->
-
-  </content-with-sidebar>
+      </b-form>
+    </b-modal>
+</div>
 </template>
 
 <script>
 import {
-  BMedia, BAvatar, BMediaAside, BMediaBody, BLink,
-  BCard, BRow, BCol, BBadge, BCardText, BDropdown, BDropdownItem,
+  BRow, BCol, BCard, BFormInput, BCardText, BCardTitle, BMedia, BAvatar, BMediaAside, BMediaBody, BImg, BCardBody, BLink, BBadge, BFormGroup, BInputGroup, BInputGroupAppend, BPagination, BTable, BForm, BModal, BButton
 } from 'bootstrap-vue'
-import Ripple from 'vue-ripple-directive'
+import BCardCode from '@core/components/b-card-code/BCardCode.vue'
 import { kFormatter } from '@core/utils/filter'
 import ContentWithSidebar from '@core/layouts/components/content-with-sidebar/ContentWithSidebar.vue'
+import axios from 'axios'
 
 export default {
   components: {
+    BButton,
+    BCardCode,
+    BForm,
+    BModal,
+    BTable,
+    BRow,
+    BCol,
+    BCard,
+    BFormInput,
+    BCardText,
+    BCardBody,
+    BCardTitle,
     BMedia,
     BAvatar,
     BMediaAside,
     BMediaBody,
     BLink,
-    BCard,
-    BRow,
-    BCol,
     BBadge,
-    BCardText,
-    BDropdown,
-    BDropdownItem,
+    BFormGroup,
+    BInputGroup,
+    BInputGroupAppend,
+    BImg,
+    BPagination,
     ContentWithSidebar,
-  },
-  directives: {
-    Ripple,
   },
   data() {
     return {
       search_query: '',
-      commentCheckmark: '',
-      blogDetail: [],
+      blogList: [],
       blogSidebar: {},
-      socialShareIcons: [
-        'GithubIcon',
-        'GitlabIcon',
-        'FacebookIcon',
-        'TwitterIcon',
-        'LinkedinIcon',
-      ],
+      currentPage: 1,
+      perPage: 1,
+      rows: 140,
+      FirstPromoItems: [],
+      SecondPromoItems: [],
+      ThirdPromoItems: [],
+      FourthPromoItems: [],
+      FifthPromoItems: [],
+      SixthPromoItems: [],
+      SeventhPromoItems: [],
+      delId: ''
     }
   },
   created() {
-    this.$http.get('/blog/list/data/detail').then(res => { this.blogDetail = res.data })
+    this.$http.get('/blog/list/data').then(res => { this.blogList = res.data })
     this.$http.get('/blog/list/data/sidebar').then(res => { this.blogSidebar = res.data })
+    axios.get(`https://textforeva.ru/promoAction/`)
+    .then(response => {
+      var options = {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+      }
+      console.log(response);
+
+      var FPromo = response.data.filter(el => el.typeOfPromo == 1)
+      for (let i = 0; i < FPromo.length; i++) {
+        FPromo[i] = {
+          "Id": FPromo[i]._id,
+          "product_kaspi_id": FPromo[i].productKaspiId,
+          "time_of_promo_ending": new Date(FPromo[i].timeOfPromoEnding).toLocaleString('en-US',options)
+        }
+      }
+      this.FirstPromoItems = FPromo
+
+      var SPromo = response.data.filter(el => el.typeOfPromo == 2)
+      for (let i = 0; i < SPromo.length; i++) {
+        SPromo[i] = {
+          "Id": SPromo[i]._id,
+          "product_kaspi_id": SPromo[i].productKaspiId,
+          "big_promo_text": SPromo[i].bigPromoText,
+          "small_promo_text": SPromo[i].smallPromoText,
+          "sale": SPromo[i].sale,
+          "time_of_promo_ending": new Date(SPromo[i].timeOfPromoEnding).toLocaleString('en-US',options)
+        }
+      }
+      this.SecondPromoItems = SPromo
+
+      var TPromo = response.data.filter(el => el.typeOfPromo == 3)
+      for (let i = 0; i < TPromo.length; i++) {
+        TPromo[i] = {
+          "Id": TPromo[i]._id,
+          "product_kaspi_id": TPromo[i].productKaspiId,
+          "big_promo_text": TPromo[i].bigPromoText,
+          "small_promo_text": TPromo[i].smallPromoText,
+          "sale": TPromo[i].sale,
+          "time_of_promo_ending": new Date(TPromo[i].timeOfPromoEnding).toLocaleString('en-US',options)
+        }
+      }
+      this.ThirdPromoItems = TPromo
+
+      var FPromoo = response.data.filter(el => el.typeOfPromo == 4)
+      for (let i = 0; i < FPromoo.length; i++) {
+        FPromoo[i] = {
+          "Id": FPromoo[i]._id,
+          "big_promo_text": FPromoo[i].bigPromoText,
+          "category_name": FPromoo[i].categoryName,
+          "sale": FPromoo[i].sale,
+          "time_of_promo_ending": new Date(FPromoo[i].timeOfPromoEnding).toLocaleString('en-US',options)
+        }
+      }
+      this.FourthPromoItems = FPromoo
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
   },
   methods: {
+    deletePromo(){
+      // axios.delete('http://178.250.159.216/proxy', { data: formData })
+      // .then(res => {
+      //   console.log(res)
+      //   this.makeToast('success',  'Promo has been deleted', 'Success')
+      // })
+      // .catch(err => {
+      //   console.log(err);
+      //   this.makeToast('danger',  'Some error occured', 'Error')
+      // })
+    },
     kFormatter,
     tagsColor(tag) {
       if (tag === 'Quote') return 'light-info'
@@ -207,6 +193,14 @@ export default {
       if (tag === 'Video') return 'light-warning'
       if (tag === 'Food') return 'light-success'
       return 'light-primary'
+    },
+    makeToast(variant = null, content, title) {
+      this.$bvToast.toast(content, {
+        title: title,
+        variant,
+        solid: true,
+        content: 'asas'
+      })
     },
   },
 }
