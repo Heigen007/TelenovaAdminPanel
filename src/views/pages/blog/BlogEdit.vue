@@ -275,7 +275,6 @@
               style="flex-wrap:wrap"
             >
               <b-media-aside
-                style="display: flex; flex-direction: column"
               >
                 <b-img
                   ref="refPreviewEl7"
@@ -283,9 +282,16 @@
                   height="110"
                   width="170"
                   class="rounded mr-2 mb-1 mb-md-0"
-                /><br>
+                />
                 <b-img
                   ref="refPreviewEl8"
+                  :src="blogEdit.featuredImage"
+                  height="110"
+                  width="170"
+                  class="rounded mr-2 mb-1 mb-md-0"
+                />
+                <b-img
+                  ref="refPreviewElExtra"
                   :src="blogEdit.featuredImage"
                   height="110"
                   width="170"
@@ -307,25 +313,11 @@
                     v-model="blogFile3"
                     accept=".jpg, .png, .gif"
                     placeholder="Choose file"
+                    multiple
                     @input="inputImageRenderer3"
                   />
                 </div>
                 <br>
-                <small class="text-muted">Required image resolution 400x400, image size 10mb.</small>
-                <b-card-text class="my-50">
-                  <b-link id="blog-image-text">
-                    C:\fakepath\{{ blogFile ? blogFile.name : 'banner.jpg' }}
-                  </b-link>
-                </b-card-text>
-                <div class="d-inline-block">
-                  <b-form-file
-                    ref="refInputEl4"
-                    v-model="blogFile4"
-                    accept=".jpg, .png, .gif"
-                    placeholder="Choose file"
-                    @input="inputImageRenderer4"
-                  />
-                </div>
                 <b-form-group
                   label="Big Promo Text(e.g. Week Deal)"
                   label-for="basicInput"
@@ -346,6 +338,17 @@
                     v-model='Promo3.SmallText'
                     id="basicInput2"
                     placeholder="Enter Text"
+                  />
+                </b-form-group>
+                <b-form-group
+                  label="Promo name"
+                  label-for="basicInput2"
+                  class='my-2'
+                >
+                  <b-form-input
+                    v-model='Promo3.name'
+                    id="basicInput2"
+                    placeholder="Enter Promo name"
                   />
                 </b-form-group>
                 <b-form-group
@@ -1014,6 +1017,7 @@ export default {
     const refPreviewEl6 = ref(null)
     const refPreviewEl7 = ref(null)
     const refPreviewEl8 = ref(null)
+    const refPreviewElExtra = ref(null)
     const refPreviewEl9 = ref(null)
     const refPreviewEl10 = ref(null)
     const refPreviewEl11 = ref(null)
@@ -1029,8 +1033,7 @@ export default {
 
     const { inputImageRenderer } = useInputImageRenderer(refInputEl1, base64 => { refPreviewEl.value.src = base64[0] || "/img/03.ada37056.jpg",  refPreviewEl2.value.src = base64[1] || "/img/03.ada37056.jpg", refPreviewEl3.value.src = base64[2] || "/img/03.ada37056.jpg" })
     const { inputImageRenderer2 } = useInputImageRenderer(refInputEl2, base64 => { refPreviewEl4.value.src = base64[0] || "/img/03.ada37056.jpg",  refPreviewEl5.value.src = base64[1] || "/img/03.ada37056.jpg", refPreviewEl6.value.src = base64[2] || "/img/03.ada37056.jpg" })
-    const { inputImageRenderer3 } = useInputImageRenderer(refInputEl3, base64 => { refPreviewEl7.value.src = base64[0] || "/img/03.ada37056.jpg" })
-    const { inputImageRenderer4 } = useInputImageRenderer(refInputEl4, base64 => { refPreviewEl8.value.src = base64[0] || "/img/03.ada37056.jpg" })
+    const { inputImageRenderer3 } = useInputImageRenderer(refInputEl3, base64 => { refPreviewEl7.value.src = base64[0] || "/img/03.ada37056.jpg",  refPreviewEl8.value.src = base64[1] || "/img/03.ada37056.jpg",  refPreviewElExtra.value.src = base64[2] || "/img/03.ada37056.jpg" })
     const { inputImageRenderer5 } = useInputImageRenderer(refInputEl5, base64 => { refPreviewEl9.value.src = base64[0] || "/img/03.ada37056.jpg",  refPreviewEl10.value.src = base64[1] || "/img/03.ada37056.jpg", refPreviewEl11.value.src = base64[2] || "/img/03.ada37056.jpg" })
     const { inputImageRenderer6 } = useInputImageRenderer(refInputEl6, base64 => { refPreviewEl12.value.src = base64[0] || "/img/03.ada37056.jpg",  refPreviewEl13.value.src = base64[1] || "/img/03.ada37056.jpg", refPreviewEl14.value.src = base64[2] || "/img/03.ada37056.jpg" })
     const { inputImageRenderer7 } = useInputImageRenderer(refInputEl7, base64 => { refPreviewEl15.value.src = base64[0] || "/img/03.ada37056.jpg",  refPreviewEl16.value.src = base64[1] || "/img/03.ada37056.jpg", refPreviewEl17.value.src = base64[2] || "/img/03.ada37056.jpg" })
@@ -1056,6 +1059,7 @@ export default {
       refPreviewEl8,
       refPreviewEl9,
       refPreviewEl10,
+      refPreviewElExtra,
       refPreviewEl11,
       refPreviewEl12,
       refPreviewEl13,
@@ -1069,7 +1073,6 @@ export default {
       inputImageRenderer,
       inputImageRenderer2,
       inputImageRenderer3,
-      inputImageRenderer4,
       inputImageRenderer5,
       inputImageRenderer6,
       inputImageRenderer7,
@@ -1094,10 +1097,11 @@ export default {
       });
     },
     ThirdReset(){
-      this.blogFile3 = this.blogFile4 = {}
+      this.blogFile3  = {}
       this.$nextTick(() => {
         this.$refs["refPreviewEl7"].src = this.blogEdit.featuredImage
         this.$refs["refPreviewEl8"].src = this.blogEdit.featuredImage
+        this.$refs["refPreviewElExtra"].src = this.blogEdit.featuredImage
       });
     },
     FourthReset(){
@@ -1163,15 +1167,17 @@ export default {
     createThirdPromo() {
       var date = this.Promo3.dateDefault.split('-')
       var formData = new FormData()
+      this.blogFile3.slice(0,3).forEach(file => {
+        formData.append('files', file)
+      })
       date = new Date(Number(date[0]),Number(date[1]),Number(date[2])).toISOString()
-      formData.append('files', this.blogFile3)
-      formData.append('files', this.blogFile4)
       formData.append('smallPromoText', this.Promo3.SmallText)
       formData.append('bigPromoText', this.Promo3.BoldText)
       formData.append('typeOfPromo', 3)
       formData.append('productKaspiId', this.Promo3.Id)
       formData.append('timeOfPromoEnding', date)
       formData.append('sale', this.Promo3.Discount)
+      // formData.append('name', this.Promo3.name)
       this.createFinalPromo(formData)
     },
     createFourthPromo() {
@@ -1197,6 +1203,7 @@ export default {
       })
       formData.append('typeOfPromo', 5)
       formData.append('productKaspiId', this.Promo5.Id)
+      formData.append('sale', 0)
       formData.append('timeOfPromoEnding', date)
       this.createFinalPromo(formData)
     },
@@ -1209,12 +1216,13 @@ export default {
       })
       formData.append('bigPromoText', this.Promo6.BoldText)
       formData.append('typeOfPromo', 6)
+      formData.append('sale', 0)
       formData.append('categoryName', this.Promo6.CategoryName)
       formData.append('timeOfPromoEnding', date)
       this.createFinalPromo(formData)
     },
     createSeventhPromo() {
-      var date = this.Promo6.dateDefault.split('-')
+      var date = this.Promo7.dateDefault.split('-')
       var formData = new FormData()
       date = new Date(Number(date[0]),Number(date[1]),Number(date[2])).toISOString()
       this.blogFile8.slice(0,3).forEach(file => {

@@ -13,69 +13,233 @@
       @ok="handleOk"
     >
       <b-form>
-          <div class="border rounded p-2">
-            <h4 class="mb-1">
-              Photos
-            </h4>
-            <b-media
-              no-body
-              vertical-align="center"
-              style="flex-wrap:wrap"
-            >
-              <b-media-body
-                style="min-width:200px"
-              >
-                <small class="text-muted">Required image resolution 446x262, image should be with text on it</small>
-                <b-card-text class="my-50">
-                  <b-link id="blog-image-text">
-                    C:\fakepath\{{ blogFile ? blogFile.name : 'banner.jpg' }}
-                  </b-link>
-                </b-card-text>
-                <div class="d-inline-block">
-                  <b-form-file
-                    ref="refInputEl1"
-                    v-model="blogFile"
-                    accept=".jpg, .png, .gif"
-                    multiple
-                    placeholder="Choose file"
-                  />
-                </div>
-              </b-media-body>
-            </b-media>
-          </div>
-        <b-form-group
-          v-for="(el, i) in arr" 
-          :key = i
-          :label='i'
-          :label-for='"name"+i'
-        >
+        <b-form-group label='Enter supplier_category'>
           <b-form-input
             style='margin: 5px 0 5px 0;'
-            :id='"name"+i'
-            :placeholder='"Enter " + i'
-            v-model='arr[i]'
+            placeholder="Enter supplier_category"
+            v-model='actualProduct.supplier_category'
+            readonly
           />
         </b-form-group>
+        <b-form-group  label='Enter first_level_category'>
+          <b-form-input
+            style='margin: 5px 0 5px 0;'
+            placeholder='Enter first_level_category'
+            v-model='actualProduct.first_level_category'
+          />
+        </b-form-group>
+        <b-form-group  label='Enter second_level_category'>
+          <b-form-input
+            style='margin: 5px 0 5px 0;'
+            placeholder='Enter second_level_category'
+            v-model='actualProduct.second_level_category'
+          />
+        </b-form-group>
+        <b-form-group  label='Enter third_level_category'>
+          <b-form-input
+            style='margin: 5px 0 5px 0;'
+            placeholder='Enter third_level_category'
+            v-model='actualProduct.third_level_category'
+          />
+        </b-form-group>
+        <b-form-group  label='Enter name'>
+          <b-form-input
+            style='margin: 5px 0 5px 0;'
+            placeholder='Enter name'
+            v-model='actualProduct.name'
+          />
+        </b-form-group>
+        <b-form-group  label='Enter supplier_name'>
+          <b-form-input
+            style='margin: 5px 0 5px 0;'
+            placeholder='Enter supplier_name'
+            v-model='actualProduct.supplier_name'
+            readonly
+          />
+        </b-form-group>
+        <b-form-group  label='Enter supplier'>
+          <b-form-input
+            style='margin: 5px 0 5px 0;'
+            placeholder='Enter supplier'
+            v-model='actualProduct.supplier'
+            readonly
+          />
+        </b-form-group>
+        <b-form-group  label='Enter product_count'>
+          <b-form-input
+            style='margin: 5px 0 5px 0;'
+            placeholder='Enter product_count'
+            v-model='actualProduct.product_count'
+            readonly
+          />
+        </b-form-group>
+        <b-form-group  label='Enter opt_price'>
+          <b-form-input
+            style='margin: 5px 0 5px 0;'
+            placeholder='Enter opt_price'
+            v-model='actualProduct.opt_price'
+            readonly
+          />
+        </b-form-group>
+        <b-form-group  label='Enter price'>
+          <b-form-input
+            style='margin: 5px 0 5px 0;'
+            placeholder='Enter price'
+            v-model='actualProduct.price'
+            readonly
+          />
+        </b-form-group>
+        <b-form-group  label='Enter kaspi_rating'>
+          <b-form-input
+            style='margin: 5px 0 5px 0;'
+            placeholder='Enter kaspi_rating'
+            v-model='actualProduct.kaspi_rating'
+          />
+        </b-form-group>
+        <b-form-group  label='Images'>
+          <b-form-input
+            v-for='(el,i) in actualProduct.images'
+            :key='i'
+            style='margin: 5px 0 5px 0;'
+            v-model='actualProduct.images[i]'
+          />
+        </b-form-group>
+        <b-button
+          variant="primary"
+          class="btn-cart mb-2"
+          style="width: 100%"
+          @click='actualProduct.images.push("")'
+        >
+          <feather-icon
+            icon="ShoppingCartIcon"
+            class="mr-50"
+          />
+          <span>Add Image</span>
+        </b-button>
+        <b-form-group label='supplier_images'>
+          <b-form-input
+            v-for='(el,i) in actualProduct.supplier_images'
+            :key='i'
+            style='margin: 5px 0 5px 0;'
+            v-model='actualProduct.supplier_images[i]'
+            readonly
+          />
+        </b-form-group>
+        <div>Properties</div>
+        <div style='display: flex; ' class = 'my-1' v-for='(prop,o) in actualProduct.properties' :key='o'>
+          <input placeholder="property" class = 'form-control' style='width: 40%' type="text" v-model='actualProduct.properties[o][0]'>
+          <input placeholder="value" class = 'form-control' style='width: 40%' type="text" v-model='actualProduct.properties[o][1]'>
+        </div>
+        <b-button
+          variant="primary"
+          class="btn-cart mb-2"
+          style="width: 100%;"
+          @click='actualProduct.properties.push(["",""])'
+        >
+          <feather-icon
+            icon="ShoppingCartIcon"
+            class="mr-50"
+          />
+          <span>Add Property</span>
+        </b-button>
 
+        <div>Additional Properties</div>
+        <div class = 'my-1' v-for='(prop,o) in actualProduct.additional_properties' :key='o'>
+          <b-form-input
+            style='margin: 5px 0 5px 0;'
+            placeholder='Enter additional_properties title'
+            v-model='actualProduct.additional_properties[o][0]'
+          />
+          <div v-for='(addProp,y) in actualProduct.additional_properties[o][1]' :key='y'>
+            <input placeholder="property" class = 'form-control' style='width: 40%' type="text" v-model='actualProduct.additional_properties[o][1][y][0]'>
+            <input placeholder="value" class = 'form-control mb-1' style='width: 40%' type="text" v-model='actualProduct.additional_properties[o][1][y][1]'>
+          </div>
+          <b-button
+            variant="primary"
+            class="btn-cart mb-2"
+            style="width: 100%;"
+            @click='actualProduct.additional_properties[o][1].push(["",""])'
+          >
+            <feather-icon
+              icon="ShoppingCartIcon"
+              class="mr-50"
+            />
+            <span>Add Property</span>
+          </b-button>
+        </div>
+        <b-button
+          variant="primary"
+          class="btn-cart mb-2"
+          style="width: 100%;"
+          @click='actualProduct.additional_properties.push(["",[["",""]]])'
+        >
+          <feather-icon
+            icon="ShoppingCartIcon"
+            class="mr-50"
+          />
+          <span>Add Additional Property</span>
+        </b-button>
+        <!-- ///////////////////////////////////////////////////////////////// -->
         <b-form-group
           label-for="vue-select"
         >
             <b-form-checkbox
                 style='margin: 5px 0 5px 0;'
                 v-model="checkbox"
-                value="G"
                 class="custom-control-info"
             >
                 Existing product?
             </b-form-checkbox>
         </b-form-group>
 
+        <div v-if='checkbox'>
+          <b-form-group label='KASPI RAZMETKA'>
+            <b-form-input
+              style='margin: 5px 0 5px 0;'
+              v-model='kaspiR'
+            />
+          </b-form-group>
+          <b-button
+            variant="primary"
+            class="btn-cart mb-2"
+            style="width: 100%;"
+            @click='addR'
+          >
+            <feather-icon
+              icon="ShoppingCartIcon"
+              class="mr-50"
+            />
+            <span>Add razmetka</span>
+          </b-button>
+        </div>
+
+        <b-form-group
+          label-for="vue-select"
+        >
+            <b-form-checkbox
+                style='margin: 5px 0 5px 0;'
+                v-model="actualProduct.already_in_site"
+                class="custom-control-info"
+            >
+                Is on site?
+            </b-form-checkbox>
+        </b-form-group>
+
+        <div v-if='actualProduct.already_in_site'>
+          <b-form-group label='Site id'>
+            <b-form-input
+              style='margin: 5px 0 5px 0;'
+              v-model='actualProduct.site_id'
+            />
+          </b-form-group>
+        </div>
+
       </b-form>
     </b-modal>
     <b-table
-    v-if='AllInvoices'
+      v-if='AllInvoices'
       ref="refInvoiceListTable"
-      :items="AllInvoices"
+      :items="AllInvoices.slice((pageNum - 1) * 50, pageNum * 50)"
       responsive
       :fields="tableColumns"
       primary-key="id"
@@ -103,154 +267,35 @@
         </b-link>
       </template>
 
-      <!-- Column: Invoice Status -->
-      <template #cell(invoiceStatus)="data">
-        <b-avatar
-          :id="`invoice-row-${data.item.id}`"
-          size="32"
-          :variant="`light-${resolveInvoiceStatusVariantAndIcon(data.item.invoiceStatus).variant}`"
-        >
-          <feather-icon
-            :icon="resolveInvoiceStatusVariantAndIcon(data.item.invoiceStatus).icon"
-          />
-        </b-avatar>
-        <b-tooltip
-          :target="`invoice-row-${data.item.id}`"
-          placement="top"
-        >
-          <p class="mb-0">
-            {{ data.item.invoiceStatus }}
-          </p>
-          <!-- <p class="mb-0">
-            Due Date: {{ data.item.dueDate }}
-          </p> -->
-        </b-tooltip>
-      </template>
-
-      <!-- Column: Client -->
-      <template #cell(client)="data">
-        <b-media vertical-align="center">
-          <template #aside>
-            <b-avatar
-              size="32"
-              :src="data.item.avatar"
-              :text="avatarText(data.item.client.name)"
-              :variant="`light-${resolveClientAvatarVariant(data.item.invoiceStatus)}`"
-            />
-          </template>
-          <span class="font-weight-bold d-block text-nowrap">
-            {{ data.item.client.name }}
-          </span>
-          <small class="text-muted">{{ data.item.client.email }}</small>
-        </b-media>
-      </template>
-
-      <!-- Column: Issued Date -->
-      <template #cell(issuedDate)="data">
-        <span class="text-nowrap">
-          {{ data.value }}
-        </span>
-      </template>
-
-      <!-- Column: Balance -->
-      <!-- <template #cell(balance)="data">
-        <template v-if="data.value === 0">
-          <b-badge
-            pill
-            variant="light-success"
-          >
-            Paid
-          </b-badge>
-        </template>
-        <template v-else>
-          {{ data.value }}
-        </template>
-      </template> -->
-      <!-- Column: Actions -->
       <template #cell(actions)="data">
 
         <div class="text-nowrap">
-          <!-- <feather-icon
-            :id="`invoice-row-${data.item.id}-send-icon`"
-            icon="SendIcon"
-            class="cursor-pointer"
-            size="16"
-          />
-          <b-tooltip
-            title="Send Invoice"
-            class="cursor-pointer"
-            :target="`invoice-row-${data.item.id}-send-icon`"
-          /> -->
 
           <feather-icon
+            @click="chData(data.item.mainInfo)"
             :id="`invoice-row-${data.item.id}-preview-icon`"
             icon="EyeIcon"
             size="16"
             class="mx-1"
             v-b-modal.modal-select2
           />
-
-          <!-- Dropdown -->
-          <!-- <b-dropdown
-            variant="link"
-            toggle-class="p-0"
-            no-caret
-            :right="$store.state.appConfig.isRTL"
-          >
-
-            <template #button-content>
-              <feather-icon
-                icon="MoreVerticalIcon"
-                size="16"
-                class="align-middle text-body"
-              />
-            </template>
-            <b-dropdown-item>
-              <feather-icon icon="DownloadIcon" />
-              <span class="align-middle ml-50">Download</span>
-            </b-dropdown-item>
-            <b-dropdown-item :to="{ name: 'apps-invoice-edit', params: { id: data.item.id } }">
-              <feather-icon icon="EditIcon" />
-              <span class="align-middle ml-50">Edit</span>
-            </b-dropdown-item>
-            <b-dropdown-item>
-              <feather-icon icon="TrashIcon" />
-              <span class="align-middle ml-50">Delete</span>
-            </b-dropdown-item>
-            <b-dropdown-item>
-              <feather-icon icon="CopyIcon" />
-              <span class="align-middle ml-50">Duplicate</span>
-            </b-dropdown-item>
-          </b-dropdown> -->
         </div>
       </template>
 
     </b-table>
+
     <loader v-else />
-    <div class="mx-2 mb-2">
+
+    <section v-if='AllInvoices'>
       <b-row>
-
-        <b-col
-          cols="12"
-          sm="6"
-          class="d-flex align-items-center justify-content-center justify-content-sm-start"
-        >
-          <span class="text-muted">Showing {{ dataMeta.from }} to {{ dataMeta.to }} of {{ dataMeta.to }} entries</span>
-        </b-col>
-        <!-- Pagination -->
-        <b-col
-          cols="12"
-          sm="6"
-          class="d-flex align-items-center justify-content-center justify-content-sm-end"
-        >
-
-          <!-- <b-pagination
-            v-model="currentPage"
+        <b-col cols="12">
+          <b-pagination
+            v-model="pageNum"
             :total-rows="AllInvoices.length"
-            :per-page="perPage"
+            :per-page="50"
             first-number
+            align="center"
             last-number
-            class="mb-0 mt-1 mt-sm-0"
             prev-class="prev-item"
             next-class="next-item"
           >
@@ -266,12 +311,10 @@
                 size="18"
               />
             </template>
-          </b-pagination> -->
-
+          </b-pagination>
         </b-col>
-
       </b-row>
-    </div>
+    </section>
   </b-card>
 
 </template>
@@ -325,38 +368,38 @@ export default {
   data(){
     return{
       AllInvoices: null,
+      pageNum: 1,
       checkbox: false,
       arr: {
         'name1': 'name11',
         'name2': 'name22'
       },
       blogEdit: {},
-      blogFile: []
+      blogFile: [],
+      actualProduct: {},
+      kaspiR: '',
     }
   },
   created(){
     this.$http.get('/blog/list/data/edit').then(res => { this.blogEdit = res.data; })
     var self = this
-    axios.get('https://textforeva.ru/order')
-    .then(response => {
-      var filteredData = JSON.parse(JSON.stringify(response.data))
-      for(var i = 0; i < response.data.length; i++){
-        filteredData[i] = {
-          Name: filteredData[i]._id,
-          issuedDate: new Date(filteredData[i].date).toLocaleString().split(',')[0],
-          total: filteredData[i].finishPrice,
-          avatar: '',
-          invoiceStatus: filteredData[i].paymentStatus == 'notPaid' ? 'Not Paid' : 'Paid' ,
-          balance: 100,
-          dueDate: new Date(filteredData[i].date).toLocaleString().split(',')[0],
-          client: {
-            address: filteredData[i].address,
-            email: filteredData[i].email,
-            name: filteredData[i].name
+    axios.get('http://178.250.159.216/queryes?count=2&start=1')
+    .then(res => {
+      axios.get(`http://178.250.159.216/queryes?count=${res.data.max}&start=1`)
+      .then(response => {
+        console.log(response)
+        var filteredData = JSON.parse(JSON.stringify(response.data.data))
+        for(var i = 0; i < response.data.data.length; i++){
+          filteredData[i] = {
+            Name: filteredData[i]._id,
+            mainInfo: filteredData[i]
           }
         }
-      }
-      self.AllInvoices = filteredData
+        self.AllInvoices = filteredData
+      })
+      .catch(error => {
+        console.log(error)
+      })
     })
     .catch(error => {
       console.log(error)
@@ -429,7 +472,76 @@ export default {
   },
   methods: {
     handleOk(){
-      alert(1)
+      var obj = JSON.parse(JSON.stringify(this.actualProduct))
+      var a = Object.keys(obj.properties).length
+      var d = {properties: []}
+
+      for (let i = 0; i < a; i++) {
+        console.log(obj.properties[i][0]);
+        var l = obj.properties[i][0];
+        d.properties[l] = obj.properties[i][1]
+      }
+      obj.properties = d.properties
+////////////////////////////////////////////////////////////////// 
+      var additionalProductsLength = Object.keys(obj.additional_properties).length
+      var additionalProducts = obj.additional_properties
+      console.log(additionalProducts, obj.additional_properties);
+      var resultPr = {additional_properties: []}
+
+      for (let index = 0; index < additionalProductsLength; index++) {
+        resultPr.additional_properties[additionalProducts[index][0]] = {}
+        var innerAdditionalProducts = this.actualProduct.additional_properties[index][1]
+
+        for (let addProp = 0; addProp < innerAdditionalProducts.length; addProp++) {
+          resultPr.additional_properties[additionalProducts[index][0]][innerAdditionalProducts[addProp][0]] = innerAdditionalProducts[addProp][1]
+        }
+        
+      }
+      obj.additional_properties = resultPr.additional_properties
+/////////////////////////////////////////////////////////////////
+      console.log(obj);
+    },
+    chData(data2){
+      var data = JSON.parse(JSON.stringify(data2))
+      var arr = []
+      var copy = Object.keys(data.properties)
+      for (let i = 0; i < Object.keys(data.properties).length; i++) {
+        arr.push([copy[i],data.properties[copy[i]]])
+      }
+      data.properties = arr
+//////////////////////////////////////////////////////////////
+      var arr2 = []
+      var copy2 = Object.keys(data.additional_properties)
+
+      for (let i = 0; i < Object.keys(data.additional_properties).length; i++) {
+        arr2.push([copy2[i],[]])
+        var copy3 = data.additional_properties[copy2[i]]
+        console.log(copy3);
+        var copy4 = Object.keys(copy3)
+        for (let o = 0; o < Object.keys(copy3).length; o++) {
+          console.log(arr2,copy4);
+          arr2[i][1].push([copy4[o],data.additional_properties[copy2[i]][copy4[o]]])
+        }
+      }
+      console.log(arr2);
+      data.additional_properties = arr2
+///////////////////////////////////////////////////////////////
+
+      this.actualProduct = data
+    },
+    addR(){
+      var form = new FormData()
+      form.append('markup', this.kaspiR)
+      console.log(this.kaspiR);
+      axios.post('http://178.250.159.216/parce_markup', form)
+      .then(res => {
+        console.log(res);
+        this.chData(res.data.data)
+      })
+      .catch(err => {
+        console.log(err);
+        // chData(res.data.data)
+      })
     }
   }
 }

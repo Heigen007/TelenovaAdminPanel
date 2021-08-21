@@ -32,6 +32,24 @@
   >
     <b-table responsive="lg" :items="FourthPromoItems"/>
   </b-card-code>
+  <b-card-code
+    no-body
+    title="5 promo type"
+  >
+    <b-table responsive="lg" :items="FifthPromoItems"/>
+  </b-card-code>
+  <b-card-code
+    no-body
+    title="6 promo type"
+  >
+    <b-table responsive="lg" :items="SixthPromoItems"/>
+  </b-card-code>
+  <b-card-code
+    no-body
+    title="7 promo type"
+  >
+    <b-table responsive="lg" :items="SeventhPromoItems"/>
+  </b-card-code>
     <b-modal
       id="modal-select2"
       centered
@@ -168,6 +186,40 @@ export default {
         }
       }
       this.FourthPromoItems = FPromoo
+
+      var FifthPromo = response.data.filter(el => el.typeOfPromo == 5)
+      for (let i = 0; i < FifthPromo.length; i++) {
+        FifthPromo[i] = {
+          "Id": FifthPromo[i]._id,
+          "product_kaspi_id": FifthPromo[i].productKaspiId,
+          "time_of_promo_ending": new Date(FifthPromo[i].timeOfPromoEnding).toLocaleString('en-US',options)
+        }
+      }
+      this.FifthPromoItems = FifthPromo
+
+      var SixthPromo = response.data.filter(el => el.typeOfPromo == 6)
+      for (let i = 0; i < SixthPromo.length; i++) {
+        SixthPromo[i] = {
+          "Id": SixthPromo[i]._id,
+          "big_promo_text": SixthPromo[i].bigPromoText,
+          "category_name": SixthPromo[i].categoryName,
+          "sale": SixthPromo[i].sale,
+          "time_of_promo_ending": new Date(SixthPromo[i].timeOfPromoEnding).toLocaleString('en-US',options)
+        }
+      }
+      this.SixthPromoItems = SixthPromo
+
+      var SeventhPromo = response.data.filter(el => el.typeOfPromo == 7)
+      for (let i = 0; i < SeventhPromo.length; i++) {
+        SeventhPromo[i] = {
+          "Id": SeventhPromo[i]._id,
+          "big_promo_text": SeventhPromo[i].bigPromoText,
+          "category_name": SeventhPromo[i].categoryName,
+          "sale": SeventhPromo[i].sale,
+          "time_of_promo_ending": new Date(SeventhPromo[i].timeOfPromoEnding).toLocaleString('en-US',options)
+        }
+      }
+      this.SeventhPromoItems = SeventhPromo
     })
     .catch(function (error) {
       console.log(error);
