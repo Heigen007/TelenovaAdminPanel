@@ -53,7 +53,7 @@
     <b-modal
       id="modal-select2"
       centered
-      title="Basic Modal"
+      title="Delete promoaction"
       ok-title="submit"
       cancel-variant="outline-secondary"
       @ok="deletePromo"
@@ -132,6 +132,10 @@ export default {
   created() {
     this.$http.get('/blog/list/data').then(res => { this.blogList = res.data })
     this.$http.get('/blog/list/data/sidebar').then(res => { this.blogSidebar = res.data })
+    this.updatePromo()
+  },
+  methods: {
+    updatePromo(){
     axios.get(`https://textforeva.ru/promoAction/`)
     .then(response => {
       var options = {
@@ -224,18 +228,18 @@ export default {
     .catch(function (error) {
       console.log(error);
     })
-  },
-  methods: {
+    },
     deletePromo(){
-      // axios.delete('http://178.250.159.216/proxy', { data: formData })
-      // .then(res => {
-      //   console.log(res)
-      //   this.makeToast('success',  'Promo has been deleted', 'Success')
-      // })
-      // .catch(err => {
-      //   console.log(err);
-      //   this.makeToast('danger',  'Some error occured', 'Error')
-      // })
+      axios.delete('https://textforeva.ru/promoAction/', { data: {id: this.delId} })
+      .then(res => {
+        console.log(res)
+        this.makeToast('success',  'Promo has been deleted', 'Success')
+        this.updatePromo()
+      })
+      .catch(err => {
+        console.log(err);
+        this.makeToast('danger',  'Some error occured', 'Error')
+      })
     },
     kFormatter,
     tagsColor(tag) {

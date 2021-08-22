@@ -58,7 +58,7 @@
                   <b-form-file
                     ref="refInputEl1"
                     v-model="blogFile"
-                    accept=".jpg, .png, .gif"
+                    accept=".jpg, .png, .gif, .jpeg"
                     multiple
                     placeholder="Choose file"
                     @input="inputImageRenderer"
@@ -279,21 +279,21 @@
                 <b-img
                   ref="refPreviewEl7"
                   :src="blogEdit.featuredImage"
-                  height="110"
+                  height="170"
                   width="170"
                   class="rounded mr-2 mb-1 mb-md-0"
                 />
                 <b-img
                   ref="refPreviewEl8"
                   :src="blogEdit.featuredImage"
-                  height="110"
+                  height="170"
                   width="170"
                   class="rounded mr-2 mb-1 mb-md-0"
                 />
                 <b-img
                   ref="refPreviewElExtra"
                   :src="blogEdit.featuredImage"
-                  height="110"
+                  height="170"
                   width="170"
                   class="rounded mr-2 mb-1 mb-md-0"
                 />
@@ -301,7 +301,7 @@
               <b-media-body
                 style="min-width:200px"
               >
-                <small class="text-muted">Required image resolution 1200x400, image size 10mb.</small>
+                <small class="text-muted">Required image resolution 400x400, image size 10mb.</small>
                 <b-card-text class="my-50">
                   <b-link id="blog-image-text">
                     C:\fakepath\{{ blogFile ? blogFile.name : 'banner.jpg' }}
@@ -462,27 +462,29 @@
               style="flex-wrap:wrap"
             >
               <b-media-aside
-                style="flex-wrap: wrap;"
+                style="flex-wrap: wrap; flex-direction: column"
               >
                 <b-img
                   ref="refPreviewEl9"
                   :src="blogEdit.featuredImage"
-                  height="110"
-                  width="170"
+                  height="100"
+                  width="300"
                   class="rounded mr-2 mb-1 mb-md-0"
                 />
+                <br>
                 <b-img
                   ref="refPreviewEl10"
                   :src="blogEdit.featuredImage"
-                  height="110"
-                  width="170"
+                  height="100"
+                  width="300"
                   class="rounded mr-2 mb-1 mb-md-0"
                 />
+                <br>
                 <b-img
                   ref="refPreviewEl11"
                   :src="blogEdit.featuredImage"
-                  height="110"
-                  width="170"
+                  height="100"
+                  width="300"
                   class="rounded mr-2 mb-1 mb-md-0"
                 />
               </b-media-aside>
@@ -1177,7 +1179,7 @@ export default {
       formData.append('productKaspiId', this.Promo3.Id)
       formData.append('timeOfPromoEnding', date)
       formData.append('sale', this.Promo3.Discount)
-      // formData.append('name', this.Promo3.name)
+      formData.append('name', this.Promo3.name)
       this.createFinalPromo(formData)
     },
     createFourthPromo() {
