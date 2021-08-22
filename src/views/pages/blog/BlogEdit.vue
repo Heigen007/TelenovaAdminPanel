@@ -1141,7 +1141,7 @@ export default {
     createFirstPromo() {
       var date = this.Promo1.dateDefault.split('-')
       const formData = new FormData()
-      date = new Date(Number(date[0]),Number(date[1]),Number(date[2])).toISOString()
+      date = new Date(Number(date[0]),Number(date[1] - 1),Number(date[2])).toISOString()
       this.blogFile.slice(0,3).forEach(file => {
         formData.append('files', file)
       })
@@ -1154,7 +1154,7 @@ export default {
     createSecondPromo() {
       var date = this.Promo2.dateDefault.split('-')
       var formData = new FormData()
-      date = new Date(Number(date[0]),Number(date[1]),Number(date[2])).toISOString()
+      date = new Date(Number(date[0]),Number(date[1] - 1),Number(date[2])).toISOString()
       this.blogFile2.slice(0,3).forEach(file => {
         formData.append('files', file)
       })
@@ -1172,7 +1172,7 @@ export default {
       this.blogFile3.slice(0,3).forEach(file => {
         formData.append('files', file)
       })
-      date = new Date(Number(date[0]),Number(date[1]),Number(date[2])).toISOString()
+      date = new Date(Number(date[0]),Number(date[1] - 1),Number(date[2])).toISOString()
       formData.append('smallPromoText', this.Promo3.SmallText)
       formData.append('bigPromoText', this.Promo3.BoldText)
       formData.append('typeOfPromo', 3)
@@ -1185,7 +1185,7 @@ export default {
     createFourthPromo() {
       var date = this.Promo4.dateDefault.split('-')
       var formData = new FormData()
-      date = new Date(Number(date[0]),Number(date[1]),Number(date[2])).toISOString()
+      date = new Date(Number(date[0]),Number(date[1] - 1),Number(date[2])).toISOString()
       this.blogFile5.slice(0,3).forEach(file => {
         formData.append('files', file)
       })
@@ -1199,7 +1199,7 @@ export default {
     createFifthPromo() {
       var date = this.Promo5.dateDefault.split('-')
       var formData = new FormData()
-      date = new Date(Number(date[0]),Number(date[1]),Number(date[2])).toISOString()
+      date = new Date(Number(date[0]),Number(date[1] - 1),Number(date[2])).toISOString()
       this.blogFile6.slice(0,3).forEach(file => {
         formData.append('files', file)
       })
@@ -1212,7 +1212,7 @@ export default {
     createSixthPromo() {
       var date = this.Promo6.dateDefault.split('-')
       var formData = new FormData()
-      date = new Date(Number(date[0]),Number(date[1]),Number(date[2])).toISOString()
+      date = new Date(Number(date[0]),Number(date[1] - 1),Number(date[2])).toISOString()
       this.blogFile7.slice(0,3).forEach(file => {
         formData.append('files', file)
       })
@@ -1226,7 +1226,7 @@ export default {
     createSeventhPromo() {
       var date = this.Promo7.dateDefault.split('-')
       var formData = new FormData()
-      date = new Date(Number(date[0]),Number(date[1]),Number(date[2])).toISOString()
+      date = new Date(Number(date[0]),Number(date[1] - 1),Number(date[2])).toISOString()
       this.blogFile8.slice(0,3).forEach(file => {
         formData.append('files', file)
       })

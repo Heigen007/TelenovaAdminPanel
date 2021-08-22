@@ -292,7 +292,8 @@ export default {
   methods: {
     CreatePromocode(){
       var date = this.PromocodeEnding.split('-')
-      date = new Date(Number(date[0]),Number(date[1]),Number(date[2])).toISOString()
+      var self = this
+      date = new Date(Number(date[0]),Number(date[1] - 1),Number(date[2])).toISOString()
       var obj = {
         date: date,
         sale: this.PromocodeDiscount,
@@ -306,7 +307,14 @@ export default {
           'Promocode has been created!',
           'success'
         )
-        setTimeout(() => location.reload(), 1000);
+        axios.get('https://textforeva.ru/promoCode/')
+        .then(response => {
+          var filteredData = JSON.parse(JSON.stringify(response.data))
+          self.AllInvoices = filteredData
+        })
+        .catch(error => {
+          console.log(error)
+        })
       })
       .catch(err => {
         Swal.fire(
@@ -317,6 +325,7 @@ export default {
       })
     },
     deletePromo(id) {
+      var self = this
       axios.delete('https://textforeva.ru/promoCode/', { data: { id: id } })
       .then(res => {
         console.log({id: id},res);
@@ -325,7 +334,14 @@ export default {
           'Promocode has been deleted!',
           'success'
         )
-        setTimeout(() => location.reload(), 1000);
+        axios.get('https://textforeva.ru/promoCode/')
+        .then(response => {
+          var filteredData = JSON.parse(JSON.stringify(response.data))
+          self.AllInvoices = filteredData
+        })
+        .catch(error => {
+          console.log(error)
+        })
       })
       .catch(err => {
         Swal.fire(
