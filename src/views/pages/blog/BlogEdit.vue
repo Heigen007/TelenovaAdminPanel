@@ -736,7 +736,7 @@
               <b-media-body
                 style="min-width:200px"
               >
-                <small class="text-muted">Required image resolution 220x166, image should be without text on it, write the promo text down below</small>
+                <small class="text-muted">Required image resolution 210x166, image should be without text on it, write the promo text down below</small>
                 <b-card-text class="my-50">
                   <b-link id="blog-image-text">
                     C:\fakepath\{{ blogFile ? blogFile.name : 'banner.jpg' }}
@@ -851,7 +851,7 @@
               <b-media-body
                 style="min-width:200px"
               >
-                <small class="text-muted">Required image resolution 220x166, image should be without text on it, write the promo text down below</small>
+                <small class="text-muted">Required image resolution 210x166, image should be without text on it, write the promo text down below</small>
                 <b-card-text class="my-50">
                   <b-link id="blog-image-text">
                     C:\fakepath\{{ blogFile ? blogFile.name : 'banner.jpg' }}
