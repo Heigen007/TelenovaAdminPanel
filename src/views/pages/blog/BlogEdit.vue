@@ -65,14 +65,14 @@
                   />
                 </div>
                 <b-form-group
-                  label="Product Id"
+                  label="Link"
                   label-for="basicInput"
                   class='my-2'
                 >
                   <b-form-input
-                    v-model='Promo1.Id'
+                    v-model='Promo1.Link'
                     id="basicInput"
-                    placeholder="Product Id"
+                    placeholder="Link"
                   />
                 </b-form-group>
                 <b-form-group>
@@ -640,12 +640,12 @@
                   />
                 </div>
                 <b-form-group
-                  label="Product Id"
+                  label="Link"
                   class='my-2'
                 >
                   <b-form-input
-                    v-model='Promo5.Id'
-                    placeholder="Id"
+                    v-model='Promo5.Link'
+                    placeholder="Link"
                   />
                 </b-form-group>
                 <b-form-group>
@@ -867,6 +867,15 @@
                   <b-form-input
                     v-model='Promo7.CategoryName'
                     placeholder="Category Name"
+                  />
+                </b-form-group>
+                <b-form-group
+                  label="Min price"
+                  class='my-2'
+                >
+                  <b-form-input
+                    v-model='Promo7.MinPrice'
+                    placeholder="Min Price"
                   />
                 </b-form-group>
                 <b-form-group
@@ -1123,7 +1132,7 @@ export default {
         formData.append('files', file)
       })
       formData.append('typeOfPromo', 1)
-      formData.append('productKaspiId', this.Promo1.Id)
+      formData.append('link', this.Promo1.Link)
       formData.append('timeOfPromoEnding', date)
       formData.append('sale', 0)
       this.createFinalPromo(formData)
@@ -1170,7 +1179,7 @@ export default {
       formData.append('typeOfPromo', 4)
       formData.append('categoryName', this.Promo4.CategoryName)
       formData.append('timeOfPromoEnding', date)
-      formData.append('minPrice', this.Promo4.MinPrice)
+      formData.append('customMinPrice', this.Promo4.MinPrice)
       formData.append('sale', 0)
       this.createFinalPromo(formData)
     },
@@ -1182,7 +1191,7 @@ export default {
         formData.append('files', file)
       })
       formData.append('typeOfPromo', 5)
-      formData.append('productKaspiId', this.Promo5.Id)
+      formData.append('link', this.Promo5.Link)
       formData.append('sale', 0)
       formData.append('timeOfPromoEnding', date)
       this.createFinalPromo(formData)
@@ -1213,6 +1222,7 @@ export default {
       formData.append('categoryName', this.Promo7.CategoryName)
       formData.append('timeOfPromoEnding', date)
       formData.append('sale', 0)
+      formData.append('customMinPrice', this.Promo7.MinPrice)
       this.createFinalPromo(formData)
     },
     createFinalPromo(obj) {

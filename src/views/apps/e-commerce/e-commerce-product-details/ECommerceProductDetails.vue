@@ -356,7 +356,7 @@ export default {
   },
   methods: {
     handleOk(){
-      axios.post('', {sale: this.sale, id: this.$route.params.slug})
+      axios.post('https://textforeva.ru/sale', {sale: Number(this.sale), productKaspiId: this.$route.params.slug})
       .then(res => {
         this.makeToast('success',  'Sale has been added', 'Success')
       })
