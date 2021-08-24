@@ -217,7 +217,7 @@
             responsive
             striped hover
             :items="invInfo.goods"
-            :fields="['Name', 'Seller', 'count', 'price', 'total']"
+            :fields="['Name', 'ActualSeller', 'Seller', 'count', 'price', 'total']"
           >
             <template #cell(Name)="data">
               <b-card-text class="font-weight-bold mb-25">
@@ -272,14 +272,6 @@
                       0 тг.
                     </p>
                   </div>
-                  <!-- <div class="invoice-total-item">
-                    <p class="invoice-total-title">
-                      Tax:
-                    </p>
-                    <p class="invoice-total-amount">
-                      21%
-                    </p>
-                  </div> -->
                   <hr class="my-50">
                   <div class="invoice-total-item">
                     <p class="invoice-total-title">
@@ -315,17 +307,6 @@
       >
         <b-card>
 
-          <!-- Button: Send Invoice -->
-          <!-- <b-button
-            v-ripple.400="'rgba(255, 255, 255, 0.15)'"
-            v-b-toggle.sidebar-send-invoice
-            variant="primary"
-            class="mb-75"
-            block
-          >
-            Send Invoice
-          </b-button> -->
-
           <!-- Button: DOwnload -->
           <b-button
             v-ripple.400="'rgba(186, 191, 199, 0.15)'"
@@ -336,39 +317,6 @@
           >
             Download
           </b-button>
-
-          <!-- Button: Print -->
-          <!-- <b-button
-            v-ripple.400="'rgba(186, 191, 199, 0.15)'"
-            variant="outline-secondary"
-            class="mb-75"
-            block
-            @click="printInvoice"
-          >
-            Print
-          </b-button> -->
-
-          <!-- Button: Edit -->
-          <!-- <b-button
-            v-ripple.400="'rgba(186, 191, 199, 0.15)'"
-            variant="outline-secondary"
-            class="mb-75"
-            block
-            :to="{ name: 'apps-invoice-edit', params: { id: $route.params.id } }"
-          >
-            Edit
-          </b-button> -->
-
-          <!-- Button: Add Payment -->
-          <!-- <b-button
-            v-b-toggle.sidebar-invoice-add-payment
-            v-ripple.400="'rgba(255, 255, 255, 0.15)'"
-            variant="success"
-            class="mb-75"
-            block
-          >
-            Add Payment
-          </b-button> -->
         </b-card>
       </b-col>
     </b-row>
@@ -436,7 +384,8 @@ export default {
             Seller: UpdatedGoods[y].product.offerData.seller,
             price: UpdatedGoods[y].price/UpdatedGoods[y].count + ' тг.',
             count: UpdatedGoods[y].count,
-            total: Number(UpdatedGoods[y].price)+ ' тг.'
+            total: Number(UpdatedGoods[y].price)+ ' тг.',
+            ActualSeller: UpdatedGoods[y].product.offerData.actual_supplier
           }
           } else if(UpdatedGoods[y].product.offerData.sellers){
             UpdatedGoods[y] = {
@@ -444,7 +393,8 @@ export default {
               Seller: Object.keys(UpdatedGoods[y].product.offerData.sellers)[0],
               price: UpdatedGoods[y].price/UpdatedGoods[y].count + ' тг.',
               count: UpdatedGoods[y].count,
-              total: Number(UpdatedGoods[y].price)+ ' тг.'
+              total: Number(UpdatedGoods[y].price)+ ' тг.',
+              ActualSeller: UpdatedGoods[y].product.offerData.actual_supplier
             }
           } else {
             console.log(UpdatedGoods[y]);
@@ -452,7 +402,8 @@ export default {
               Name: UpdatedGoods[y].product.offerData.kaspi_name,
               price: UpdatedGoods[y].price/UpdatedGoods[y].count + ' тг.',
               count: UpdatedGoods[y].count,
-              total: Number(UpdatedGoods[y].price)+ ' тг.'
+              total: Number(UpdatedGoods[y].price)+ ' тг.',
+              ActualSeller: UpdatedGoods[y].product.offerData.actual_supplier
             }
           }
         }

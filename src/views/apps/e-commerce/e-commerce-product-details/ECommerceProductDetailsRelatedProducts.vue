@@ -41,13 +41,24 @@
                   icon="StarIcon"
                   size="18"
                   class="mr-25"
-                  :class="[{'fill-current': star <= product.offerData.kaspi_rating}, star <= product.offerData.kaspi_rating ? 'text-warning' : 'text-muted']"
+                  :class="[{'fill-current': star <= product.offerData.kaspi_rating/2}, star <= product.offerData.kaspi_rating/2 ? 'text-warning' : 'text-muted']"
                 />
               </li>
             </ul>
             <p class="card-text text-primary mb-0">
               {{ product.offerData.price }} тг.
             </p>
+              <b-button
+                variant="primary"
+                class="btn-cart mr-0 mr-sm-1 mb-1 mb-sm-0"
+                @click="deleteRel(product.offerData.kaspi_id)"
+              >
+                <feather-icon
+                  icon="MinusCircleIcon"
+                  class="mr-50"
+                />
+                <span>Delete</span>
+              </b-button>
           </div>
         </b-link>
       </swiper-slide>
@@ -67,9 +78,10 @@
 
 <script>
 import {
-  BCardBody, BCardText, BImg, BLink,
+  BCardBody, BCardText, BImg, BLink, BButton
 } from 'bootstrap-vue'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+import axios from 'axios'
 
 export default {
   components: {
@@ -77,13 +89,15 @@ export default {
     BCardText,
     BImg,
     BLink,
+    BButton,
 
     // 3rd Party
     Swiper,
     SwiperSlide,
   },
   props: {
-    info: Array
+    info: Array,
+    MainId: String
   },
   setup() {
     const swiperOptions = {
@@ -158,6 +172,17 @@ export default {
       relatedProducts,
     }
   },
+  methods: {
+    deleteRel(id){
+      axios.post('http://157.230.225.244/storage/removeSimilarGoods', {
+        "kaspi_id": this.MainId,
+        "similarProductsId": [id]
+      })
+      .then(res => {
+        location.reload()
+      })
+    }
+  }
 }
 </script>
 

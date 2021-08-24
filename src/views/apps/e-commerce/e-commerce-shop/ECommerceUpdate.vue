@@ -561,39 +561,39 @@ export default {
         console.log(res);
         if(res.data.status) {
           this.makeToast('success',  'Information has been updated', 'Success')
-   var self = this
-    axios.get('http://178.250.159.216/queryes?count=50&start=1')
-    .then(res => {
-      console.log(res)
-      var filteredData = JSON.parse(JSON.stringify(res.data.data))
-      for(var i = 0; i < res.data.data.length; i++){
-        filteredData[i] = {
-          Name: filteredData[i]._id,
-          Supplier: filteredData[i].supplier_name,
-          mainInfo: filteredData[i]
-        }
-      }
-      self.AllInvoices = filteredData
-      axios.get(`http://178.250.159.216/queryes?count=${res.data.max}&start=1`)
-      .then(response => {
-        console.log(response)
-        var filteredData = JSON.parse(JSON.stringify(response.data.data))
-        for(var i = 0; i < response.data.data.length; i++){
-          filteredData[i] = {
-            Name: filteredData[i]._id,
-            Supplier: filteredData[i].supplier_name,
-            mainInfo: filteredData[i]
-          }
-        }
-        self.AllInvoices = filteredData
-      })
-      .catch(error => {
-        console.log(error)
-      })
-    })
-    .catch(error => {
-      console.log(error)
-    })
+          var self = this
+            axios.get('http://178.250.159.216/queryes?count=50&start=1')
+            .then(res => {
+              console.log(res)
+              var filteredData = JSON.parse(JSON.stringify(res.data.data))
+              for(var i = 0; i < res.data.data.length; i++){
+                filteredData[i] = {
+                  Name: filteredData[i]._id,
+                  Supplier: filteredData[i].supplier_name,
+                  mainInfo: filteredData[i]
+                }
+              }
+              self.AllInvoices = filteredData
+              axios.get(`http://178.250.159.216/queryes?count=${res.data.max}&start=1`)
+              .then(response => {
+                console.log(response)
+                var filteredData = JSON.parse(JSON.stringify(response.data.data))
+                for(var i = 0; i < response.data.data.length; i++){
+                  filteredData[i] = {
+                    Name: filteredData[i]._id,
+                    Supplier: filteredData[i].supplier_name,
+                    mainInfo: filteredData[i]
+                  }
+                }
+                self.AllInvoices = filteredData
+              })
+              .catch(error => {
+                console.log(error)
+              })
+            })
+            .catch(error => {
+              console.log(error)
+            })
         } else {
           this.makeToast('danger',  'Please, fill all the fields', 'Error')
         }

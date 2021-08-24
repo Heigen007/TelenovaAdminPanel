@@ -83,6 +83,10 @@
             <b-card-text class="mt-1">
               Id - <span class="text-success">{{product.offerData.kaspi_id}}</span>
             </b-card-text>
+
+            <!-- <b-card-text v-if='sale' class="mt-1">
+              Sale - <span class="text-success">{{product.offerData.sale}}</span>
+            </b-card-text> -->
             <!-- Price And Ratings -->
             <div class="ecommerce-details-price d-flex flex-wrap mt-1">
               <h4 class="item-price mr-1">
@@ -270,7 +274,7 @@
 
       <!-- Static Content -->
       <!-- Slider: Related Products -->
-      <e-commerce-product-details-related-products v-if='product.similarProducts' :info='product.similarProducts' />
+      <e-commerce-product-details-related-products v-if='product.similarProducts' :MainId='product.offerData.kaspi_id' :info='product.similarProducts' />
     </b-card>
   </section>
 </template>
@@ -352,7 +356,21 @@ export default {
   },
   methods: {
     handleOk(){
-
+      axios.post('', {sale: this.sale, id: this.$route.params.slug})
+      .then(res => {
+        this.makeToast('success',  'Sale has been added', 'Success')
+      })
+      .catch(err => {
+        this.makeToast('danger',  'Some error occure, maybe your sale is not in range of 0 and 100', 'Error')
+      })
+    },
+    makeToast(variant = null, content, title) {
+      this.$bvToast.toast(content, {
+        title: title,
+        variant,
+        solid: true,
+        content: 'Info'
+      })
     },
     repeateAgain() {
       this.items.push({
