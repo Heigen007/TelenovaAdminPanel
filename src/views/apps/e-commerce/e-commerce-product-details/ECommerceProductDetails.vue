@@ -84,9 +84,9 @@
               Id - <span class="text-success">{{product.offerData.kaspi_id}}</span>
             </b-card-text>
 
-            <!-- <b-card-text v-if='sale' class="mt-1">
-              Sale - <span class="text-success">{{product.offerData.sale}}</span>
-            </b-card-text> -->
+            <b-card-text v-if='product.sale' class="mt-1">
+              Sale - <span class="text-success">{{product.sale}}%</span>
+            </b-card-text>
             <!-- Price And Ratings -->
             <div class="ecommerce-details-price d-flex flex-wrap mt-1">
               <h4 class="item-price mr-1">
@@ -101,7 +101,7 @@
                   <feather-icon
                     icon="StarIcon"
                     size="18"
-                    :class="[{'fill-current': star <= product.offerData.kaspi_rating}, star <= product.offerData.kaspi_rating ? 'text-warning' : 'text-muted']"
+                    :class="[{'fill-current': star <= product.offerData.kaspi_rating/2}, star <= product.offerData.kaspi_rating/2 ? 'text-warning' : 'text-muted']"
                   />
                 </li>
               </ul>
@@ -359,6 +359,7 @@ export default {
       axios.post('https://textforeva.ru/sale', {sale: Number(this.sale), productKaspiId: this.$route.params.slug})
       .then(res => {
         this.makeToast('success',  'Sale has been added', 'Success')
+        this.product.sale = this.sale
       })
       .catch(err => {
         this.makeToast('danger',  'Some error occure, maybe your sale is not in range of 0 and 100', 'Error')
