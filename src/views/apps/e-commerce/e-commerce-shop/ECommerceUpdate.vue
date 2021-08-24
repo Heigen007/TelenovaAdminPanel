@@ -531,7 +531,7 @@ export default {
       formData.set('additional_properties',JSON.stringify(obj.additional_properties))
       formData.set('properties',JSON.stringify(obj.properties))
       formData.set('images',JSON.stringify(obj.images))
-      if(obj.third_level_category == '') formData.set('third_level_category','not show')
+      if(obj.third_level_category == '') formData.set('third_level_category','not show' + obj.second_level_category)
       axios.post('http://178.250.159.216:5000/query_upload', formData)
       .then(res => {
         console.log(res);
@@ -545,12 +545,35 @@ export default {
         this.makeToast('danger',  'Some network error occured', 'Error')
       })
     },
-    chData(data2){
+    chData(data2, extr){
       var data = JSON.parse(JSON.stringify(data2))
       var arr = []
       data.on_site = data.already_in_site
       data.id = data._id
+      if(extr == 'ex') {
+        data.supplier_name = this.actualProduct.supplier_name
+        data.product_count = this.actualProduct.product_count
+        data.supplier = this.actualProduct.supplier
+        data.price = this.actualProduct.price
+        data.opt_price = this.actualProduct.opt_price
+        data.supplier_category = this.actualProduct.supplier_category
+        data.brand = this.actualProduct.brand
+        data.on_kaspi = this.actualProduct.on_kaspi
+        data.on_site = this.actualProduct.on_site
+      }
       delete data._id
+      if(data.category_list){
+        data.first_level_category = data.category_list[0]
+        data.second_level_category = data.category_list[1]
+        if(data.category_list.length > 2) {
+          data.third_level_category = data.category_list[2]
+        } else {
+          data.third_level_category = 'not show' + data.category_list[1]
+        }
+      }
+      if(data.kaspi_name){
+        data.name = data.kaspi_name
+      }
       var copy = Object.keys(data.properties)
       for (let i = 0; i < Object.keys(data.properties).length; i++) {
         arr.push([copy[i],data.properties[copy[i]]])
@@ -582,7 +605,7 @@ export default {
       axios.post('http://178.250.159.216/parce_markup', form)
       .then(res => {
         console.log(res);
-        this.chData(res.data.data)
+        this.chData(res.data.data, 'ex')
       })
       .catch(err => {
         console.log(err);
