@@ -262,7 +262,7 @@ export default {
       for(var i = 0; i < response.data.length; i++){
         filteredData[i] = {
           id: filteredData[i]._id,
-          issuedDate: new Date(filteredData[i].date).toLocaleString().split(',')[0],
+          issuedDate: Date.parse(new Date(filteredData[i].date)),
           total: filteredData[i].finishPrice,
           avatar: '',
           invoiceStatus: filteredData[i].paymentStatus == 'notPaid' ? 'Not Paid' : 'Paid' ,

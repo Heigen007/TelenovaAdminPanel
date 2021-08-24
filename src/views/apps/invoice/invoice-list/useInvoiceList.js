@@ -17,7 +17,7 @@ export default function useInvoicesList() {
     { key: 'invoiceStatus', sortable: true },
     { key: 'client', sortable: true },
     { key: 'total', sortable: true, formatter: val => `${val} тг.`},
-    { key: 'issuedDate', sortable: true },
+    { key: 'issuedDate', sortable: true, formatter: val => new Date(val).toLocaleString().split(',')[0]},
     { key: 'actions' },
   ]
   const perPage = ref(10)
