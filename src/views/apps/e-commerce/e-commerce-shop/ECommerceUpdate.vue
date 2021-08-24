@@ -132,6 +132,18 @@
           />
           <span>Add Image</span>
         </b-button>
+        <b-button
+          variant="primary"
+          class="btn-cart mb-2"
+          style="width: 100%"
+          @click='actualProduct.images.pop()'
+        >
+          <feather-icon
+            icon="ShoppingCartIcon"
+            class="mr-50"
+          />
+          <span>Delete Image</span>
+        </b-button>
         <b-form-group label='supplier_images'>
           <b-form-input
             v-for='(el,i) in actualProduct.supplier_images'
@@ -398,8 +410,18 @@ export default {
   created(){
     this.$http.get('/blog/list/data/edit').then(res => { this.blogEdit = res.data; })
     var self = this
-    axios.get('http://178.250.159.216/queryes?count=2&start=1')
+    axios.get('http://178.250.159.216/queryes?count=50&start=1')
     .then(res => {
+      console.log(res)
+      var filteredData = JSON.parse(JSON.stringify(res.data.data))
+      for(var i = 0; i < res.data.data.length; i++){
+        filteredData[i] = {
+          Name: filteredData[i]._id,
+          Supplier: filteredData[i].supplier_name,
+          mainInfo: filteredData[i]
+        }
+      }
+      self.AllInvoices = filteredData
       axios.get(`http://178.250.159.216/queryes?count=${res.data.max}&start=1`)
       .then(response => {
         console.log(response)
@@ -407,6 +429,7 @@ export default {
         for(var i = 0; i < response.data.data.length; i++){
           filteredData[i] = {
             Name: filteredData[i]._id,
+            Supplier: filteredData[i].supplier_name,
             mainInfo: filteredData[i]
           }
         }
@@ -531,12 +554,46 @@ export default {
       formData.set('additional_properties',JSON.stringify(obj.additional_properties))
       formData.set('properties',JSON.stringify(obj.properties))
       formData.set('images',JSON.stringify(obj.images))
+      var id = obj.id
       if(obj.third_level_category == '') formData.set('third_level_category','not show' + obj.second_level_category)
       axios.post('http://178.250.159.216/query_upload', formData)
       .then(res => {
         console.log(res);
         if(res.data.status) {
           this.makeToast('success',  'Information has been updated', 'Success')
+   var self = this
+    axios.get('http://178.250.159.216/queryes?count=50&start=1')
+    .then(res => {
+      console.log(res)
+      var filteredData = JSON.parse(JSON.stringify(res.data.data))
+      for(var i = 0; i < res.data.data.length; i++){
+        filteredData[i] = {
+          Name: filteredData[i]._id,
+          Supplier: filteredData[i].supplier_name,
+          mainInfo: filteredData[i]
+        }
+      }
+      self.AllInvoices = filteredData
+      axios.get(`http://178.250.159.216/queryes?count=${res.data.max}&start=1`)
+      .then(response => {
+        console.log(response)
+        var filteredData = JSON.parse(JSON.stringify(response.data.data))
+        for(var i = 0; i < response.data.data.length; i++){
+          filteredData[i] = {
+            Name: filteredData[i]._id,
+            Supplier: filteredData[i].supplier_name,
+            mainInfo: filteredData[i]
+          }
+        }
+        self.AllInvoices = filteredData
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    })
+    .catch(error => {
+      console.log(error)
+    })
         } else {
           this.makeToast('danger',  'Please, fill all the fields', 'Error')
         }
@@ -560,6 +617,7 @@ export default {
         data.brand = this.actualProduct.brand
         data.on_kaspi = this.actualProduct.on_kaspi
         data.on_site = this.actualProduct.on_site
+        data.supplier_images = this.actualProduct.supplier_images
       }
       delete data._id
       if(data.category_list){

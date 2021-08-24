@@ -14,6 +14,7 @@ export default function useInvoicesList() {
   // Table Handlers
   const tableColumns = [
     { key: 'Name', label: '#', sortable: true },
+    { key: 'Supplier', sortable: true },
     { key: 'actions' },
   ]
   const perPage = ref(10)

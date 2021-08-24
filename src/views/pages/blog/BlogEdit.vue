@@ -524,28 +524,6 @@
                     placeholder="Enter Text"
                   />
                 </b-form-group>
-                <!-- <b-form-group
-                  label="Price Input(number only)"
-                  label-for="basicInput3"
-                  class='my-2'
-                >
-                  <b-form-input
-                    type='number'
-                    v-model='Promo4.Price'
-                    id="basicInput3"
-                    placeholder="Enter Price"
-                  />
-                </b-form-group> -->
-                <b-form-group
-                  label="Promo discount(%)"
-                  class='my-2'
-                >
-                  <b-form-input
-                    type='number'
-                    v-model='Promo4.Discount'
-                    placeholder="Enter Discount"
-                  />
-                </b-form-group>
                 <b-form-group
                   label="Second-tier Category Name"
                   class='my-2'
@@ -891,16 +869,6 @@
                     placeholder="Tetx"
                   />
                 </b-form-group>
-                <b-form-group
-                  label="Promo discount(%)"
-                  class='my-2'
-                >
-                  <b-form-input
-                    type='number'
-                    v-model='Promo7.Discount'
-                    placeholder="Enter Discount"
-                  />
-                </b-form-group>
                 <b-form-group>
                   <h5 class="font-weight-bold">
                     Time of Promo Ending
@@ -1139,9 +1107,9 @@ export default {
       })
     },
     createFirstPromo() {
-      var date = this.Promo1.dateDefault.split('-')
+      var date = this.Promo1.dateDefault?.split('-') || null
       const formData = new FormData()
-      date = new Date(Number(date[0]),Number(date[1] - 1),Number(date[2])).toISOString()
+      if(date) date = new Date(Number(date[0]),Number(date[1] - 1),Number(date[2])).toISOString()
       this.blogFile.slice(0,3).forEach(file => {
         formData.append('files', file)
       })
@@ -1152,9 +1120,9 @@ export default {
       this.createFinalPromo(formData)
     },
     createSecondPromo() {
-      var date = this.Promo2.dateDefault.split('-')
+      var date = this.Promo2.dateDefault?.split('-') || null
       var formData = new FormData()
-      date = new Date(Number(date[0]),Number(date[1] - 1),Number(date[2])).toISOString()
+      if(date) date = new Date(Number(date[0]),Number(date[1] - 1),Number(date[2])).toISOString()
       this.blogFile2.slice(0,3).forEach(file => {
         formData.append('files', file)
       })
@@ -1167,12 +1135,12 @@ export default {
       this.createFinalPromo(formData)
     },
     createThirdPromo() {
-      var date = this.Promo3.dateDefault.split('-')
+      var date = this.Promo3.dateDefault?.split('-') || null
       var formData = new FormData()
       this.blogFile3.slice(0,3).forEach(file => {
         formData.append('files', file)
       })
-      date = new Date(Number(date[0]),Number(date[1] - 1),Number(date[2])).toISOString()
+      if(date) date = new Date(Number(date[0]),Number(date[1] - 1),Number(date[2])).toISOString()
       formData.append('smallPromoText', this.Promo3.SmallText)
       formData.append('bigPromoText', this.Promo3.BoldText)
       formData.append('typeOfPromo', 3)
@@ -1183,9 +1151,9 @@ export default {
       this.createFinalPromo(formData)
     },
     createFourthPromo() {
-      var date = this.Promo4.dateDefault.split('-')
+      var date = this.Promo4.dateDefault?.split('-') || null
       var formData = new FormData()
-      date = new Date(Number(date[0]),Number(date[1] - 1),Number(date[2])).toISOString()
+      if(date) date = new Date(Number(date[0]),Number(date[1] - 1),Number(date[2])).toISOString()
       this.blogFile5.slice(0,3).forEach(file => {
         formData.append('files', file)
       })
@@ -1193,13 +1161,13 @@ export default {
       formData.append('typeOfPromo', 4)
       formData.append('categoryName', this.Promo4.CategoryName)
       formData.append('timeOfPromoEnding', date)
-      formData.append('sale', this.Promo4.Discount)
+      formData.append('sale', 0)
       this.createFinalPromo(formData)
     },
     createFifthPromo() {
-      var date = this.Promo5.dateDefault.split('-')
+      var date = this.Promo5.dateDefault?.split('-') || null
       var formData = new FormData()
-      date = new Date(Number(date[0]),Number(date[1] - 1),Number(date[2])).toISOString()
+      if(date) date = new Date(Number(date[0]),Number(date[1] - 1),Number(date[2])).toISOString()
       this.blogFile6.slice(0,3).forEach(file => {
         formData.append('files', file)
       })
@@ -1210,9 +1178,9 @@ export default {
       this.createFinalPromo(formData)
     },
     createSixthPromo() {
-      var date = this.Promo6.dateDefault.split('-')
+      var date = this.Promo6.dateDefault?.split('-') || null
       var formData = new FormData()
-      date = new Date(Number(date[0]),Number(date[1] - 1),Number(date[2])).toISOString()
+      if(date) date = new Date(Number(date[0]),Number(date[1] - 1),Number(date[2])).toISOString()
       this.blogFile7.slice(0,3).forEach(file => {
         formData.append('files', file)
       })
@@ -1224,9 +1192,9 @@ export default {
       this.createFinalPromo(formData)
     },
     createSeventhPromo() {
-      var date = this.Promo7.dateDefault.split('-')
+      var date = this.Promo7.dateDefault?.split('-') || null
       var formData = new FormData()
-      date = new Date(Number(date[0]),Number(date[1] - 1),Number(date[2])).toISOString()
+      if(date) date = new Date(Number(date[0]),Number(date[1] - 1),Number(date[2])).toISOString()
       this.blogFile8.slice(0,3).forEach(file => {
         formData.append('files', file)
       })
@@ -1234,11 +1202,27 @@ export default {
       formData.append('typeOfPromo', 7)
       formData.append('categoryName', this.Promo7.CategoryName)
       formData.append('timeOfPromoEnding', date)
-      formData.append('sale', this.Promo7.Discount)
+      formData.append('sale', 0)
       this.createFinalPromo(formData)
     },
     createFinalPromo(obj) {
-      console.log(obj);
+      console.log(1);
+      if(obj.get('files') == null) {
+        Swal.fire(
+          'Error!',
+          'Please, choose the photo!',
+          'error'
+        )
+        return
+      }
+      if(obj.get('timeOfPromoEnding') == null) {
+        Swal.fire(
+          'Error!',
+          'Please, choose the time of promo ending!',
+          'error'
+        )
+        return
+      }
       for (var pair of obj.entries()) {
         console.log(pair[0]+ ', ' + pair[1]);
       }
