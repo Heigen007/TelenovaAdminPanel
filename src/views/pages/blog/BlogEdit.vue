@@ -533,6 +533,15 @@
                     placeholder="Category Name"
                   />
                 </b-form-group>
+                <b-form-group
+                  label="Minimum price"
+                  class='my-2'
+                >
+                  <b-form-input
+                    v-model='Promo4.MinPrice'
+                    placeholder="Minimum price"
+                  />
+                </b-form-group>
                 <b-form-group>
                   <h5 class="font-weight-bold">
                     Time of Promo Ending
@@ -1161,6 +1170,7 @@ export default {
       formData.append('typeOfPromo', 4)
       formData.append('categoryName', this.Promo4.CategoryName)
       formData.append('timeOfPromoEnding', date)
+      formData.append('minPrice', this.Promo4.MinPrice)
       formData.append('sale', 0)
       this.createFinalPromo(formData)
     },
