@@ -532,7 +532,7 @@ export default {
       formData.set('properties',JSON.stringify(obj.properties))
       formData.set('images',JSON.stringify(obj.images))
       if(obj.third_level_category == '') formData.set('third_level_category','not show' + obj.second_level_category)
-      axios.post('http://178.250.159.216:5000/query_upload', formData)
+      axios.post('http://178.250.159.216/query_upload', formData)
       .then(res => {
         console.log(res);
         if(res.data.status) {
