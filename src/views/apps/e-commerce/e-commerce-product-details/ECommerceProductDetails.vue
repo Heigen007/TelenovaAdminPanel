@@ -1,6 +1,25 @@
 <template>
   <section class="app-ecommerce-details">
-
+    <b-modal
+      id="modal-select2"
+      centered
+      title="Add sale"
+      ok-title="submit"
+      cancel-variant="outline-secondary"
+      @ok="handleOk"
+    >
+      <b-form>
+        <b-form-group  label='Enter third_level_category'>
+          <b-form-input
+            style='margin: 5px 0 5px 0;'
+            placeholder='Enter sale'
+            v-model='sale'
+            type='number'
+            max='2'
+          />
+        </b-form-group>
+      </b-form>
+    </b-modal>
     <!-- Alert: No item found -->
     <b-alert
       variant="danger"
@@ -143,6 +162,18 @@
                   class="mr-50"
                 />
                 <span>Add Related Products</span>
+              </b-button>
+              <b-button
+                v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+                variant="primary"
+                class="btn-cart mr-0 mr-sm-1 mb-1 mb-sm-0"
+                v-b-modal.modal-select2
+              >
+                <feather-icon
+                  icon="PlusCircleIcon"
+                  class="mr-50"
+                />
+                <span>Add Sale</span>
               </b-button>
             </div>
           </b-col>
@@ -291,7 +322,8 @@ export default {
       nextTodoId: 2,
       codeBasic,
       AddingRelatedProducts: false,
-      product: null
+      product: null,
+      sale: 0
     }
   },
   watch: {
@@ -319,6 +351,9 @@ export default {
     })
   },
   methods: {
+    handleOk(){
+
+    },
     repeateAgain() {
       this.items.push({
         id: this.nextTodoId += this.nextTodoId,

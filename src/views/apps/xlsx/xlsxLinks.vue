@@ -20,10 +20,10 @@
           <b-col md="4">
             <b-form-group
               label="Item Name"
-              label-for="item-name"
+              :label-for="'item-name' + index"
             >
               <b-form-input
-                id="item-name"
+                :id="'item-name' + index"
                 type="text"
                 placeholder="Name"
                 v-model='item.supplier_name'

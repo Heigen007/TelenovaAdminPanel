@@ -7,7 +7,7 @@
     <b-modal
       id="modal-select2"
       centered
-      title="Basic Modal"
+      title="Information"
       ok-title="submit"
       cancel-variant="outline-secondary"
       @ok="handleOk"
@@ -40,6 +40,14 @@
             style='margin: 5px 0 5px 0;'
             placeholder='Enter third_level_category'
             v-model='actualProduct.third_level_category'
+          />
+        </b-form-group>
+        <b-form-group  label='Enter brand'>
+          <b-form-input
+            style='margin: 5px 0 5px 0;'
+            placeholder='Enter brand'
+            v-model='actualProduct.brand'
+            readonly
           />
         </b-form-group>
         <b-form-group  label='Enter name'>
@@ -96,10 +104,18 @@
             v-model='actualProduct.kaspi_rating'
           />
         </b-form-group>
+        <b-form-group  label='Enter kaspi_id'>
+          <b-form-input
+            style='margin: 5px 0 5px 0;'
+            placeholder='Enter kaspi_id'
+            v-model='actualProduct.kaspi_id'
+            readonly
+          />
+        </b-form-group>
         <b-form-group  label='Images'>
           <b-form-input
             v-for='(el,i) in actualProduct.images'
-            :key='i'
+            :key='i+"ccc"'
             style='margin: 5px 0 5px 0;'
             v-model='actualProduct.images[i]'
           />
@@ -179,20 +195,19 @@
           />
           <span>Add Additional Property</span>
         </b-button>
-        <!-- ///////////////////////////////////////////////////////////////// -->
         <b-form-group
           label-for="vue-select"
         >
             <b-form-checkbox
                 style='margin: 5px 0 5px 0;'
-                v-model="checkbox"
+                v-model="actualProduct.on_kaspi"
                 class="custom-control-info"
             >
-                Existing product?
+                Existing product on kaspi?
             </b-form-checkbox>
         </b-form-group>
 
-        <div v-if='checkbox'>
+        <div v-if='actualProduct.on_kaspi'>
           <b-form-group label='KASPI RAZMETKA'>
             <b-form-input
               style='margin: 5px 0 5px 0;'
@@ -218,14 +233,14 @@
         >
             <b-form-checkbox
                 style='margin: 5px 0 5px 0;'
-                v-model="actualProduct.already_in_site"
+                v-model="actualProduct.on_site"
                 class="custom-control-info"
             >
-                Is on site?
+                Existing product on site?
             </b-form-checkbox>
         </b-form-group>
 
-        <div v-if='actualProduct.already_in_site'>
+        <div v-if='actualProduct.on_site'>
           <b-form-group label='Site id'>
             <b-form-input
               style='margin: 5px 0 5px 0;'
@@ -471,10 +486,18 @@ export default {
     }
   },
   methods: {
+    makeToast(variant = null, content, title) {
+      this.$bvToast.toast(content, {
+        title: title,
+        variant,
+        solid: true,
+        content: 'Info'
+      })
+    },
     handleOk(){
       var obj = JSON.parse(JSON.stringify(this.actualProduct))
       var a = Object.keys(obj.properties).length
-      var d = {properties: []}
+      var d = {properties: {}}
 
       for (let i = 0; i < a; i++) {
         console.log(obj.properties[i][0]);
@@ -486,7 +509,7 @@ export default {
       var additionalProductsLength = Object.keys(obj.additional_properties).length
       var additionalProducts = obj.additional_properties
       console.log(additionalProducts, obj.additional_properties);
-      var resultPr = {additional_properties: []}
+      var resultPr = {additional_properties: {}}
 
       for (let index = 0; index < additionalProductsLength; index++) {
         resultPr.additional_properties[additionalProducts[index][0]] = {}
@@ -500,10 +523,34 @@ export default {
       obj.additional_properties = resultPr.additional_properties
 /////////////////////////////////////////////////////////////////
       console.log(obj);
+      var formData = new FormData()
+      var keys = Object.keys(obj)
+      for (let index = 0; index < keys.length; index++) {
+        formData.append(keys[index], obj[keys[index]])
+      }
+      formData.set('additional_properties',JSON.stringify(obj.additional_properties))
+      formData.set('properties',JSON.stringify(obj.properties))
+      formData.set('images',JSON.stringify(obj.images))
+      if(obj.third_level_category == '') formData.set('third_level_category','not show')
+      axios.post('http://178.250.159.216:5000/query_upload', formData)
+      .then(res => {
+        console.log(res);
+        if(res.data.status) {
+          this.makeToast('success',  'Information has been updated', 'Success')
+        } else {
+          this.makeToast('danger',  'Please, fill all the fields', 'Error')
+        }
+      })
+      .catch(err => {
+        this.makeToast('danger',  'Some network error occured', 'Error')
+      })
     },
     chData(data2){
       var data = JSON.parse(JSON.stringify(data2))
       var arr = []
+      data.on_site = data.already_in_site
+      data.id = data._id
+      delete data._id
       var copy = Object.keys(data.properties)
       for (let i = 0; i < Object.keys(data.properties).length; i++) {
         arr.push([copy[i],data.properties[copy[i]]])
@@ -526,7 +573,6 @@ export default {
       console.log(arr2);
       data.additional_properties = arr2
 ///////////////////////////////////////////////////////////////
-
       this.actualProduct = data
     },
     addR(){
