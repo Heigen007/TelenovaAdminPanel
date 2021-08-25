@@ -10,43 +10,50 @@
   </b-button>
   <b-card-code
     no-body
-    title="1 promo type (https://containimages.storage-archive.pscloud.io/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202021-08-25%20%D0%B2%2003.52.jpg)"
+    :link='"https://containimages.storage-archive.pscloud.io/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202021-08-25%20%D0%B2%2003.52.jpg"'
+    title="1 promo type"
   >
     <b-table responsive="lg" :items="FirstPromoItems"/>
   </b-card-code>
   <b-card-code
     no-body
-    title="2 promo type (https://containimages.storage-archive.pscloud.io/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202021-08-25%20%D0%B2%2003.46.43.png)"
+    :link='"https://containimages.storage-archive.pscloud.io/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202021-08-25%20%D0%B2%2003.46.43.png"'
+    title="2 promo type "
   >
     <b-table responsive="lg" :items="SecondPromoItems"/>
   </b-card-code>
   <b-card-code
     no-body
-    title="3 promo type (https://containimages.storage-archive.pscloud.io/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202021-08-25%20%D0%B2%2003.44.37.png)"
+    :link='"https://containimages.storage-archive.pscloud.io/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202021-08-25%20%D0%B2%2003.44.37.png"'
+    title="3 promo type"
   >
     <b-table responsive="lg" :items="ThirdPromoItems"/>
   </b-card-code>
   <b-card-code
     no-body
-    title="4 promo type (https://containimages.storage-archive.pscloud.io/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202021-08-25%20%D0%B2%2003.54.40.png)"
+    :link='"https://containimages.storage-archive.pscloud.io/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202021-08-25%20%D0%B2%2003.54.40.png"'
+    title="4 promo type"
   >
     <b-table responsive="lg" :items="FourthPromoItems"/>
   </b-card-code>
   <b-card-code
     no-body
-    title="5 promo type (https://containimages.storage-archive.pscloud.io/2021-08-25%2004.09.27.jpg)"
+    :link='"https://containimages.storage-archive.pscloud.io/2021-08-25%2004.09.27.jpg"'
+    title="5 promo type"
   >
     <b-table responsive="lg" :items="FifthPromoItems"/>
   </b-card-code>
   <b-card-code
     no-body
-    title="6 promo type (https://containimages.storage-archive.pscloud.io/321321.jpg)"
+    :link='"https://containimages.storage-archive.pscloud.io/321321.jpg"'
+    title="6 promo type"
   >
     <b-table responsive="lg" :items="SixthPromoItems"/>
   </b-card-code>
   <b-card-code
     no-body
-    title="7 promo type (https://containimages.storage-archive.pscloud.io/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202021-08-25%20%D0%B2%2004.05.57%202.jpg)"
+    :link='"https://containimages.storage-archive.pscloud.io/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202021-08-25%20%D0%B2%2004.05.57%202.jpg"'
+    title="7 promo type"
   >
     <b-table responsive="lg" :items="SeventhPromoItems"/>
   </b-card-code>

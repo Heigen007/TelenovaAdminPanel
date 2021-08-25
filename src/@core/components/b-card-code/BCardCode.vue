@@ -7,7 +7,7 @@
     <div class="card-header">
       <!-- Title & SubTitle -->
       <div>
-        <b-card-title>{{ $attrs.title }}</b-card-title>
+        <b-card-title>{{ $attrs.title }} <a target='_blank' :href='link'>Example</a></b-card-title>
         <b-card-sub-title v-if="$attrs['sub-title']">
           {{ $attrs['sub-title'] }}
         </b-card-sub-title>
@@ -76,6 +76,7 @@ export default {
       default: 'markup',
       type: String,
     },
+    link: String
   },
   data() {
     return {

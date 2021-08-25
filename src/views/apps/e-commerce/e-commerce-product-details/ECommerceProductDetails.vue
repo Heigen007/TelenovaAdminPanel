@@ -9,7 +9,7 @@
       @ok="handleOk"
     >
       <b-form>
-        <b-form-group  label='Enter third_level_category'>
+        <b-form-group  label='Enter sale'>
           <b-form-input
             style='margin: 5px 0 5px 0;'
             placeholder='Enter sale'
