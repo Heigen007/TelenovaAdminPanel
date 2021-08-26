@@ -1,0 +1,17 @@
+// axios.interceptors.request.use(
+//   request => {
+//     if (request.method == 'get') {
+//       Swal.fire({
+//         icon: 'error',
+//         title: 'Oops...',
+//         text: 'Something went wrong!',
+//       })
+//       throw { isPasErr: true };
+//     } else {
+//       return request;
+//     }
+//   },
+//   error => {
+//     return Promise.reject(error);
+//   }
+// );

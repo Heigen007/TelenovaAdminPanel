@@ -11,15 +11,15 @@
       </b-card-header>
       <b-card-body>
         <h6 class="card-holder-name my-75">
-          Heigen007
+          Admin007
         </h6>
 
         <!-- Radios -->
         <b-form-group>
           <b-form-radio
             name="payment-method"
-            value="Heigen-doe-debit-card"
-            checked="Heigen-doe-debit-card"
+            value="Admin-doe-debit-card"
+            checked="Admin-doe-debit-card"
           >
             US Unlocked Debit Card 12XX XXXX XXXX 0000
           </b-form-radio>

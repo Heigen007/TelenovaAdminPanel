@@ -33,7 +33,7 @@
             >
               <b-form-input
                 id="i-username"
-                placeholder="Heigendoe"
+                placeholder="Admindoe"
               />
             </b-form-group>
           </b-col>
@@ -45,7 +45,7 @@
               <b-form-input
                 id="i-email"
                 type="email"
-                placeholder="Heigen.doe@email.com"
+                placeholder="Admin.doe@email.com"
               />
             </b-form-group>
           </b-col>
@@ -98,7 +98,7 @@
             >
               <b-form-input
                 id="i-first-name"
-                placeholder="Heigen"
+                placeholder="Admin"
               />
             </b-form-group>
           </b-col>

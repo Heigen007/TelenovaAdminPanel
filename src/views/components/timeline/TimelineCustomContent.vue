@@ -26,12 +26,12 @@
           <h6>Client Meeting</h6>
           <small class="text-muted">45 min ago</small>
         </div>
-        <p>Project meeting with Heigen @10:15am.</p>
+        <p>Project meeting with Admin @10:15am.</p>
         <b-media>
           <template #aside>
             <b-avatar :src="require('@/assets/images/avatars/12-small.png')" />
           </template>
-          <h6>Heigen007 (Client)</h6>
+          <h6>Admin007 (Client)</h6>
           <p>CEO of Infibeam</p>
         </b-media>
       </app-timeline-item>

@@ -263,7 +263,7 @@
 
       <!-- Right Col -->
       <div class="customer-card">
-        <b-card title="Heigen007">
+        <b-card title="Admin007">
           <b-card-text class="mb-0">
             9447 Glen Eagles Drive
           </b-card-text>

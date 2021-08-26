@@ -4,8 +4,8 @@ const data = {
   accountSetting: {
     general: {
       avatar: require('@/assets/images/portrait/small/avatar-s-11.jpg'),
-      username: 'Heigendoe',
-      fullName: 'Heigen007',
+      username: 'Admindoe',
+      fullName: 'Admin007',
       email: 'granger007@hogward.com',
       company: 'Crystal Technologies',
     },
@@ -28,7 +28,7 @@ const data = {
       connections: {
         twitter: {
           profileImg: require('@/assets/images/avatars/11-small.png'),
-          id: 'Heigendoe',
+          id: 'Admindoe',
         },
         google: {
           profileImg: require('@/assets/images/avatars/3-small.png'),

@@ -39,7 +39,7 @@
                   v-model="username"
                   :state="errors.length > 0 ? false:null"
                   name="register-username"
-                  placeholder="Heigendoe"
+                  placeholder="Admindoe"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
@@ -60,7 +60,7 @@
                   v-model="regEmail"
                   :state="errors.length > 0 ? false:null"
                   name="register-email"
-                  placeholder="Heigen@example.com"
+                  placeholder="Admin@example.com"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>

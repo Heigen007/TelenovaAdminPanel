@@ -46,7 +46,7 @@
                     id="name"
                     v-model="name"
                     :state="errors.length > 0 ? false:null"
-                    placeholder="Heigendoe"
+                    placeholder="Admindoe"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
@@ -67,7 +67,7 @@
                     v-model="emailValue"
                     type="email"
                     :state="errors.length > 0 ? false:null"
-                    placeholder="Heigen.doe@email.com"
+                    placeholder="Admin.doe@email.com"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
@@ -152,7 +152,7 @@
                   <b-form-input
                     id="first-name"
                     v-model="first_name"
-                    placeholder="Heigen"
+                    placeholder="Admin"
                     :state="errors.length > 0 ? false:null"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>

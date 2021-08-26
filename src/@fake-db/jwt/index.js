@@ -5,8 +5,8 @@ const data = {
   users: [
     {
       id: 1,
-      fullName: 'Heigen007',
-      username: 'Heigendoe',
+      fullName: 'Admin',
+      username: 'Admin',
       password: 'admin',
       // eslint-disable-next-line global-require
       avatar: require('@/assets/images/avatars/13-small.png'),
@@ -24,21 +24,17 @@ const data = {
     },
     {
       id: 2,
-      fullName: 'Jane Doe',
-      username: 'janedoe',
-      password: 'client',
+      fullName: 'Heigen007',
+      username: 'Heigen007',
+      password: 'admin22',
       // eslint-disable-next-line global-require
       avatar: require('@/assets/images/avatars/1-small.png'),
       email: 'client@demo.com',
-      role: 'client',
+      role: 'admin',
       ability: [
         {
-          action: 'read',
-          subject: 'ACL',
-        },
-        {
-          action: 'read',
-          subject: 'Auth',
+          action: 'manage',
+          subject: 'all',
         },
       ],
       extras: {

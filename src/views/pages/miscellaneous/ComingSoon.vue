@@ -27,7 +27,7 @@
             id="notify-email"
             class="col-12 col-md-5 mb-1 mr-md-2"
             type="text"
-            placeholder="Heigen@example.com"
+            placeholder="Admin@example.com"
           />
 
           <b-button

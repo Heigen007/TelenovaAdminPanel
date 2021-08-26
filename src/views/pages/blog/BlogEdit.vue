@@ -525,12 +525,12 @@
                   />
                 </b-form-group>
                 <b-form-group
-                  label="Second-tier Category Name"
+                  label="Link"
                   class='my-2'
                 >
                   <b-form-input
-                    v-model='Promo4.CategoryName'
-                    placeholder="Category Name"
+                    v-model='Promo4.Link'
+                    placeholder="Link"
                   />
                 </b-form-group>
                 <b-form-group
@@ -746,12 +746,12 @@
                   />
                 </div>
                 <b-form-group
-                  label="Second-tier Category Name"
+                  label="Link"
                   class='my-2'
                 >
                   <b-form-input
-                    v-model='Promo6.CategoryName'
-                    placeholder="Category Name"
+                    v-model='Promo6.Link'
+                    placeholder="Link"
                   />
                 </b-form-group>
                 <b-form-group
@@ -861,12 +861,12 @@
                   />
                 </div>
                 <b-form-group
-                  label="Second-tier Category Name"
+                  label="Link"
                   class='my-2'
                 >
                   <b-form-input
-                    v-model='Promo7.CategoryName'
-                    placeholder="Category Name"
+                    v-model='Promo7.Link'
+                    placeholder="Link"
                   />
                 </b-form-group>
                 <b-form-group
@@ -1177,7 +1177,7 @@ export default {
       })
       formData.append('bigPromoText', this.Promo4.BoldText)
       formData.append('typeOfPromo', 4)
-      formData.append('categoryName', this.Promo4.CategoryName)
+      formData.append('link', this.Promo4.Link)
       formData.append('timeOfPromoEnding', date)
       formData.append('customMinPrice', this.Promo4.MinPrice)
       formData.append('sale', 0)
@@ -1206,7 +1206,7 @@ export default {
       formData.append('bigPromoText', this.Promo6.BoldText)
       formData.append('typeOfPromo', 6)
       formData.append('sale', 0)
-      formData.append('categoryName', this.Promo6.CategoryName)
+      formData.append('link', this.Promo6.Link)
       formData.append('timeOfPromoEnding', date)
       this.createFinalPromo(formData)
     },
@@ -1219,7 +1219,7 @@ export default {
       })
       formData.append('bigPromoText', this.Promo7.BoldText)
       formData.append('typeOfPromo', 7)
-      formData.append('categoryName', this.Promo7.CategoryName)
+      formData.append('link', this.Promo7.Link)
       formData.append('timeOfPromoEnding', date)
       formData.append('sale', 0)
       formData.append('customMinPrice', this.Promo7.MinPrice)

@@ -190,8 +190,7 @@ export default {
         FPromoo[i] = {
           "Id": FPromoo[i]._id,
           "big_promo_text": FPromoo[i].bigPromoText,
-          "category_name": FPromoo[i].categoryName,
-          "sale": FPromoo[i].sale,
+          "link": FPromoo[i].link,
           "time_of_promo_ending": new Date(FPromoo[i].timeOfPromoEnding).toLocaleString('en-US',options)
         }
       }
@@ -201,6 +200,7 @@ export default {
       for (let i = 0; i < FifthPromo.length; i++) {
         FifthPromo[i] = {
           "Id": FifthPromo[i]._id,
+          "link": FifthPromo[i].link,
           "time_of_promo_ending": new Date(FifthPromo[i].timeOfPromoEnding).toLocaleString('en-US',options)
         }
       }
@@ -211,8 +211,7 @@ export default {
         SixthPromo[i] = {
           "Id": SixthPromo[i]._id,
           "big_promo_text": SixthPromo[i].bigPromoText,
-          "category_name": SixthPromo[i].categoryName,
-          "sale": SixthPromo[i].sale,
+          "link": SixthPromo[i].link,
           "time_of_promo_ending": new Date(SixthPromo[i].timeOfPromoEnding).toLocaleString('en-US',options)
         }
       }
@@ -223,8 +222,7 @@ export default {
         SeventhPromo[i] = {
           "Id": SeventhPromo[i]._id,
           "big_promo_text": SeventhPromo[i].bigPromoText,
-          "category_name": SeventhPromo[i].categoryName,
-          "sale": SeventhPromo[i].sale,
+          "link": SeventhPromo[i].link,
           "time_of_promo_ending": new Date(SeventhPromo[i].timeOfPromoEnding).toLocaleString('en-US',options)
         }
       }

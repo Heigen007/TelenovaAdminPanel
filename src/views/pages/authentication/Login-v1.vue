@@ -44,7 +44,7 @@
                   v-model="userEmail"
                   name="login-email"
                   :state="errors.length > 0 ? false:null"
-                  placeholder="Heigen@example.com"
+                  placeholder="Admin@example.com"
                   autofocus
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
