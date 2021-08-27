@@ -6,7 +6,7 @@ import ecommerceStoreModule from '@/views/apps/e-commerce/eCommerceStoreModule'
 import app from './app'
 import appConfig from './app-config'
 import verticalMenu from './vertical-menu'
-import axios from 'axios'
+import axios from '@myAxios'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -99,7 +99,6 @@ export default new Vuex.Store({
           }
         }  
       }
-      console.log(JSON_Obj);
       state.WsConnection.send(JSON.stringify(JSON_Obj))
     }
   },
@@ -109,7 +108,7 @@ export default new Vuex.Store({
       dispatch('connect')
       axios.get(`https://textforeva.ru/storage`)
       .then(response => {
-        console.log(response);
+        console.log(response, 'AAAAAAAAA');
         commit('SetProducts', response.data)
         commit('SetLoaderTrue')
       })

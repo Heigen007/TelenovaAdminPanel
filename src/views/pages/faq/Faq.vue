@@ -37,7 +37,7 @@ import CatCard from './CatCard.vue'
 import { useClipboard } from '@vueuse/core'
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
 import { useToast } from 'vue-toastification/composition'
-import axios from 'axios'
+import axios from '@myAxios'
 export default {
   components: {
     BCard,

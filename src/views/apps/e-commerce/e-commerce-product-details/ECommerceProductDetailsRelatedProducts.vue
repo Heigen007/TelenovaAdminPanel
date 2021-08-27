@@ -81,7 +81,7 @@ import {
   BCardBody, BCardText, BImg, BLink, BButton
 } from 'bootstrap-vue'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
-import axios from 'axios'
+import axios from '@myAxios'
 
 export default {
   components: {

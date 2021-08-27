@@ -330,7 +330,7 @@
 import { ref, onUnmounted } from '@vue/composition-api'
 import store from '@/store'
 import router from '@/router'
-import axios from 'axios'
+import axios from '@myAxios'
 import {
   BRow, BCol, BCard, BCardBody, BTableLite, BButton, BAlert, BLink, VBToggle, BDropdown, BDropdownItem, BCardText
 } from 'bootstrap-vue'

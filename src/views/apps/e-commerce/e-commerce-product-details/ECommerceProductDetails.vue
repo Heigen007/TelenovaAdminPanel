@@ -76,7 +76,7 @@
             <b-card-text class="item-company mb-0">
               <span>by</span>
               <b-link class="company-name">
-                {{ product.offerData.brand }}
+                {{ product.offerData.actual_supplier }}
               </b-link>
             </b-card-text>
 
@@ -293,7 +293,7 @@ import ECommerceProductDetailsRelatedProducts from './ECommerceProductDetailsRel
 import { useEcommerceUi } from '../useEcommerce'
 import { codeBasic } from './code'
 import VueSelectMultiple from './VueSelectMultiple.vue'
-import axios from 'axios'
+import axios from '@myAxios'
 
 export default {
   directives: {

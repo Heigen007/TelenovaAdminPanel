@@ -15,7 +15,7 @@ import {
   BFormGroup, BInputGroup, BInputGroupPrepend, BFormInput, BCard, BCardText, VBTooltip,
 } from 'bootstrap-vue'
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
-import axios from 'axios'
+import axios from '@myAxios'
 export default {
     props: {
         icon: Object

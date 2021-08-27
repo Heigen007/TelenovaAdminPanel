@@ -137,7 +137,7 @@
             </b-link>
             <b-card-text class="item-company">
               By <b-link class="ml-25">
-                {{ product.offerData.brand }}
+                {{ product.offerData.actual_supplier }}
               </b-link>
             </b-card-text>
           </h6>
@@ -227,7 +227,7 @@ import { useResponsiveAppLeftSidebarVisibility } from '@core/comp-functions/ui/a
 import ShopLeftFilterSidebar from './ECommerceShopLeftFilterSidebar.vue'
 import { useShopFiltersSortingAndPagination, useShopUi, useShopRemoteData } from './useECommerceShop'
 import { useEcommerceUi } from '../useEcommerce'
-import axios from 'axios'
+import axios from '@myAxios'
 import preloader from '../../../../components/CssPreloader.vue'
 
 export default {
@@ -333,12 +333,12 @@ export default {
         SortedArray.sort(function(a, b) {
             return a.offerData.price - b.offerData.price;
         });
-        this.$store.commit('ChProductsCopy', SortedArray.reverse())
+        this.$store.commit('ChProductsCopy', SortedArray)
       } else if (text=='Highest') {
         SortedArray.sort(function(a, b) {
             return a.offerData.price - b.offerData.price;
         });
-        this.$store.commit('ChProductsCopy', SortedArray)
+        this.$store.commit('ChProductsCopy', SortedArray.reverse())
       } else if (text=='Featured') {
         SortedArray.sort(function(a, b) {
             return a.offerData.kaspi_rating - b.offerData.kaspi_rating;

@@ -89,7 +89,7 @@ import {
 import BCardCode from '@core/components/b-card-code/BCardCode.vue'
 import { kFormatter } from '@core/utils/filter'
 import ContentWithSidebar from '@core/layouts/components/content-with-sidebar/ContentWithSidebar.vue'
-import axios from 'axios'
+import axios from '@myAxios'
 
 export default {
   components: {

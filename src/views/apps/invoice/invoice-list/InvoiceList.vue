@@ -225,7 +225,7 @@ import vSelect from 'vue-select'
 import { onUnmounted } from '@vue/composition-api'
 import store from '@/store'
 import useInvoicesList from './useInvoiceList'
-import axios from 'axios'
+import axios from '@myAxios'
 import invoiceStoreModule from '../invoiceStoreModule'
 import loader from '../../../../components/CssPreloader.vue'
 

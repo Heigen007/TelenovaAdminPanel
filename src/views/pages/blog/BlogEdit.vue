@@ -936,7 +936,7 @@ import Ripple from 'vue-ripple-directive'
 import { useInputImageRenderer } from '@core/comp-functions/forms/form-utils'
 import { ref } from '@vue/composition-api'
 import Swal from 'sweetalert2'
-import axios from 'axios'
+import axios from '@myAxios'
 
 export default {
   components: {

@@ -125,7 +125,7 @@ import {
 } from 'bootstrap-vue'
 import { heightTransition } from '@core/mixins/ui/transition'
 import Ripple from 'vue-ripple-directive'
-import axios from 'axios'
+import axios from '@myAxios'
 import loader from '../../../components/CssPreloader.vue'
 import vSelect from 'vue-select'
 import AppCollapse from '@core/components/app-collapse/AppCollapse.vue'

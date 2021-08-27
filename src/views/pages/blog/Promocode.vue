@@ -241,7 +241,7 @@ import {
   BBadge, BDropdown, BDropdownItem, BPagination, BTooltip,
 } from 'bootstrap-vue'
 import Ripple from 'vue-ripple-directive'
-import axios from 'axios'
+import axios from '@myAxios'
 import loader from '../../../components/CssPreloader.vue'
 import Swal from 'sweetalert2'
 import { avatarText } from '@core/utils/filter'
