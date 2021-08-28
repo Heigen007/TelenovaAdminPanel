@@ -17,7 +17,7 @@
         >
 
           <!-- Item Name -->
-          <b-col md="4">
+          <!-- <b-col md="4">
             <b-form-group
               label="Item Name"
               :label-for="'item-name' + index"
@@ -29,7 +29,7 @@
                 v-model='item.supplier_name'
               />
             </b-form-group>
-          </b-col>
+          </b-col> -->
           <b-col md="4">
             <b-form-group
               label="Item link"
@@ -39,7 +39,7 @@
                 id="item-name"
                 type="text"
                 placeholder="Link"
-                v-model='item._id'
+                v-model='item.link'
               />
             </b-form-group>
           </b-col>

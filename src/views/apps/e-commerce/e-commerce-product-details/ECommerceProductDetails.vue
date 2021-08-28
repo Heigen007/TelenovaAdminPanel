@@ -72,20 +72,44 @@
             <!-- Product Name -->
             <h4>{{ product.offerData.kaspi_name }}</h4>
 
+            <b-card-text class="mt-1">
+              Kaspi Id:  <span class="text-success">{{product.offerData.kaspi_id}}</span>
+            </b-card-text>
+
             <!-- Product Brand -->
-            <b-card-text class="item-company mb-0">
-              <span>by</span>
-              <b-link class="company-name">
-                {{ product.offerData.actual_supplier }}
-              </b-link>
+            <b-card-text class="mt-1">
+              <span>actual_supplier: </span>
+              <span class="text-success">{{ product.offerData.actual_supplier }}</span>
             </b-card-text>
 
             <b-card-text class="mt-1">
-              Id - <span class="text-success">{{product.offerData.kaspi_id}}</span>
+              <span>seller: </span>
+              <span class="text-success">{{ product.offerData.seller }}</span>
+            </b-card-text>
+
+            <b-card-text class="mt-1">
+              <span>on kaspi: </span>
+              <span v-if='product.offerData.on_kaspi' class="text-success">{{ product.offerData.on_kaspi }}</span>
+              <span v-if='!product.offerData.on_kaspi' class="text-danger">{{ product.offerData.on_kaspi }}</span>
+            </b-card-text>
+
+            <b-card-text class="mt-1">
+              <span>prev_kaspi: </span>
+              <span class="text-success">{{ product.offerData.prev_kaspi }}</span>
+            </b-card-text>
+
+            <b-card-text class="mt-1">
+              <span>opt_price: </span>
+              <span class="text-success">{{ product.offerData.opt_price }}</span>
+            </b-card-text>
+
+            <b-card-text class="mt-1">
+              <span>category_list: </span>
+              <span class="text-info">{{ product.offerData.category_list.join(' -> ') }}</span>
             </b-card-text>
 
             <b-card-text v-if='product.sale' class="mt-1">
-              Sale - <span class="text-success">{{product.sale}}%</span>
+              Sale:  <span class="text-success">{{product.sale}}%</span>
             </b-card-text>
             <!-- Price And Ratings -->
             <div class="ecommerce-details-price d-flex flex-wrap mt-1">
@@ -108,7 +132,10 @@
             </div>
 
             <!-- Avability -->
-            <b-card-text>Available - <span class="text-success">In stock</span></b-card-text>
+            <b-card-text>inStock:  
+              <span v-if='product.inStock' class="text-success">{{product.inStock}}</span>
+              <span v-if='!product.inStock' class="text-danger">{{product.inStock}}</span>
+            </b-card-text>
 
             <!-- Product Description -->
             <!-- <b-card-text>{{ product.description }}</b-card-text> -->
@@ -358,11 +385,16 @@ export default {
     handleOk(){
       axios.post('https://textforeva.ru/sale', {sale: Number(this.sale), productKaspiId: this.$route.params.slug})
       .then(res => {
-        this.makeToast('success',  'Sale has been added', 'Success')
-        this.product.sale = this.sale
+        console.log(res);
+        if(res.data.message){
+          this.makeToast('danger', res.data.message, 'Error')
+        } else {
+          this.makeToast('success',  'Sale has been added', 'Success')
+          this.product.sale = this.sale          
+        }
       })
       .catch(err => {
-        this.makeToast('danger',  'Some error occure, maybe your sale is not in range of 0 and 100', 'Error')
+        this.makeToast('danger', 'Some error occured', 'Error')
       })
     },
     makeToast(variant = null, content, title) {
