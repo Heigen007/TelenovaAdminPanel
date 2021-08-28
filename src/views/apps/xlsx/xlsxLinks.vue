@@ -184,6 +184,7 @@ import loader from '../../../components/CssPreloader.vue'
 import vSelect from 'vue-select'
 import AppCollapse from '@core/components/app-collapse/AppCollapse.vue'
 import AppCollapseItem from '@core/components/app-collapse/AppCollapseItem.vue'
+import { saveAs } from 'file-saver';
 
 export default {
   components: {
@@ -251,7 +252,7 @@ export default {
         id: this.nextTodoId += this.nextTodoId,
       })
 
-      this.$nextTick(() => {
+      $nextTick(() => {
         this.trAddHeight(this.$refs.row[0].offsetHeight)
       })
     },
@@ -302,6 +303,10 @@ export default {
       })
     },
     kaspiXml(){
+
+      var blob = new Blob(['<?xml version="1.0" encoding="UTF-8"?><shiporder orderid="889923"xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"xsi:noNamespaceSchemaLocation="shiporder.xsd">   <orderperson>John Smith</orderperson><shipto><name>Ola Nordmann</name><address>Langgt 23</address><city>4000 Stavanger</city><country>Norway</country></shipto><item><title>Empire Burlesque</title><note>Special Edition</note><quantity>1</quantity><price>10.90</price></item><item><title>Hide your heart</title><quantity>1</quantity><price>9.90</price></item></shiporder>'], {type: "text/xml"});
+
+      saveAs(blob, "test.xmp");
     },
     makeToast(variant = null, content, title) {
       this.$bvToast.toast(content, {

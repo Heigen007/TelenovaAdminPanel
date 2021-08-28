@@ -141,18 +141,30 @@
                         </td>
                         <td>{{ invInfo.client.address }}</td>
                       </tr>
-                      <!-- <tr>
-                        <td class="pr-1">
-                          IBAN:
-                        </td>
-                        <td>{{ paymentDetails.iban }}</td>
-                      </tr>
                       <tr>
                         <td class="pr-1">
-                          SWIFT code:
+                          Credit:
                         </td>
-                        <td>{{ paymentDetails.swiftCode }}</td>
-                      </tr> -->
+                        <td>{{ invInfo.client.credit }}</td>
+                      </tr>
+                      <tr v-if='invInfo.client.bank'>
+                        <td class="pr-1">
+                          Bank:
+                        </td>
+                        <td>{{ invInfo.client.bank }}</td>
+                      </tr>
+                      <tr v-if='invInfo.client.iin'>
+                        <td class="pr-1">
+                          IIN:
+                        </td>
+                        <td>{{ invInfo.client.iin }}</td>
+                      </tr>
+                      <tr v-if='invInfo.client.creditMonth'>
+                        <td class="pr-1">
+                          Amount of months:
+                        </td>
+                        <td>{{ invInfo.client.creditMonth }}</td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
@@ -419,7 +431,11 @@ export default {
             address: filteredData.address,
             email: filteredData.email,
             name: filteredData.name,
-            phone: filteredData.phoneNumber
+            phone: filteredData.phoneNumber,
+            credit: filteredData.credit,
+            iin: filteredData.iin,
+            bank: filteredData.bank,
+            creditMonth: filteredData.creditMonth
           },
           paymentMethod: filteredData.paymentMethod,
           goods: UpdatedGoods,
