@@ -422,22 +422,24 @@ export default {
         }
       }
       self.AllInvoices = filteredData
-      axios.get(`http://178.250.159.216/queryes?count=${res.data.max}&start=1`)
-      .then(response => {
-        console.log(response)
-        var filteredData = JSON.parse(JSON.stringify(response.data.data))
-        for(var i = 0; i < response.data.data.length; i++){
-          filteredData[i] = {
-            Name: filteredData[i]._id,
-            Supplier: filteredData[i].supplier_name,
-            mainInfo: filteredData[i]
+      for(let i = 0; i < res.data.max/50; i++) {
+        axios.get(`http://178.250.159.216/queryes?count=50&start=${(i)*50}`)
+        .then(response => {
+          console.log(response)
+          var filteredData = JSON.parse(JSON.stringify(response.data.data))
+          for(var i = 0; i < response.data.data.length; i++){
+            filteredData[i] = {
+              Name: filteredData[i]._id,
+              Supplier: filteredData[i].supplier_name,
+              mainInfo: filteredData[i]
+            }
           }
-        }
-        self.AllInvoices = filteredData
-      })
-      .catch(error => {
-        console.log(error)
-      })
+          self.AllInvoices = [...self.AllInvoices, ...filteredData] 
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      }
     })
     .catch(error => {
       console.log(error)
