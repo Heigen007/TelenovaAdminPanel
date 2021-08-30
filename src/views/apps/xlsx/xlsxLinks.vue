@@ -227,7 +227,8 @@ export default {
   data() {
     return {
       items: [],
-      nextTodoId: 2
+      nextTodoId: 2,
+      xmlLink: ''
     }
   },
   mounted() {
@@ -249,8 +250,13 @@ export default {
       console.log(err);
     })
   },
-  created() {
+  async created() {
     window.addEventListener('resize', this.initTrHeight)
+    await axios.get('http://178.250.159.216/kaspi_xml')
+    .then(res => {
+      console.log(res)
+      this.xmlLink = res.data.link
+    })
   },
   destroyed() {
     window.removeEventListener('resize', this.initTrHeight)
@@ -291,7 +297,6 @@ export default {
       })
     },
     removeItem(item,index) {
-    console.log(item);
       var formData = new FormData()
       formData.append('link', item._id)
       axios.delete('http://178.250.159.216/links', { data: formData })
@@ -316,10 +321,19 @@ export default {
       })
     },
     kaspiXml(){
+      if(this.xmlLink){
+        this.openModal()
+      } else {
+        setTimeout(() => {
+          this.kaspiXml()
+        }, 300);
+      }
+      // var blob = new Blob(['<?xml version="1.0" encoding="UTF-8"?><shiporder orderid="889923"xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"xsi:noNamespaceSchemaLocation="shiporder.xsd">   <orderperson>John Smith</orderperson><shipto><name>Ola Nordmann</name><address>Langgt 23</address><city>4000 Stavanger</city><country>Norway</country></shipto><item><title>Empire Burlesque</title><note>Special Edition</note><quantity>1</quantity><price>10.90</price></item><item><title>Hide your heart</title><quantity>1</quantity><price>9.90</price></item></shiporder>'], {type: "text/xml"});
 
-      var blob = new Blob(['<?xml version="1.0" encoding="UTF-8"?><shiporder orderid="889923"xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"xsi:noNamespaceSchemaLocation="shiporder.xsd">   <orderperson>John Smith</orderperson><shipto><name>Ola Nordmann</name><address>Langgt 23</address><city>4000 Stavanger</city><country>Norway</country></shipto><item><title>Empire Burlesque</title><note>Special Edition</note><quantity>1</quantity><price>10.90</price></item><item><title>Hide your heart</title><quantity>1</quantity><price>9.90</price></item></shiporder>'], {type: "text/xml"});
-
-      saveAs(blob, "test.xmp");
+      // saveAs(blob, "test.xmp");
+    },
+    openModal(){
+      window.open(this.xmlLink,'_newtab')
     },
     makeToast(variant = null, content, title) {
       this.$bvToast.toast(content, {
