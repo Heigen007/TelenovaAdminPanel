@@ -293,21 +293,21 @@ export default {
     removeItem(item,index) {
     console.log(item);
       var formData = new FormData()
-      formData.append('link', item._id)
+      formData.append('link', item.link)
       axios.delete('http://178.250.159.216/links', { data: formData })
       .then(res => {
         console.log(res)
-        if(!res.data.status) this.makeToast('danger',  res.data.data, 'Error')
+        if(!res.data.status) this.makeToast('danger', 'Some error occured', 'Error')
         else{
           this.makeToast('success',  'Link has been deleted', 'Success')
+          this.items.splice(index, 1)
+          this.trTrimHeight(this.$refs.row[0].offsetHeight)
         }
       })
       .catch(err => {
         console.log(err);
         this.makeToast('danger',  'Some network error occured', 'Error')
       })
-      this.items.splice(index, 1)
-      this.trTrimHeight(this.$refs.row[0].offsetHeight)
     },
     initTrHeight() {
       this.trSetHeight(null)

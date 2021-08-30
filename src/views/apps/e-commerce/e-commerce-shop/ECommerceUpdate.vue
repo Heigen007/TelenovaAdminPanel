@@ -417,7 +417,8 @@ export default {
       for(var i = 0; i < res.data.data.length; i++){
         filteredData[i] = {
           Name: filteredData[i]._id,
-          Supplier: filteredData[i].supplier_name,
+          Supplier_name: filteredData[i].supplier_name,
+          Supplier: filteredData[i].supplier,
           mainInfo: filteredData[i]
         }
       }
@@ -430,7 +431,8 @@ export default {
           for(var i = 0; i < response.data.data.length; i++){
             filteredData[i] = {
               Name: filteredData[i]._id,
-              Supplier: filteredData[i].supplier_name,
+              Supplier_name: filteredData[i].supplier_name,
+              Supplier: filteredData[i].supplier,
               mainInfo: filteredData[i]
             }
           }
@@ -571,7 +573,8 @@ export default {
               for(var i = 0; i < res.data.data.length; i++){
                 filteredData[i] = {
                   Name: filteredData[i]._id,
-                  Supplier: filteredData[i].supplier_name,
+                  Supplier_name: filteredData[i].supplier_name,
+                  Supplier: filteredData[i].supplier,
                   mainInfo: filteredData[i]
                 }
               }
@@ -583,7 +586,8 @@ export default {
                 for(var i = 0; i < response.data.data.length; i++){
                   filteredData[i] = {
                     Name: filteredData[i]._id,
-                    Supplier: filteredData[i].supplier_name,
+                    Supplier_name: filteredData[i].supplier_name,
+                    Supplier: filteredData[i].supplier,
                     mainInfo: filteredData[i]
                   }
                 }
