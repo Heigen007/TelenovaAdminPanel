@@ -32,7 +32,7 @@
           </b-col> -->
           <b-col md="4">
             <b-form-group
-              label="Item link"
+              label="Link"
               label-for="item-name"
             >
               <b-form-input
