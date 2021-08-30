@@ -257,6 +257,10 @@ export default {
       console.log(res)
       this.xmlLink = res.data.link
     })
+    .catch(err => {
+      console.log(err);
+      this.makeToast('danger',  'Some network error occured', 'Error')
+    })
   },
   destroyed() {
     window.removeEventListener('resize', this.initTrHeight)
@@ -333,7 +337,7 @@ export default {
       // saveAs(blob, "test.xmp");
     },
     openModal(){
-      window.open(this.xmlLink,'_newtab')
+      window.open(this.xmlLink)
     },
     makeToast(variant = null, content, title) {
       this.$bvToast.toast(content, {
