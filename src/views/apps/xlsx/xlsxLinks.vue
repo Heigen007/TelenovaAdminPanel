@@ -11,8 +11,7 @@
         <!-- Row Loop -->
         <b-row
           v-for="(item, index) in items"
-          :id="item._id"
-          :key="item._id"
+          :key="item.index"
           ref="row"
         >
 
@@ -30,13 +29,11 @@
               />
             </b-form-group>
           </b-col> -->
-          <b-col md="4">
+          <b-col md="8">
             <b-form-group
               label="Link"
-              label-for="item-name"
             >
               <b-form-input
-                id="item-name"
                 type="text"
                 placeholder="Link"
                 v-model='item.link'
@@ -45,13 +42,30 @@
           </b-col>
           <b-col md="4">
             <b-form-group
-              label="Name column"
-              label-for="item-name"
+              label="Name"
             >
               <b-form-input
-                id="item-name"
+                v-if='item.constant'
                 type="text"
-                placeholder="Name"
+                placeholder="name"
+                v-model='item._id'
+                readonly
+              />
+              <b-form-input
+                v-else
+                type="text"
+                placeholder="name"
+                v-model='item._id'
+              />
+            </b-form-group>
+          </b-col>
+          <b-col md="4">
+            <b-form-group
+              label="Name column"
+            >
+              <b-form-input
+                type="text"
+                placeholder="Name col"
                 v-model='item.name_col'
               />
             </b-form-group>
@@ -59,12 +73,10 @@
           <b-col md="4">
             <b-form-group
               label="Opt price column"
-              label-for="item-name"
             >
               <b-form-input
-                id="item-name"
                 type="number"
-                placeholder="Price"
+                placeholder="Price col"
                 v-model='item.opt_price_col'
               />
             </b-form-group>
@@ -72,12 +84,10 @@
           <b-col md="4">
             <b-form-group
               label="Currency column"
-              label-for="item-name"
             >
               <b-form-input
-                id="item-name"
                 type="text"
-                placeholder="Currency"
+                placeholder="Currency col"
                 v-model='item.currency_col'
               />
             </b-form-group>
@@ -85,12 +95,10 @@
           <b-col md="4">
             <b-form-group
               label="Quantity column"
-              label-for="item-name"
             >
               <b-form-input
-                id="item-name"
                 type="text"
-                placeholder="Currency"
+                placeholder="Quantity col"
                 v-model='item.quantity_col'
               />
             </b-form-group>
@@ -98,12 +106,10 @@
           <b-col md="4">
             <b-form-group
               label="Rrc price  column"
-              label-for="item-name"
             >
               <b-form-input
-                id="item-name"
                 type="text"
-                placeholder="Currency"
+                placeholder="Price col"
                 v-model='item.rrc_price_col'
               />
             </b-form-group>
@@ -117,7 +123,7 @@
               v-ripple.400="'rgba(234, 84, 85, 0.15)'"
               variant="outline-info"
               class="mt-0 mt-md-2"
-              @click='changeLink(item)'
+              @click='changeLink(item, index)'
             >
               <span>Create</span>
             </b-button>
@@ -231,6 +237,9 @@ export default {
       console.log(res);
       this.items = res.data.data
       for (let index = 0; index < this.items.length; index++) {
+        this.items[index].constant = true
+      }
+      for (let index = 0; index < this.items.length; index++) {
         setTimeout(() => {
           this.trAddHeight(this.$refs.row[0].offsetHeight)
         }, (index+1)*150)
@@ -252,24 +261,28 @@ export default {
         id: this.nextTodoId += this.nextTodoId,
       })
 
-      $nextTick(() => {
+      this.$nextTick(() => {
         this.trAddHeight(this.$refs.row[0].offsetHeight)
       })
     },
-    changeLink(item){
+    changeLink(item, index){
+      var self = this
       var formData = new FormData()
-      if(item._id) formData.append('link', item._id)
+      if(item.link) formData.append('link', item.link)
       if(item.name_col) formData.append('name_col', item.name_col)
       if(item.opt_price_col) formData.append('opt_price_col', item.opt_price_col)
       if(item.currency_col) formData.append('currency_col', item.currency_col)
-      if(item.supplier_name) formData.append('supplier_name', item.supplier_name)
+      if(item._id) formData.append('supplier_name', item._id)
       if(item.quantity_col) formData.append('quantity_col', item.quantity_col)
       if(item.rrc_price_col) formData.append('rrc_price_col', item.rrc_price_col)
       axios.post('http://178.250.159.216/links', formData)
       .then(res => {
+        console.log(res);
         if(!res.data.status) this.makeToast('danger',  res.data.data, 'Error')
         else{
           this.makeToast('success',  'Link has been updated', 'Success')
+          self.items[index].constant = true
+          this.$forceUpdate()
         }
       })
       .catch(err => {
