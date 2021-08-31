@@ -266,7 +266,7 @@
     <b-table
       v-if='AllInvoices'
       ref="refInvoiceListTable"
-      :items="AllInvoices.slice((pageNum - 1) * 50, pageNum * 50)"
+      :items="AllInvoices"
       responsive
       :fields="tableColumns"
       primary-key="id"
@@ -318,7 +318,7 @@
         <b-col cols="12">
           <b-pagination
             v-model="pageNum"
-            :total-rows="AllInvoices.length"
+            :total-rows="totalN"
             :per-page="50"
             first-number
             align="center"
@@ -361,8 +361,6 @@ import axios from '@myAxios'
 import invoiceStoreModule from './invoiceStoreModule'
 import loader from '../../../../components/CssPreloader.vue'
 import Ripple from 'vue-ripple-directive'
-import { useInputImageRenderer } from '@core/comp-functions/forms/form-utils'
-import { ref } from '@vue/composition-api'
 
 export default {
   components: {
@@ -392,6 +390,30 @@ export default {
     'b-modal': VBModal,
     Ripple,
   },
+  watch: {
+    pageNum: function(newV){
+      var self = this
+      this.AllInvoices = null
+      axios.get(`http://178.250.159.216/queryes?count=50&start=${((newV-1) * 50) == 0? 1 : (newV-1) * 50}`)
+      .then(res => {
+        console.log(res)
+        this.totalN = Number(res.data.max)
+        var filteredData = JSON.parse(JSON.stringify(res.data.data))
+        for(var i = 0; i < res.data.data.length; i++){
+          filteredData[i] = {
+            Name: filteredData[i]._id,
+            Supplier_name: filteredData[i].supplier_name,
+            Supplier: filteredData[i].supplier,
+            mainInfo: filteredData[i]
+          }
+        }
+        self.AllInvoices = filteredData
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
+  },
   data(){
     return{
       AllInvoices: null,
@@ -405,6 +427,7 @@ export default {
       blogFile: [],
       actualProduct: {},
       kaspiR: '',
+      totalN: 50
     }
   },
   created(){
@@ -413,6 +436,7 @@ export default {
     axios.get('http://178.250.159.216/queryes?count=50&start=1')
     .then(res => {
       console.log(res)
+      this.totalN = Number(res.data.max)
       var filteredData = JSON.parse(JSON.stringify(res.data.data))
       for(var i = 0; i < res.data.data.length; i++){
         filteredData[i] = {
@@ -423,25 +447,6 @@ export default {
         }
       }
       self.AllInvoices = filteredData
-      for(let i = 0; i < res.data.max/50; i++) {
-        axios.get(`http://178.250.159.216/queryes?count=50&start=${(i)*50}`)
-        .then(response => {
-          console.log(response)
-          var filteredData = JSON.parse(JSON.stringify(response.data.data))
-          for(var i = 0; i < response.data.data.length; i++){
-            filteredData[i] = {
-              Name: filteredData[i]._id,
-              Supplier_name: filteredData[i].supplier_name,
-              Supplier: filteredData[i].supplier,
-              mainInfo: filteredData[i]
-            }
-          }
-          self.AllInvoices = [...self.AllInvoices, ...filteredData] 
-        })
-        .catch(error => {
-          console.log(error)
-        })
-      }
     })
     .catch(error => {
       console.log(error)
