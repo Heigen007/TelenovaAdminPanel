@@ -171,16 +171,33 @@
       variant="info"
       @click="kaspiXml"
       class='mt-2'
+      style='display: flex; align-items: center'
     >
-      <span>Export Kaspi.xml</span>
+      <span>Export Kaspi.xml
+      </span>
+      <b-spinner
+        class="ml-1"
+        variant="primary"
+        v-if='isReq'
+      />
     </b-button>
+    <b-modal
+      id="modalXml"
+      centered
+      title="Basic Modal"
+      ok-title="download"
+      cancel-variant="outline-secondary"
+      @ok="downloadXml"
+    >
+    Your link is ready
+    </b-modal>
   </b-card-code>
 </template>
 
 <script>
 import BCardCode from '@core/components/b-card-code'
 import {
-  BCard, BRow, BCol, BFormInput, BButton, BTable, BMedia, BAvatar, BLink, VBModal,
+  BCard,BSpinner, BRow, BCol, BFormInput, BButton, BTable, BMedia, BAvatar, BLink, VBModal,
   BBadge, BDropdown, BDropdownItem, BPagination, BTooltip, BFormCheckbox, BFormGroup, BForm, BFormTextarea
 } from 'bootstrap-vue'
 import { heightTransition } from '@core/mixins/ui/transition'
@@ -216,6 +233,7 @@ export default {
     AppCollapse,
     AppCollapseItem,
     BCardCode,
+    BSpinner,
 
     vSelect,
   },
@@ -228,7 +246,8 @@ export default {
     return {
       items: [],
       nextTodoId: 2,
-      xmlLink: ''
+      xmlLink: '',
+      isReq: false
     }
   },
   mounted() {
@@ -252,15 +271,6 @@ export default {
   },
   async created() {
     window.addEventListener('resize', this.initTrHeight)
-    await axios.get('http://178.250.159.216/kaspi_xml')
-    .then(res => {
-      console.log(res)
-      this.xmlLink = res.data.link
-    })
-    .catch(err => {
-      console.log(err);
-      this.makeToast('danger',  'Some network error occured', 'Error')
-    })
   },
   destroyed() {
     window.removeEventListener('resize', this.initTrHeight)
@@ -324,19 +334,24 @@ export default {
         this.trSetHeight(this.$refs.form.scrollHeight)
       })
     },
-    kaspiXml(){
-      if(this.xmlLink){
-        this.openModal()
-      } else {
-        setTimeout(() => {
-          this.kaspiXml()
-        }, 300);
-      }
+    async kaspiXml(){
+      this.isReq = true
+      await axios.get('http://178.250.159.216/kaspi_xml')
+      .then(res => {
+        this.isReq = false
+        console.log(res)
+        this.xmlLink = res.data.link
+        this.$bvModal.show('modalXml')
+      })
+      .catch(err => {
+        console.log(err);
+        this.makeToast('danger',  'Some network error occured', 'Error')
+      })
       // var blob = new Blob(['<?xml version="1.0" encoding="UTF-8"?><shiporder orderid="889923"xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"xsi:noNamespaceSchemaLocation="shiporder.xsd">   <orderperson>John Smith</orderperson><shipto><name>Ola Nordmann</name><address>Langgt 23</address><city>4000 Stavanger</city><country>Norway</country></shipto><item><title>Empire Burlesque</title><note>Special Edition</note><quantity>1</quantity><price>10.90</price></item><item><title>Hide your heart</title><quantity>1</quantity><price>9.90</price></item></shiporder>'], {type: "text/xml"});
 
       // saveAs(blob, "test.xmp");
     },
-    openModal(){
+    downloadXml(){
       window.open(this.xmlLink)
     },
     makeToast(variant = null, content, title) {
@@ -344,7 +359,7 @@ export default {
         title: title,
         variant,
         solid: true,
-        content: 'asas'
+        content: content || ''
       })
     },
   },
