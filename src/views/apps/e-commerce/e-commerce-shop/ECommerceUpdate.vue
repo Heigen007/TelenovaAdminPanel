@@ -263,6 +263,25 @@
 
       </b-form>
     </b-modal>
+    <div class="ecommerce-searchbar mt-1">
+      <b-row>
+        <b-col cols="12">
+          <b-input-group class="input-group-merge">
+            <b-form-input
+              v-model="InputValue"
+              placeholder="Search Product"
+              class="search-product"
+            />
+            <b-input-group-append is-text>
+              <feather-icon
+                icon="SearchIcon"
+                class="text-muted"
+              />
+            </b-input-group-append>
+          </b-input-group>
+        </b-col>
+      </b-row>
+    </div>
     <b-table
       v-if='AllInvoices'
       ref="refInvoiceListTable"
@@ -350,7 +369,7 @@
 import {
   BCard, BRow, BCol, BFormInput, BButton, BTable, BMedia, BAvatar, BLink, VBModal,
   BBadge, BDropdown, BDropdownItem, BPagination, BTooltip, BFormCheckbox, BFormGroup, BForm,
-  BCardText, BFormFile, BMediaAside, BMediaBody, BImg
+  BCardText, BFormFile, BMediaAside, BMediaBody, BImg, BInputGroup, BInputGroupAppend,
 } from 'bootstrap-vue'
 import { avatarText } from '@core/utils/filter'
 import vSelect from 'vue-select'
@@ -383,6 +402,7 @@ export default {
     BFormGroup,
     BForm,
     BCardText, BFormFile, BMediaAside, BMediaBody, BImg,
+    BInputGroup, BInputGroupAppend,
 
     vSelect,
   },
@@ -412,10 +432,33 @@ export default {
       .catch(error => {
         console.log(error)
       })
+    },
+    InputValue: function(newV){
+      var self = this
+      this.AllInvoices = null
+      axios.get(`http://178.250.159.216/queryes?count=50&start=1`)
+      .then(res => {
+        console.log(res)
+        this.totalN = Number(res.data.max)
+        var filteredData = JSON.parse(JSON.stringify(res.data.data))
+        for(var i = 0; i < res.data.data.length; i++){
+          filteredData[i] = {
+            Name: filteredData[i]._id,
+            Supplier_name: filteredData[i].supplier_name,
+            Supplier: filteredData[i].supplier,
+            mainInfo: filteredData[i]
+          }
+        }
+        self.AllInvoices = filteredData
+      })
+      .catch(error => {
+        console.log(error)
+      })
     }
   },
   data(){
     return{
+      InputValue: '',
       AllInvoices: null,
       pageNum: 1,
       checkbox: false,
