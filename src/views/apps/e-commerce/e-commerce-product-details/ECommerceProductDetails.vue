@@ -206,6 +206,19 @@
                 />
                 <span>Add Sale</span>
               </b-button>
+              <b-button
+                v-if='product.sale'
+                v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+                variant="danger"
+                class="btn-cart mr-0 mr-sm-1 mb-1 mb-sm-0"
+                @click='removeSale'
+              >
+                <feather-icon
+                  icon="MinusCircleIcon"
+                  class="mr-50"
+                />
+                <span>Remove Sale</span>
+              </b-button>
             </div>
           </b-col>
         </b-row>
@@ -382,6 +395,16 @@ export default {
     })
   },
   methods: {
+    removeSale(){
+      axios.delete('https://textforeva.ru/sale', {data: { productKaspiId: this.$route.params.slug }})
+      .then(res => {
+        console.log(res);
+        this.makeToast('success',  'Sale has been deleted', 'Success')
+      })
+      .catch(err => {
+        this.makeToast('danger', 'Some error occured', 'Error')
+      })
+    },
     handleOk(){
       axios.post('https://textforeva.ru/sale', {sale: Number(this.sale), productKaspiId: this.$route.params.slug})
       .then(res => {
