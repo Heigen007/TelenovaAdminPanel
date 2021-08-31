@@ -414,7 +414,7 @@ export default {
     pageNum: function(newV){
       var self = this
       this.AllInvoices = null
-      axios.get(`http://178.250.159.216/queryes?count=50&start=${((newV-1) * 50) == 0? 1 : (newV-1) * 50}`)
+      axios.get(`http://178.250.159.216/queryes?count=50&start=${((newV-1) * 50) == 0? 1 : (newV-1) * 50}&query=${this.InputValue}`)
       .then(res => {
         console.log(res)
         this.totalN = Number(res.data.max)
@@ -434,26 +434,30 @@ export default {
       })
     },
     InputValue: function(newV){
-      var self = this
-      this.AllInvoices = null
-      axios.get(`http://178.250.159.216/queryes?count=50&start=1`)
-      .then(res => {
-        console.log(res)
-        this.totalN = Number(res.data.max)
-        var filteredData = JSON.parse(JSON.stringify(res.data.data))
-        for(var i = 0; i < res.data.data.length; i++){
-          filteredData[i] = {
-            Name: filteredData[i]._id,
-            Supplier_name: filteredData[i].supplier_name,
-            Supplier: filteredData[i].supplier,
-            mainInfo: filteredData[i]
+      if(this.pageNum == 1) {
+        var self = this
+        this.AllInvoices = null
+        axios.get(`http://178.250.159.216/queryes?count=50&start=1&query=${this.InputValue}`)
+        .then(res => {
+          console.log(res)
+          this.totalN = Number(res.data.max)
+          var filteredData = JSON.parse(JSON.stringify(res.data.data))
+          for(var i = 0; i < res.data.data.length; i++){
+            filteredData[i] = {
+              Name: filteredData[i]._id,
+              Supplier_name: filteredData[i].supplier_name,
+              Supplier: filteredData[i].supplier,
+              mainInfo: filteredData[i]
+            }
           }
-        }
-        self.AllInvoices = filteredData
-      })
-      .catch(error => {
-        console.log(error)
-      })
+          self.AllInvoices = filteredData
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      } else {
+        this.pageNum = 1
+      }
     }
   },
   data(){
