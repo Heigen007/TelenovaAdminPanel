@@ -400,12 +400,16 @@ export default {
       .then(res => {
         console.log(res);
         this.makeToast('success',  'Sale has been deleted', 'Success')
+        this.product.sale = null
       })
       .catch(err => {
         this.makeToast('danger', 'Some error occured', 'Error')
       })
     },
     handleOk(){
+      if(this.sale < 1 || this.sale >= 100) {
+        return this.makeToast('danger', 'Sale is incorrect', 'Error')
+      }
       axios.post('https://textforeva.ru/sale', {sale: Number(this.sale), productKaspiId: this.$route.params.slug})
       .then(res => {
         console.log(res);
