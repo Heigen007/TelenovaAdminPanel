@@ -1,3 +1,3 @@
 # TelenovaFront
 
-Admin panel for Telenova internet shop
+Admin panel for Telenova shop
