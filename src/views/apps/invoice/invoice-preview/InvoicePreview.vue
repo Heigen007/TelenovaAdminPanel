@@ -168,6 +168,19 @@
                     </tbody>
                   </table>
                 </div>
+                <div class='pt-2'>
+                  <h6 >
+                    Comment:
+                  </h6>
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td>{{ invInfo.comment || 'No comment' }}</td>
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+                </div>
               </b-col>
               <b-col
                 cols="12"
@@ -437,6 +450,7 @@ export default {
             bank: filteredData.bank,
             creditMonth: filteredData.creditMonth
           },
+          comment: filteredData.comment || 'No comment',
           paymentMethod: filteredData.paymentMethod,
           goods: UpdatedGoods,
           orderStatus: filteredData.orderStatus
