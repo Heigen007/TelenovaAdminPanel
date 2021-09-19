@@ -15,6 +15,7 @@ export default function useInvoicesList() {
   const tableColumns = [
     { key: 'id', label: '#', sortable: true },
     { key: 'invoiceStatus', sortable: true },
+    { key: 'deliveryStatus', sortable: true },
     { key: 'client', sortable: true },
     { key: 'total', sortable: true, formatter: val => `${val} тг.`},
     { key: 'issuedDate', sortable: true, formatter: val => new Date(val).toLocaleString().split(',')[0]},

@@ -20,12 +20,13 @@
       class="position-relative"
     >
 
-      <template #head(invoiceStatus)>
+    
+  <!-- <template #head(invoiceStatus)>
         <feather-icon
           icon="TrendingUpIcon"
           class="mx-auto"
         />
-      </template>
+      </template> -->
 
       <!-- Column: Id -->
       <template #cell(id)="data">
@@ -39,7 +40,7 @@
 
       <!-- Column: Invoice Status -->
       <template #cell(invoiceStatus)="data">
-        <b-avatar
+        <b-avatar 
           :id="`invoice-row-${data.item.id}`"
           size="32"
           :variant="`light-${resolveInvoiceStatusVariantAndIcon(data.item.invoiceStatus).variant}`"
@@ -60,7 +61,16 @@
           </p> -->
         </b-tooltip>
       </template>
-
+      <!-- Column: Delivery status -->
+       <template #cell(deliveryStatus)="data">
+        
+          <p class="mb-0">
+            {{ data.item.deliveryStatus }}
+          </p>
+          <!-- <p class="mb-0">
+            Due Date: {{ data.item.dueDate }}
+          </p> -->
+      </template>
       <!-- Column: Client -->
       <template #cell(client)="data">
         <b-media vertical-align="center">
@@ -266,6 +276,8 @@ export default {
           total: filteredData[i].finishPrice,
           avatar: '',
           invoiceStatus: filteredData[i].paymentStatus == 'notPaid' ? 'Not Paid' : 'Paid' ,
+          deliveryStatus: filteredData[i].orderStatus == 'delivered' ? 'Delivered' : 'Not Delivered' ,
+
           balance: 100,
           dueDate: new Date(filteredData[i].date).toLocaleString().split(',')[0],
           client: {
