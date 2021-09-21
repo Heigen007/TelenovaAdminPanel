@@ -147,14 +147,14 @@
         <b-form-group label='supplier_images'>
           <b-form-input
             v-for='(el,i) in actualProduct.supplier_images'
-            :key='i'
+            :key='i+"bbb"'
             style='margin: 5px 0 5px 0;'
             v-model='actualProduct.supplier_images[i]'
             readonly
           />
         </b-form-group>
         <div>Properties</div>
-        <div style='display: flex; ' class = 'my-1' v-for='(prop,o) in actualProduct.properties' :key='o'>
+        <div style='display: flex; ' class = 'my-1' v-for='(prop,o) in actualProduct.properties' :key='o+"aaa"'>
           <input placeholder="property" class = 'form-control' style='width: 40%' type="text" v-model='actualProduct.properties[o][0]'>
           <input placeholder="value" class = 'form-control' style='width: 40%' type="text" v-model='actualProduct.properties[o][1]'>
         </div>
@@ -172,13 +172,13 @@
         </b-button>
 
         <div>Additional Properties</div>
-        <div class = 'my-1' v-for='(prop,o) in actualProduct.additional_properties' :key='o'>
+        <div class = 'my-1' v-for='(prop,o) in actualProduct.additional_properties' :key='o+"mmm"'>
           <b-form-input
             style='margin: 5px 0 5px 0;'
             placeholder='Enter additional_properties title'
             v-model='actualProduct.additional_properties[o][0]'
           />
-          <div v-for='(addProp,y) in actualProduct.additional_properties[o][1]' :key='y'>
+          <div v-for='(addProp,y) in actualProduct.additional_properties[o][1]' :key='y+"yyy"'>
             <input placeholder="property" class = 'form-control' style='width: 40%' type="text" v-model='actualProduct.additional_properties[o][1][y][0]'>
             <input placeholder="value" class = 'form-control mb-1' style='width: 40%' type="text" v-model='actualProduct.additional_properties[o][1][y][1]'>
           </div>
@@ -618,46 +618,30 @@ export default {
         if(res.data.status) {
           this.makeToast('success',  'Information has been updated', 'Success')
           var self = this
-            axios.get('http://178.250.159.216/queryes?count=50&start=1')
-            .then(res => {
-              console.log(res)
-              var filteredData = JSON.parse(JSON.stringify(res.data.data))
-              for(var i = 0; i < res.data.data.length; i++){
-                filteredData[i] = {
-                  Name: filteredData[i]._id,
-                  Supplier_name: filteredData[i].supplier_name,
-                  Supplier: filteredData[i].supplier,
-                  mainInfo: filteredData[i]
-                }
+          this.kaspiR = ''
+          /////////////////
+          axios.get(`http://178.250.159.216/queryes?count=50&start=${((this.pageNum - 1) * 50) == 0? 1 : (this.pageNum - 1) * 50}&query=${this.InputValue}`)
+          .then(res => {
+            console.log(res)
+            this.totalN = Number(res.data.max)
+            var filteredData = JSON.parse(JSON.stringify(res.data.data))
+            for(var i = 0; i < res.data.data.length; i++){
+              filteredData[i] = {
+                Name: filteredData[i]._id,
+                Supplier_name: filteredData[i].supplier_name,
+                Supplier: filteredData[i].supplier,
+                mainInfo: filteredData[i]
               }
-              self.AllInvoices = filteredData
-              axios.get(`http://178.250.159.216/queryes?count=${res.data.max}&start=1`)
-              .then(response => {
-                console.log(response)
-                var filteredData = JSON.parse(JSON.stringify(response.data.data))
-                for(var i = 0; i < response.data.data.length; i++){
-                  filteredData[i] = {
-                    Name: filteredData[i]._id,
-                    Supplier_name: filteredData[i].supplier_name,
-                    Supplier: filteredData[i].supplier,
-                    mainInfo: filteredData[i]
-                  }
-                }
-                self.AllInvoices = filteredData
-              })
-              .catch(error => {
-                console.log(error)
-              })
-            })
-            .catch(error => {
-              console.log(error)
-            })
+            }
+            self.AllInvoices = filteredData
+          })
+          .catch(error => {
+            console.log(error)
+          })
+          ////////////////////
         } else {
           this.makeToast('danger',  'Please, fill all the fields', 'Error')
         }
-      })
-      .catch(err => {
-        this.makeToast('danger',  'Some network error occured', 'Error')
       })
     },
     chData(data2, extr){
